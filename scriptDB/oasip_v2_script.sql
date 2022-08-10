@@ -9,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 -- -----------------------------------------------------
 -- Schema oasip
--- -----------------------------------------------------
+-- -----------------------------------------------------eventcategoryeventcategory
 
 -- -----------------------------------------------------
 -- Schema oasip
@@ -35,10 +35,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `oasip`.`eventbooking`
 -- -----------------------------------------------------
-drop table eventbooking ;
+-- drop table eventbooking ;
+-- drop table eventcategory;
 
 CREATE TABLE IF NOT EXISTS `oasip`.`eventbooking` (
-  `booking_id` INT NOT NULL,
+  `booking_id` INT NOT NULL auto_increment,
   `booking_name` VARCHAR(150) NOT NULL,
   `booking_email` VARCHAR(150) NOT NULL,
   `start_time` DATETIME NOT NULL,
@@ -46,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `oasip`.`eventbooking` (
   `event_note` VARCHAR(550) NULL,
   `update_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `category` INT NOT NULL,
-  PRIMARY KEY (`booking_id`, `category`),
+  PRIMARY KEY (`booking_id`),
   INDEX `fk_eventbooking_eventcategory_idx` (`category` ASC) VISIBLE,
   CONSTRAINT `fk_eventbooking_eventcategory`
     FOREIGN KEY (`category`)
