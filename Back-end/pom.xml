@@ -115,25 +115,6 @@
 				</dependencies>
 			</plugin>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-					<classifier>${repackage.classifier}</classifier>
-					<image>
-						<builder>paketobuildpacks/builder:tiny</builder>
-						<env>
-							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-						</env>
-					</image>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.springframework.experimental</groupId>
 				<artifactId>spring-aot-maven-plugin</artifactId>
 				<version>${spring-native.version}</version>
@@ -211,28 +192,6 @@
 			</dependencies>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.graalvm.buildtools</groupId>
-						<artifactId>native-maven-plugin</artifactId>
-						<version>${native-buildtools.version}</version>
-						<extensions>true</extensions>
-						<executions>
-							<execution>
-								<id>test-native</id>
-								<phase>test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>build-native</id>
-								<phase>package</phase>
-								<goals>
-									<goal>build</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
