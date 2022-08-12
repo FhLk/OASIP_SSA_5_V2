@@ -28,10 +28,9 @@ jobs:
 #       - run: sudo docker network create oasip_nw
       - name: Build the Docker image
         run: |
-          # ls Front-end
           cd Front-end/OASIP-Client
           sudo docker-compose down
-      # - run: sudo docker-compose up -d --build
+          sudo docker-compose up -d --build
       # - run: cd /Front-end
       # - run: ls
       # - run: sudo docker-compose up -d --build
