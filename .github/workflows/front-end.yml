@@ -26,11 +26,11 @@ jobs:
       - uses: actions/checkout@v3
 #       - name: Create Docker network
 #       - run: sudo docker network create oasip_nw
-#       - name: Build the Docker image
-      - run: ls Front-end
-      - run: cd Front-end/OASIP-Client
-      - run: sudo docker-compose down
-      - run: sudo docker-compose up -d --build
+      - name: Build the Docker image
+        - run: ls Front-end
+        - run: cd Front-end/OASIP-Client
+        - run: sudo docker-compose down
+      # - run: sudo docker-compose up -d --build
       # - run: cd /Front-end
       # - run: ls
       # - run: sudo docker-compose up -d --build
