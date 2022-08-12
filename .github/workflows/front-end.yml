@@ -28,7 +28,7 @@ jobs:
 #       - run: sudo docker network create oasip_nw
 #       - name: Build the Docker image
       - run: ls
-      - run: cd Front-end
+      - run: cd ../../Front-end
       - run: ls
       # - run: sudo docker-compose up -d --build
       # Runs a single command using the runners shell
