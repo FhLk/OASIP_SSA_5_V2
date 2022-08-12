@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  oasip_Front_End:
+    container_name: oasip_Front_End
+    image: oasip_front_img
+    build: ./
+    ports : 
+      - '80:80'
+    restart: always
+networks:
+  default:
+    external:
+      name: oasip_nw
