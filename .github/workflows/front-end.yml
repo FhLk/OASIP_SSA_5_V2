@@ -17,11 +17,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Create Docker network
-        run: |
-          sudo docker network ls
-          sudo docker network rm oasip_nw
-          sudo docker network create oasip_nw
       - name: Build Docker
         run: |
           cd Front-end/OASIP-Client
