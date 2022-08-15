@@ -1,5 +1,11 @@
-package sit.oasip.Service;
+package oasip.Service;
 
+import oasip.DTO.BookingDTO;
+import oasip.Entity.EventBooking;
+import oasip.Entity.EventCategory;
+import oasip.Repository.EventEventBookingRepository;
+import oasip.Utils.ListMapper;
+import oasip.exeption.BookingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,12 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import sit.oasip.DTO.BookingDTO;
-import sit.oasip.Entity.EventBooking;
-import sit.oasip.Entity.EventCategory;
-import sit.oasip.Exception.BookingException;
-import sit.oasip.Repository.BookingRepository;
-import sit.oasip.Utils.ListMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
 public class BookingService {
 
     @Autowired
-    private BookingRepository repository;
+    private EventEventBookingRepository repository;
     @Autowired private ModelMapper modelMapper;
     @Autowired private ListMapper listMapper;
 

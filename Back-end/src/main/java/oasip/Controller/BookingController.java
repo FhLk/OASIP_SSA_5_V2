@@ -1,15 +1,15 @@
-package sit.oasip.Controller;
+package oasip.Controller;
 
+import oasip.DTO.BookingDTO;
+import oasip.Entity.EventBooking;
+import oasip.Entity.EventCategory;
+import oasip.Service.BookingService;
+import oasip.exeption.BookingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import sit.oasip.DTO.BookingDTO;
-import sit.oasip.Entity.EventBooking;
-import sit.oasip.Entity.EventCategory;
-import sit.oasip.Exception.BookingException;
-import sit.oasip.Service.BookingService;
+import org.springframework.web.bind.annotation.*;;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -17,8 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
-//@CrossOrigin(origins = "http://localhost:3000/",allowedHeaders = "*",allowCredentials = "true",
-//         methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 public class BookingController {
     @Autowired
     private BookingService service;

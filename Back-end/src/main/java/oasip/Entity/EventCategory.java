@@ -1,4 +1,4 @@
-package sit.oasip.Entity;
+package oasip.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

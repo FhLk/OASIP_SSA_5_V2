@@ -1,21 +1,21 @@
-package sit.oasip.Service;
+package oasip.Service;
 
+import oasip.DTO.CategoryDTO;
+import oasip.Entity.EventCategory;
+import oasip.Repository.EventCategoryRepository;
+import oasip.Utils.ListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import sit.oasip.DTO.CategoryDTO;
-import sit.oasip.Entity.EventCategory;
-import sit.oasip.Repository.CategoryRepository;
-import sit.oasip.Utils.ListMapper;
 
 import java.util.List;
 
 @Service
 public class CategoryService {
     @Autowired
-    private CategoryRepository repository;
+    private EventCategoryRepository repository;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
