@@ -2,10 +2,11 @@ package oasip.Entity;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "eventbooking")
-public class Eventbooking {
+public class EventBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id", nullable = false)
@@ -18,7 +19,7 @@ public class Eventbooking {
     private String bookingEmail;
 
     @Column(name = "start_time", nullable = false)
-    private Instant startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "booking_duration", nullable = false)
     private Integer bookingDuration;
@@ -31,7 +32,7 @@ public class Eventbooking {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category", nullable = false)
-    private Eventcategory category;
+    private EventCategory category;
 
     public Integer getId() {
         return id;
@@ -57,12 +58,12 @@ public class Eventbooking {
         this.bookingEmail = bookingEmail;
     }
 
-    public Instant getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Instant startTime) {
-        this.startTime = startTime;
+    public void setStartTime(String startTime) {
+        this.startTime = LocalDateTime.parse(startTime);
     }
 
     public Integer getBookingDuration() {
@@ -89,11 +90,11 @@ public class Eventbooking {
         this.updateDate = updateDate;
     }
 
-    public Eventcategory getCategory() {
+    public EventCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Eventcategory category) {
+    public void setCategory(EventCategory category) {
         this.category = category;
     }
 
