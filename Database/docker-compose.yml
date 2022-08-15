@@ -3,10 +3,10 @@ services:
   oasip_DB:
     container_name: oasip_DB
     volumes:
-      - ./script/tablescript.sql:/docker-entrypoint-initdb.d/tablescript.sql
+      - ./scriptDB/oasip_v2_script.sql:/docker-entrypoint-initdb.d/tablescript.sql
     environment:
       - MYSQL_USER=oasip_user
-      - MYSQL_DATABASE=oasip_db
+      - MYSQL_DATABASE=oasip
       - MYSQL_PASSWORD=kmutt@631305.78
       - MYSQL_ROOT_PASSWORD=1234
       - TZ=Asia/Bangkok
