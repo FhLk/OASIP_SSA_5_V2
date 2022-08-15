@@ -3,7 +3,7 @@ services:
   oasip_DB:
     container_name: oasip_DB
     volumes:
-      - ./scriptDB/oasip_v2_script.sql:/docker-entrypoint-initdb.d/tablescript.sql
+      - ./scriptDB/oasip_v2_script.sql:/docker-entrypoint-initdb.d/oasip.sql
     environment:
       - MYSQL_USER=oasip_user
       - MYSQL_DATABASE=oasip
