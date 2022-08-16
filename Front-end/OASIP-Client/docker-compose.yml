@@ -1,8 +1,8 @@
 version: '3.3'
 services:
-  oasip_CLI:
-    container_name: oasip_CLI
-    image: oasip_cli_img
+  oasip_Front_End:
+    container_name: oasip_Front_End
+    image: oasip_front_img
     build: ./
     ports : 
       - '80:80'
