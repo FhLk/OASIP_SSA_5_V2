@@ -57,20 +57,21 @@ CREATE TABLE IF NOT EXISTS `oasip`.`eventbooking` (
   `booking_duration` INT NOT NULL,
   `event_note` VARCHAR(550) NULL,
   `category` INT NOT NULL,
-  `user` VARCHAR(100) NOT NULL,
+  -- `user` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`booking_id`),
   INDEX `fk_eventbooking_eventcategory_idx` (`category` ASC) VISIBLE,
-  INDEX `fk_eventbooking_user1_idx` (`user` ASC) VISIBLE,
+  -- INDEX `fk_eventbooking_user1_idx` (`user` ASC) VISIBLE,
   CONSTRAINT `fk_eventbooking_eventcategory`
     FOREIGN KEY (`category`)
     REFERENCES `oasip`.`eventcategory` (`category_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_eventbooking_user1`
-    FOREIGN KEY (`user`)
-    REFERENCES `oasip`.`user` (`name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+  -- CONSTRAINT `fk_eventbooking_user1`
+    -- FOREIGN KEY (`user`)
+--     REFERENCES `oasip`.`user` (`name`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION
+)
 ENGINE = InnoDB;
 
 
@@ -85,7 +86,7 @@ insert into `eventcategory` (`category_id`,`category_name`,`description`,`durati
 (4,'Client-side Clinic','ตารางนัดหมายนี้ใช้สำหรับนัดหมาย client-side clinic ในวิชา INT221 integrated project',30),
 (5,'Server-side Clinic',' ',30);
 
--- insert into `eventbooking` (`booking_id`,`booking_name`,`booking_email`,`start_time`,`booking_duration`,`event_note`,`category`) values 
--- (1,'Somchai Jaidee (OR-7)','somchai.jai@mail.kmutt.ac.th','2022-05-23 13:00',30,' ',2),
--- (2,'Somsri Rakdee (SJ-3)','somsri.rak@mail.kmutt.ac.th','2022-04-27 09:30',30,' ขอปรึกษาเรื่องเพื่อนไม่ช่วยงาน ',1),
--- (3,'สมเกียรติ ขยันเรียน กลุ่ม TT-4','somkiat.kay@kmutt.ac.th','2022-05-23 16:30',15,' ',3);
+insert into `eventbooking` (`booking_id`,`booking_name`,`booking_email`,`start_time`,`booking_duration`,`event_note`,`category`) values 
+(1,'Somchai Jaidee (OR-7)','somchai.jai@mail.kmutt.ac.th','2022-05-23 13:00',30,' ',2),
+(2,'Somsri Rakdee (SJ-3)','somsri.rak@mail.kmutt.ac.th','2022-04-27 09:30',30,' ขอปรึกษาเรื่องเพื่อนไม่ช่วยงาน ',1),
+(3,'สมเกียรติ ขยันเรียน กลุ่ม TT-4','somkiat.kay@kmutt.ac.th','2022-05-23 16:30',15,' ',3);

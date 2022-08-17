@@ -1,31 +1,70 @@
 <script setup>
 import { ref } from "vue";
+const emits = defineEmits(['close'])
+const props=defineProps({
+  isPopup:{
+    type: Boolean,
+    require: true
+  }
+});
 const username = ref("");
 const password = ref("");
-const popUpLogin=ref(true);
+const errorMessage=ref("")
+const isUser=ref(false)
+const isPass=ref(false)
+
+const checkLogin=(user,pass)=>{
+  if(user===""&&pass===""){
+    isUser.value=true
+    isPass.value=true
+    errorMessage.value="mb-2 text-[#FF0000] text-sm"
+  }
+  else if(user!==""&&pass===""){
+    isUser.value=false
+    isPass.value=true
+    errorMessage.value="mb-2 text-[#FF0000] text-sm"
+  }
+
+  else if(user===""&&pass!==""){
+    isPass.value=false
+    isUser.value=true
+    errorMessage.value="mb-2 text-[#FF0000] text-sm"
+  }
+  else{
+    isPass.value=false
+    isUser.value=false
+  }
+}
+
+const reset=()=>{
+  username.value="";
+  password.value="";
+  isPass.value=false
+  isUser.value=false
+  errorMessage.value=""
+}
 
 </script>
  
 <template>
-<div class="login" v-show="popUpLogin">
+<div class="login" v-show="isPopup">
         <div class="login-header">
           <div class="login-title">Login</div>
-          <button class="close-login" @click="popUpLogin=false">&times;</button>
+          <button class="close-login" @click="$emit('close'),reset()">&times;</button>
         </div>
         <div class="login-body">
           <div class="login-input">
             <p>User Name</p>
-            <input class="info-input mb-5" type="text" v-model="username"/>
+            <input class="info-input" type="text" v-model="username" @click="isUser=false"/>
+            <p :class="isUser ? errorMessage:''" v-if="isUser">*Plase Input your username*</p>
             <p>Password</p>
-            <input class="info-input mb-5" type="password" v-model="password"/>
+            <input class="info-input" type="password" v-model="password" @click="isPass=false"/>
+            <p :class="isPass ? errorMessage:''" v-if="isPass">*Plase Input your password*</p>
           </div>
         </div>
         <div class="flex space-x-2 justify-center">
-          <button class="login-button hover:bg-blue-700 hover:shadow-lg" type="button">Log-in</button>
+          <button class="login-button hover:bg-blue-700 hover:shadow-lg" type="button" @click="checkLogin(username,password)">Log-in</button>
         </div>
-        <!-- <div class="flex space-x-2 justify-center">
-  <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
-</div> -->
       </div>
 </template>
  
@@ -37,18 +76,21 @@ const popUpLogin=ref(true);
 .login-button {
   display: inline-block;
   background-color: lightblue;
-  width: 20%;
   height: 50%;
+  margin-top: 2%;
   margin-bottom: 2%;
+  margin-left: 3.5%;
   border-radius: 10px;
   font-size: 30px;
   color: antiquewhite;
+  width: 55%;
 }
 .info-input {
   border-style: solid;
   border-width: 5px;
   border-radius: 5px;
   border-color: black;
+  width: 60%;
 }
 .login {
   position: fixed;
