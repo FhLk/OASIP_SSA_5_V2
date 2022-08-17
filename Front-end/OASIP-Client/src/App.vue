@@ -1,5 +1,7 @@
 <script setup>
-
+import LoginPage from './views/LoginPage.vue';
+const checkIsLogin=()=>{
+}
 </script>
  
 <template>
@@ -8,11 +10,13 @@
     <div class="flex justify-between">
         <router-link to="/"><h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold" >OASIP</h1></router-link>
         <div class="justify-self-end">
+            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">Log-In</button>
             <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/ShowPage"> Show Schedule </router-link></button>
             <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddPage">Add New Schedule</router-link></button>
         </div>
     </div>
 </nav>
+<LoginPage/>
 <div class="navbar pt-1 flex justify-end">
     <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font"><router-link to="/AboutPage">About Us</router-link></button>
 </div>
