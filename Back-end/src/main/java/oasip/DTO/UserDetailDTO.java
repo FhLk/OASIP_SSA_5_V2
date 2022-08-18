@@ -18,4 +18,7 @@ public class UserDetailDTO {
         return this.createdOn.toString();
     }
     private LocalDateTime updateOn;
+    public String getUpdateOn(){
+        return this.updateOn.toString();
+    }
 }
