@@ -1,9 +1,7 @@
 package oasip.Entity;
 
-import org.slf4j.ILoggerFactory;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,6 +24,9 @@ public class EventUser {
     @Column(name = "update_on", nullable = false,insertable = false,updatable = false)
     private LocalDateTime updateOn;
 
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
     public LocalDateTime getUpdateOn() {
         return updateOn;
     }
@@ -34,13 +35,11 @@ public class EventUser {
         this.updateOn = LocalDateTime.parse(updateOn);
     }
 
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
     public void setCreatedOn(String createdOn) {
         this.createdOn = LocalDateTime.parse(createdOn);
     }
+
+
 
     public String getRole() {
         return role;
