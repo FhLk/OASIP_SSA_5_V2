@@ -25,7 +25,7 @@ const checkIsLogin=()=>{
     <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font"><router-link to="/AboutPage">About Us</router-link></button>
 </div>
 </div>
-<router-view> </router-view> 
+<router-view></router-view> 
 
 </template>
 
