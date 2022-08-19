@@ -23,7 +23,4 @@
     box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.507);
 }
 
-body {
-    background-color: rgb(80, 157, 189);
-}
 </style>
