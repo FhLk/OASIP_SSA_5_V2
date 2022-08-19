@@ -2,12 +2,15 @@ package oasip.Controller;
 
 import oasip.DTO.UserDTO;
 import oasip.DTO.UserDetailDTO;
+import oasip.Entity.EventUser;
 import oasip.Service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,5 +31,18 @@ public class UserController {
     public ResponseEntity<UserDetailDTO> getUser(@PathVariable String Username){
         return ResponseEntity.ok(service.getUserDetail(Username));
     }
+
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<UserDTO> AddUser(@Valid @RequestBody UserDTO newUser){
+        EventUser eventUser = service.NewUser(newUser);
+        return new ResponseEntity<>(modelMapper.map(eventUser,UserDTO.class),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteUser(@PathVariable String name){
+        service.DeleteUser(name);
+    }
+
 
 }

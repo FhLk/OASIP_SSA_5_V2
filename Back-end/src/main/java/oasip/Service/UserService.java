@@ -30,5 +30,16 @@ public class UserService {
         EventUser user = repository.findById(userName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User"+userName+"does not exits."));
         return modelMapper.map(user,UserDetailDTO.class);
     }
+
+    public EventUser NewUser(UserDTO newUser){
+        newUser.setName(newUser.getName().trim());
+        newUser.setEmail(newUser.getEmail().trim());
+        EventUser user = modelMapper.map(newUser,EventUser.class);
+        return repository.saveAndFlush(user);
+    }
+
+    public void DeleteUser(String Username){
+        repository.deleteById(Username);
+    }
 }
 
