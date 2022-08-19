@@ -3,7 +3,7 @@ import Login from './components/Login.vue';
 import { ref } from "vue";
 import NavBar from './components/NavBar.vue';
 import LoginPage from './views/LoginPage.vue';
-const isLoginPage=ref(true)
+const isLoginPage=ref(false)
 </script>
  
 <template>
