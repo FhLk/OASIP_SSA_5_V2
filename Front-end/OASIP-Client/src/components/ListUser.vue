@@ -1,14 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 const role = ref(['adimin', 'lecturer', 'student'])
-const users = ref([
-    { username: 'Somchai Jaidee', emil: 'somchai.jai@kmutt.ac.th', role: 'lecturer' },
-    { username: 'Komkrid Rakdee', emil: 'komkrid.rak@mail.kmutt.ac.th', role: 'student' },
-    { username: 'OASIP ADMIN', emil: 'oasip.admin@kmutt.ac.th', role: 'admin' },
-    { username: 'Paramat Pet-in', emil: 'paramat10042545@hotmail.com', role: 'student' },
-    { username: 'Jhon Michel', emil: 'JhonM@hotmail.com', role: 'lecturer' },
-    { username: 'Alex Max', emil: 'Alexander@kmutt.ac.th', role: 'lecturer' },
-])
+
 </script>
  
 <template>
