@@ -25,5 +25,7 @@ public class UserDTO {
     @Size(max = 100,message = "Your Email have length more than 100 character")
     private String email;
 
+    @NotNull(message = "Role shouldn't be null")
+    @NotEmpty(message = "Role shouldn't be empty")
     private String role;
 }

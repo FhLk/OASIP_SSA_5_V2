@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +142,8 @@
       <workItem from="1661011859535" duration="1080000" />
       <workItem from="1661012966086" duration="1706000" />
       <workItem from="1661062655362" duration="22000" />
-      <workItem from="1661063113671" duration="347000" />
+      <workItem from="1661063113671" duration="474000" />
+      <workItem from="1661069991375" duration="43000" />
     </task>
     <servers />
   </component>
