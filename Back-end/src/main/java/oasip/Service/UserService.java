@@ -35,6 +35,17 @@ public class UserService {
         newUser.setName(newUser.getName().trim());
         newUser.setEmail(newUser.getEmail().trim());
         EventUser user = modelMapper.map(newUser,EventUser.class);
+        List<EventUser> duplicateName = repository.findByName(user.getName());
+        List<EventUser> duplicateEmail = repository.findByEmail(user.getEmail());
+        if (!duplicateName.isEmpty() && !duplicateEmail.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This Username and Email are already use!!!");
+        }
+        if (!duplicateName.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This Username is already use!!!");
+        }
+        if (!duplicateEmail.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This Email is already use!!!");
+        }
         return repository.saveAndFlush(user);
     }
 
