@@ -1,15 +1,15 @@
 <script setup>
-import Login from './components/Login.vue';
 import { ref } from "vue";
 import NavBar from './components/NavBar.vue';
-import LoginPage from './views/LoginPage.vue';
 const isLoginPage=ref(false)
+const checkLoginPage=(login)=>{
+    isLoginPage.value=login
+}
 </script>
  
 <template>
-
-<NavBar v-if="!isLoginPage"/>
-<router-view></router-view> 
+    <NavBar :hidden="isLoginPage" @login="checkLoginPage"/>
+    <router-view></router-view> 
 </template>
 
 
