@@ -1,5 +1,6 @@
 package oasip.exeption;
 
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -37,6 +38,18 @@ public class ApplicationExceptionHandler {
         ShowException errors=new ShowException();
         errors.setStatusCode(500);
         errors.setError("INTERNAL SERVER ERROR");
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Message", ex.getMessage());
+        errors.setErrorMessage(errorMap);
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserException.class)
+    public ShowException handleBusinessException(UserException ex) {
+        ShowException errors=new ShowException();
+        errors.setStatusCode(400);
+        errors.setError("BAD REQUEST");
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Message", ex.getMessage());
         errors.setErrorMessage(errorMap);

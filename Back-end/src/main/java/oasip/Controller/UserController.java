@@ -4,6 +4,8 @@ import oasip.DTO.UserDTO;
 import oasip.DTO.UserDetailDTO;
 import oasip.Entity.EventUser;
 import oasip.Service.UserService;
+import oasip.exeption.BookingException;
+import oasip.exeption.UserException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +36,7 @@ public class UserController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> AddUser(@Valid @RequestBody UserDTO newUser){
+    public ResponseEntity<UserDTO> AddUser(@Valid @RequestBody UserDTO newUser) throws UserException {
         EventUser eventUser = service.NewUser(newUser);
         return new ResponseEntity<>(modelMapper.map(eventUser,UserDTO.class),HttpStatus.CREATED);
     }

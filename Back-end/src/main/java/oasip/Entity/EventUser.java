@@ -16,7 +16,7 @@ public class EventUser {
 
     @Lob
     @Column(name = "role", nullable = false)
-    private String role;
+    private String role = "student";
 
     @Column(name = "created_on", nullable = false,insertable = false)
     private LocalDateTime createdOn;
