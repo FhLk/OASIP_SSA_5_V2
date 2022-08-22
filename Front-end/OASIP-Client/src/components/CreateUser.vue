@@ -1,0 +1,150 @@
+<script setup>
+import { computed, onBeforeMount, ref } from 'vue';
+const fetchUrl = import.meta.env.VITE_BASE_URL
+const newUser = ref({
+    name: "",
+    email: "",
+    role: "student"
+})
+let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+let mailFormat3 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+let mailFormat4 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+let mailFormat5 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+const isEmailNotFormat = ref(false)
+const isNameEmpty = ref(false);
+const isEmailEmpty = ref(false);
+
+const checkInfor = async (user) => {
+    let isCheck = true;
+    if (user.name === "") {
+        isCheck = false
+        isNameEmpty.value = true
+    }
+    if (user.email === "") {
+        isCheck = false
+        isEmailEmpty.value = true
+    }
+    else if (user.email.match(mailFormat5)) {
+        if (user.email.match(mailFormat4)) {
+            if (user.email.match(mailFormat3)) {
+                if (user.email.match(mailFormat2)) {
+                    if (user.email.match(mailFormat1)) {
+                        isEmailNotFormat.value = false
+                        isEmailEmpty.value = false
+                    }
+                }
+                isEmailNotFormat.value = false
+                isEmailEmpty.value = false
+            }
+            isEmailNotFormat.value = false
+            isEmailEmpty.value = false
+        }
+        isEmailNotFormat.value = false
+        isEmailEmpty.value = false
+    }
+    if (isCheck) {
+        isEmailEmpty.value = false
+        isEmailNotFormat.value = false
+        isNameEmpty.value = false
+        if (confirm("Are You sure ?")) {
+            await createUser(user)
+            reset()
+        }
+    }
+}
+
+const createUser = async (user) => {
+    const res = await fetch(`${fetchUrl}/users`, {
+        method: "POST",
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: user.name.trim(),
+            email: user.email.trim(),
+            role: user.role
+        })
+    })
+    if (res.status === 201) {
+        alert("You have a new Booking")
+    }
+}
+const reset = () => {
+    newUser.value = {
+        name: "",
+        email: "",
+        role: "student"
+    }
+    isEmailEmpty.value=false
+    isEmailNotFormat.value=false
+    isNameEmpty.value=false
+}
+
+const countName = computed(() => {
+    return 100 - newUser.value.name.length
+})
+
+const countEmail = computed(() => {
+    return 100 - newUser.value.email.length
+})
+</script>
+ 
+<template>
+    <div class="font ccf text-lg mt-28">
+        <div>
+            <div class="flex justify-center">
+                <div class="bgc px-10 py-3 my-4 rounded-lg">
+                    <div class="mr-2 mt-2">
+                        <p>Full Name: <input type="text" placeholder="Name..." v-model="newUser.name" maxlength="100"
+                                @click="isNameEmpty = false">
+                        </p>
+                        <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
+                        <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input your name*
+                        </p>
+                    </div>
+                    <div class="mr-2 mt-1">
+                        <p>E-mail: <input type="email" placeholder="example@example.com" v-model="newUser.email"
+                                maxlength="100" @click="isEmailEmpty = false"></p>
+                        <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
+                        <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input your
+                            e-mail*</p>
+                        <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not follow
+                            format</p>
+                    </div>
+                    <div class="mr-2 mt-1">
+                        <p>Role:
+                            <select v-model="newUser.role" class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
+                                <option :value="'admin'">ADMIN</option>
+                                <option :value="'lecturer'">LECTURER</option>
+                                <option :value="'student'">STUDENT</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <button class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]"
+                            @click="checkInfor(newUser)">OK</button>
+                        <button class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+ 
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
+
+.font {
+    font-family: 'Mitr', sans-serif;
+}
+
+.bgc {
+    background-color: rgb(132, 212, 255);
+}
+
+.ccf {
+    color: rgb(42, 39, 40);
+}
+</style>

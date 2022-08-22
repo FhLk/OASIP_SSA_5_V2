@@ -11,6 +11,7 @@ const isLoginPage=ref(false)
         <router-link to="/"><h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold" >OASIP</h1></router-link>
         <div class="justify-self-end">
             <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/LoginPage" @click="$emit('login',true)">Login</router-link></button>
+            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddUserPage">Add New User</router-link></button>
             <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/UserPage">User</router-link></button>
             <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/ShowPage">Show Schedule </router-link></button>
             <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddPage">Add New Schedule</router-link></button>

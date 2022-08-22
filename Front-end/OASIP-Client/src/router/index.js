@@ -5,6 +5,7 @@ import ShowPage from '../views/ShowPage.vue'
 import AboutPage from '../views/AboutPage.vue'
 import UserPage from '../views/UserPage.vue'
 import LoginPage from '../views/LoginPage.vue'
+import AddUserPage from '../views/AddUserPage.vue'
 const history = createWebHistory('ssa5')
 const routes = [
     {path: '/',name: 'indexPage',component: indexPage},
@@ -13,6 +14,7 @@ const routes = [
     {path: '/AboutPage',name:'AboutPage',component:AboutPage},
     {path: '/UserPage',nmae: 'UserPage',component: UserPage},
     {path: '/LoginPage',nmae: 'LoginPage',component: LoginPage},
+    {path: '/AddUserPage',nmae: 'AddUserPage',component: AddUserPage},
 ]
 const router = createRouter({ history, routes })
 export default router
