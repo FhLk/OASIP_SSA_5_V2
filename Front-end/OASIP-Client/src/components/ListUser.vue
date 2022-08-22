@@ -4,9 +4,22 @@ import moment from "moment"
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 
-const getAllUser = ref([])
+const getAllUser = ref([{
+        name : "note",
+        email : "note@gamil.com",
+        role : "ADMIN",
+        createdOn : "20/08/2022",
+        updateOn : "20/08/2022"
+    },
+    {
+        name : "fight",
+        email : "fight@gamil.com",
+        role : "STUDENT",
+        createdOn : "20/08/2022",
+        updateOn : "20/08/2022"
+    }])
 const isDetail = ref("")
-const getUser = ref({})
+// const getUser = ref({})
 const getUsers = async () => {
     const res = await fetch(`${fetchUrl}/users`, {
         method: 'GET'
@@ -61,24 +74,41 @@ const ced = " edit rounded-full px-2 text-white background-color: rgb(114, 143, 
 const ccl = " bg-red-600 rounded-full px-2 text-white hover:bg-[#F87171]";
 const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
 
+const user = [
+    {
+        name : "note",
+        email : "note@gamil.com",
+        role : "ADMIN",
+        createdOn : "20/08/2022",
+        updateOn : "20/08/2022"
+    },
+    {
+        name : "fight",
+        email : "fight@gamil.com",
+        role : "STUDENT",
+        createdOn : "20/08/2022",
+        updateOn : "20/08/2022"
+    }
+];
 
 
 </script>
  
 <template>
+<!--  -->
     <div class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
         <ul>
-            <li class="bgl2 my-2 pb-3 pt-2 pl-9 rounded-md" v-for="(user, index) in getAllUser" :key="index">
+            <li class="bgl2 my-2 pt-2 pb-4 px-9 rounded-md" v-for="(user, index) in getAllUser" :key="index">
                 <div>
-                    <p class="text-2xl">User : {{ user.name }}</p>
-                    <p class="text-[#5C5A5A]"><span class="text-black">E-mail :</span> {{ user.email }} <span
+                    <p class="text-3xl">{{ user.name }}</p>
+                    <p class="text-[#5C5A5A] mt-1 mx-4 text-lg "><span class="text-black">E-mail :</span> {{ user.email }} <span
                             class="text-black">Role :</span> {{ user.role }} </p>
                 </div>
-                <div class="flex mt-1 cf">
-                    <div class="mx-2 bg-green-600 px-2 rounded-xl">
+                <div class="flex justify-between cf">
+                    <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
                         <button @click="detailUser(user.name)">{{ isDetail === user.name ? "Closed" :"Detail"}}</button>
                     </div>
-                     <div>
+                     <div class="mr-5">
                         <img @click="deleteUser(user)" src="../assets/trash.png" 
                                 class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                     </div>
@@ -87,23 +117,23 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     <div>
                         <div class="flex">
                             <p class="pr-2">Name : </p>
-                            <p>{{ getUser.name }}</p>
+                            <p class="text-[#535252]" >{{ getUser.name }}</p>
                         </div>
                         <div class="flex">
                             <p class="pr-2">E-mail : </p>
-                            <p>{{ getUser.email }}</p>
+                            <p class="text-[#535252]" >{{ getUser.email }}</p>
                         </div>
                         <div class="flex">
                             <p class="pr-2">Role : </p>
-                            <p>{{ getUser.role }}</p>
+                            <p class="text-[#535252]" >{{ getUser.role }}</p>
                         </div>
                         <div class="flex">
                             <p class="pr-2">Created : </p>
-                            <p>{{ getUser.createdOn }}</p>
+                            <p class="text-[#535252]" >{{ getUser.createdOn }}</p>
                         </div>
                         <div class="flex">
                             <p class="pr-2">Updated : </p>
-                            <p>{{ getUser.updateOn }}</p>
+                            <p class="text-[#535252]" >{{ getUser.updateOn }}</p>
                         </div>
                     </div>
                 </div>
@@ -154,7 +184,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
 }
 
 .bgl3 {
-    background-color: rgb(135, 206, 235);
+    background-color: rgb(130, 219, 248);
 }
 
 .btt {
