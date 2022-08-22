@@ -118,12 +118,12 @@ const countEmail = computed(() => {
 </script>
  
 <template>
-    <div class="font ccf text-lg mt-28">
+    <div class="font ccf text-lg bg pt-28 pb-96 ">
         <div>
             <div class="flex justify-center">
-                <div class="bgc px-10 py-3 my-4 rounded-lg">
+                <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
                     <div class="mr-2 mt-2">
-                        <p>Full Name: <input type="text" placeholder="Name..." v-model="newUser.name" maxlength="100"
+                        <p>Full Name : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
                                 @click="isNameEmpty = false, isDuplicateName = false">
                         </p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
@@ -132,7 +132,7 @@ const countEmail = computed(() => {
                         <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already use*</p>
                     </div>
                     <div class="mr-2 mt-1">
-                        <p>E-mail: <input type="email" placeholder="example@example.com" v-model="newUser.email"
+                        <p>E-mail : <input type="email" placeholder=" example@example.com" v-model="newUser.email"
                                 maxlength="100" @click="isEmailEmpty = false, isDuplicateEmail = false"></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                         <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input your
@@ -159,6 +159,8 @@ const countEmail = computed(() => {
             </div>
         </div>
     </div>
+
+    
 </template>
  
 <style scoped>
@@ -174,5 +176,8 @@ const countEmail = computed(() => {
 
 .ccf {
     color: rgb(42, 39, 40);
+}
+.bg{
+    background-color: rgb(255, 255, 247);
 }
 </style>

@@ -3,7 +3,7 @@ import ListUser from '../components/ListUser.vue';
 </script>
 
 <template>
-<div class="pt-36 font ">
+<div class="pt-36 font bg pb-56">
     <h1 class="text-5xl mb-4 ml-5 flex justify-between rounded-md p-2">List ALL User</h1>
     <ListUser/>
 </div>
@@ -15,7 +15,7 @@ import ListUser from '../components/ListUser.vue';
     font-family: 'Mitr', sans-serif;
 }
 
-.bg {
-    background-color: rgb(173, 216, 230);
+.bg{
+    background-color: rgb(255, 255, 247);
 }
 </style>
