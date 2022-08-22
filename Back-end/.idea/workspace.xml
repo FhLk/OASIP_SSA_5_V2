@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Create.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Create.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/CreateUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/CreateUser.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +145,7 @@
       <workItem from="1661063113671" duration="474000" />
       <workItem from="1661069991375" duration="43000" />
       <workItem from="1661140125468" duration="1394000" />
-      <workItem from="1661145260287" duration="2144000" />
+      <workItem from="1661145260287" duration="5389000" />
     </task>
     <servers />
   </component>

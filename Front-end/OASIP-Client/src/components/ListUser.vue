@@ -107,9 +107,6 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                         </div>
                     </div>
                 </div>
-                <div>
-
-                </div>
             </li>
         </ul>
     </div>

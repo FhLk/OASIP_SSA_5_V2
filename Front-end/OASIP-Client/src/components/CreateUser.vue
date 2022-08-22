@@ -1,6 +1,12 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 const fetchUrl = import.meta.env.VITE_BASE_URL
+const props = defineProps({
+    getUsers: {
+        type: Array,
+        require: true
+    }
+})
 const newUser = ref({
     name: "",
     email: "",
@@ -15,12 +21,24 @@ let mailFormat5 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 const isEmailNotFormat = ref(false)
 const isNameEmpty = ref(false);
 const isEmailEmpty = ref(false);
+const isDuplicateName = ref(false)
+const isDuplicateEmail = ref(false)
 
 const checkInfor = async (user) => {
     let isCheck = true;
+    let getUserName = []
+    let getUserEmail = []
+    props.getUsers.forEach((user) => {
+        getUserName.push(user.name.toLowerCase())
+        getUserEmail.push(user.email.toLowerCase())
+    })
     if (user.name === "") {
         isCheck = false
         isNameEmpty.value = true
+    }
+    else if (getUserName.includes(user.name.toLowerCase())) {
+        isCheck = false
+        isDuplicateName.value = true
     }
     if (user.email === "") {
         isCheck = false
@@ -44,10 +62,16 @@ const checkInfor = async (user) => {
         isEmailNotFormat.value = false
         isEmailEmpty.value = false
     }
+    else if (getUserEmail.includes(user.email.toLowerCase())) {
+        isCheck = false
+        isDuplicateEmail.value = true
+    }
     if (isCheck) {
         isEmailEmpty.value = false
         isEmailNotFormat.value = false
         isNameEmpty.value = false
+        isDuplicateName.value = false
+        isDuplicateEmail.value = false
         if (confirm("Are You sure ?")) {
             await createUser(user)
             reset()
@@ -77,9 +101,11 @@ const reset = () => {
         email: "",
         role: "student"
     }
-    isEmailEmpty.value=false
-    isEmailNotFormat.value=false
-    isNameEmpty.value=false
+    isEmailEmpty.value = false
+    isEmailNotFormat.value = false
+    isNameEmpty.value = false
+    isDuplicateName.value = false
+    isDuplicateEmail.value = false
 }
 
 const countName = computed(() => {
@@ -98,20 +124,22 @@ const countEmail = computed(() => {
                 <div class="bgc px-10 py-3 my-4 rounded-lg">
                     <div class="mr-2 mt-2">
                         <p>Full Name: <input type="text" placeholder="Name..." v-model="newUser.name" maxlength="100"
-                                @click="isNameEmpty = false">
+                                @click="isNameEmpty = false, isDuplicateName = false">
                         </p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                         <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input your name*
                         </p>
+                        <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already use*</p>
                     </div>
                     <div class="mr-2 mt-1">
                         <p>E-mail: <input type="email" placeholder="example@example.com" v-model="newUser.email"
-                                maxlength="100" @click="isEmailEmpty = false"></p>
+                                maxlength="100" @click="isEmailEmpty = false, isDuplicateEmail = false"></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                         <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input your
                             e-mail*</p>
                         <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not follow
                             format</p>
+                        <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*</p>
                     </div>
                     <div class="mr-2 mt-1">
                         <p>Role:
