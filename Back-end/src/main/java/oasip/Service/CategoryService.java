@@ -2,7 +2,7 @@ package oasip.Service;
 
 import oasip.DTO.CategoryDTO;
 import oasip.Entity.EventCategory;
-import oasip.Repository.EventCategoryRepository;
+import oasip.Repository.CategoryRepository;
 import oasip.Utils.ListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class CategoryService {
     @Autowired
-    private EventCategoryRepository repository;
+    private CategoryRepository repository;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired

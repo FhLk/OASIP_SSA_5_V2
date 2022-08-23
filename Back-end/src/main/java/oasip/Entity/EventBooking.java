@@ -27,8 +27,7 @@ public class EventBooking {
     @Column(name = "event_note", length = 550)
     private String eventNote;
 
-    @Column(name = "update_date", nullable = false)
-    private Instant updateDate;
+
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category", nullable = false)
@@ -81,15 +80,6 @@ public class EventBooking {
     public void setEventNote(String eventNote) {
         this.eventNote = eventNote;
     }
-
-    public Instant getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Instant updateDate) {
-        this.updateDate = updateDate;
-    }
-
     public EventCategory getCategory() {
         return category;
     }

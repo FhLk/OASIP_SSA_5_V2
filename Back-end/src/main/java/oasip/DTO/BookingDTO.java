@@ -2,7 +2,7 @@ package oasip.DTO;
 
 import lombok.*;
 
-import javax.validation.Valid;
+
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 

@@ -53,6 +53,7 @@
       <list>
         <option value="com.haulmont.jpb.JpaEntity" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -87,7 +88,9 @@
     </option>
   </component>
   <component name="ProjectId" id="2D6xmdIFSpWlQ171sIhrGFl3dy6" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -141,7 +144,8 @@
       </method>
     </configuration>
     <configuration name="OasipSsa5Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="Oasip_SSA5" />
+      <option name="ACTIVE_PROFILES" />
+      <module name="Back-end" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,7 +173,23 @@
       <workItem from="1660119939493" duration="1029000" />
       <workItem from="1660129425453" duration="1728000" />
       <workItem from="1660140282736" duration="598000" />
-      <workItem from="1660541942377" duration="963000" />
+      <workItem from="1660539305479" duration="1203000" />
+      <workItem from="1660813956008" duration="5023000" />
+      <workItem from="1660819355647" duration="3387000" />
+      <workItem from="1660822956765" duration="200000" />
+      <workItem from="1660891416221" duration="9783000" />
+      <workItem from="1660906011613" duration="2000" />
+      <workItem from="1660928679750" duration="139000" />
+      <workItem from="1661011859535" duration="1080000" />
+      <workItem from="1661012966086" duration="1706000" />
+      <workItem from="1661062655362" duration="22000" />
+      <workItem from="1661063113671" duration="474000" />
+      <workItem from="1661069991375" duration="103000" />
+      <workItem from="1661091238099" duration="170000" />
+      <workItem from="1661097495909" duration="4742000" />
+      <workItem from="1661148490735" duration="16367000" />
+      <workItem from="1661165495756" duration="9461000" />
+      <workItem from="1661185603342" duration="1951000" />
     </task>
     <servers />
   </component>

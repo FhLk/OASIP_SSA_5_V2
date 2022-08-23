@@ -31,5 +31,4 @@ public class CategoryController {
         service.UpdateCategory(CategoryId,updateCategory);
         return new ResponseEntity<>(updateCategory, HttpStatus.OK);
     }
-
 }
