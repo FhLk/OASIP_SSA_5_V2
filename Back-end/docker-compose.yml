@@ -1,11 +1,11 @@
 version: '3.3'
 services:
   oasipSVR:
-    container_name: oasipSVR
+    container_name: oasip_Back_End
     image: oasip_back_img
     build: ./
     environment:
-      - spring.datasource.url=jdbc:mysql://10.4.56.111:3306/oasip_db
+      - spring.datasource.url=jdbc:mysql://10.4.56.111:3306/oasip
     restart: always
 networks:
   default:
