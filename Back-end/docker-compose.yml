@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  oasipSVR:
+  oasip_Back_End:
     container_name: oasip_Back_End
     image: oasip_back_img
     build: ./
