@@ -1,4 +1,4 @@
-FROM maven:3.8.5-jdk-11 as build-stage
+FROM maven:3.8.5-jdk-17 as build-stage
 WORKDIR /OASIP-SSA5
 COPY . .
 RUN mvn -Dmaven.test.skip package
