@@ -3,9 +3,7 @@ services:
   oasip_Back_End:
     container_name: oasip_Back_End
     image: oasip_back_img
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: ./
     environment:
       - spring.datasource.url=jdbc:mysql://10.4.56.111:3306/oasip
     restart: always
