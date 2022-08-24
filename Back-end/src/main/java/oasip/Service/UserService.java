@@ -42,10 +42,10 @@ public class UserService {
     public EventUser NewUser(@Valid UserDTO newUser) throws UserException {
         newUser.setName(newUser.getName().trim());
         newUser.setEmail(newUser.getEmail().trim());
+        newUser.setRole(newUser.getRole().trim());
         EventUser user = modelMapper.map(newUser, EventUser.class);
         List<EventUser> duplicateName = repository.findByName(user.getName());
         List<EventUser> duplicateEmail = repository.findByEmail(user.getEmail());
-        List<EventUser> roles = repository.findByRole(user.getRole());
         List<String> errors = new ArrayList<>();
         if (!duplicateName.isEmpty() && !duplicateEmail.isEmpty()) {
             errors.add("This Username and Email are already use!!!");
@@ -59,18 +59,6 @@ public class UserService {
             errors.add("This Email is already use!!!");
             throw new UserException(errors.toString());
         }
-//        if(!newUser.getRole().equals(EnumRole.class)){
-//            errors.add("Don't have this role!!!");
-//            throw new UserException(errors.toString());
-//        }
-//        if(newUser.getRole() == "") {
-//
-//            for (EnumRole role : EnumRole.values()) {
-//                if () {
-//                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This role is already use!!!");
-//                }
-//            }
-//        }
         return repository.saveAndFlush(user);
     }
     public void DeleteUser(String Username){
