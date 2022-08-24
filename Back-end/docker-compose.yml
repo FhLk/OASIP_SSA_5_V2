@@ -4,8 +4,6 @@ services:
     container_name: oasip_Back_End
     image: oasip_back_img
     build: ./
-    networks:
-      - oasip_nw
     environment:
       - spring.datasource.url=jdbc:mysql://oasip_DB:3306/oasip
     restart: always
