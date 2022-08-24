@@ -4,37 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/CategoryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/BookingDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/CategoryDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/CategoryDTONoValidate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventBooking.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/BookingRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/CategoryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/CategoryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Utils/EnumRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Utils/ListMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/ApplicationExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/BookingException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/EnumValidator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/EnumValidatorConstraint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/ShowException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/UserException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

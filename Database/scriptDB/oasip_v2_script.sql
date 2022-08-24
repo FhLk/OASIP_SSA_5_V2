@@ -90,3 +90,9 @@ insert into `eventbooking` (`booking_id`,`booking_name`,`booking_email`,`start_t
 (1,'Somchai Jaidee (OR-7)','somchai.jai@mail.kmutt.ac.th','2022-05-23 13:00',30,' ',2),
 (2,'Somsri Rakdee (SJ-3)','somsri.rak@mail.kmutt.ac.th','2022-04-27 09:30',30,' ขอปรึกษาเรื่องเพื่อนไม่ช่วยงาน ',1),
 (3,'สมเกียรติ ขยันเรียน กลุ่ม TT-4','somkiat.kay@kmutt.ac.th','2022-05-23 16:30',15,' ',3);
+
+insert into user values 
+	("OASIP ADMIN","oasip.admin@kmutt.ac.th",1,'2022-08-01 00:00:00','2022-08-01 00:00:00'),
+    ("Somchai Jaidee","somchai.jai@kmutt.ac.th",2,'2022-08-08 15:00:00','2022-08-08 15:00:00'),
+    ("Komkrid Rakdee","komkrid.rak@mail.kmutt.ac.th",3,'2022-08-08 15:00:01','2022-08-08 15:00:01'),
+    ("สมเกียรติ ขยันเรียน","somkiat.kay@kmutt.ac.th",3,'2022-08-16 09:00:00','2022-08-16 09:00:00');
