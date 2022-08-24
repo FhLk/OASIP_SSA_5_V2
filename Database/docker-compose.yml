@@ -10,6 +10,7 @@ services:
       - MYSQL_PASSWORD=kmutt@631305.78
       - MYSQL_ROOT_PASSWORD=1234
       - TZ=Asia/Bangkok
+      - LANG=C.UTF-8
     ports:
       # - '3307:3306'
       - '3306:3306'
