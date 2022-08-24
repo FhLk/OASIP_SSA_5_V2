@@ -8,7 +8,7 @@ export default defineConfig({
   server:{
     proxy:{
       '/api':{
-        target:'http://oasip_Back_End:8080',
+        target:'http://oasipBackEnd:8080',
         changeOrigin:true,
         secure:false,
         rewrite:(path) => path.replace(/^\/api/,'')
