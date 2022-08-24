@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/ApplicationExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/exeption/ApplicationExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,35 +60,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ampla/Downloads/OASIP-OR5-Backend&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;show.run.dashboard.notification&quot;: &quot;false&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;911c5e705bc64305fd6d4e3485d4a915&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/ampla/Downloads/OASIP-OR5-Backend",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "show.run.dashboard.notification": "false",
+    "spring.configuration.checksum": "5d087328fccf7967d4d6a69079da89a2"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="oasip" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.OasipSsa5Application">
+  <component name="RunManager" selected="Spring Boot.OasipSsa5Application (1)">
     <configuration name="OasipSsa5Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="OASIP" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
@@ -154,6 +149,7 @@
       <workItem from="1661148490735" duration="16367000" />
       <workItem from="1661165495756" duration="9461000" />
       <workItem from="1661185603342" duration="1951000" />
+      <workItem from="1661322741622" duration="297000" />
     </task>
     <servers />
   </component>

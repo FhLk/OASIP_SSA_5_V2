@@ -4,22 +4,9 @@ import moment from "moment"
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 
-const getAllUser = ref([{
-        name : "note",
-        email : "note@gamil.com",
-        role : "ADMIN",
-        createdOn : "20/08/2022",
-        updateOn : "20/08/2022"
-    },
-    {
-        name : "fight",
-        email : "fight@gamil.com",
-        role : "STUDENT",
-        createdOn : "20/08/2022",
-        updateOn : "20/08/2022"
-    }])
+const getAllUser = ref([])
 const isDetail = ref("")
-// const getUser = ref({})
+const getUser = ref({})
 const getUsers = async () => {
     const res = await fetch(`${fetchUrl}/users`, {
         method: 'GET'
@@ -73,25 +60,6 @@ onBeforeMount(async () => {
 const ced = " edit rounded-full px-2 text-white background-color: rgb(114, 143, 206) hover:bg-[#AECBFF]";
 const ccl = " bg-red-600 rounded-full px-2 text-white hover:bg-[#F87171]";
 const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
-
-const user = [
-    {
-        name : "note",
-        email : "note@gamil.com",
-        role : "ADMIN",
-        createdOn : "20/08/2022",
-        updateOn : "20/08/2022"
-    },
-    {
-        name : "fight",
-        email : "fight@gamil.com",
-        role : "STUDENT",
-        createdOn : "20/08/2022",
-        updateOn : "20/08/2022"
-    }
-];
-
-
 </script>
  
 <template>
