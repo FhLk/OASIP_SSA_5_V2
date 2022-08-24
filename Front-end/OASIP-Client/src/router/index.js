@@ -6,7 +6,7 @@ import AboutPage from '../views/AboutPage.vue'
 import UserPage from '../views/UserPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import AddUserPage from '../views/AddUserPage.vue'
-const history = createWebHistory('ssa5')
+const history = createWebHistory('/ssa5')
 const routes = [
     {path: '/',name: 'indexPage',component: indexPage},
     {path: '/AddPage',name: 'AddPage',component: AddPage},
