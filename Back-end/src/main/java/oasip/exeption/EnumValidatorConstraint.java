@@ -21,6 +21,6 @@ public class EnumValidatorConstraint implements ConstraintValidator<EnumValidato
         if (value == null) {
             return true;
         }
-        return acceptedValues.contains(value.toString());
+        return acceptedValues.contains(value.toString().trim());
     }
 }
