@@ -4,6 +4,8 @@ services:
     container_name: oasip_Front_End
     image: oasip_front_img
     build: ./
+    networks:
+      - oasip_nw
     ports : 
       - '80:80'
     restart: always
