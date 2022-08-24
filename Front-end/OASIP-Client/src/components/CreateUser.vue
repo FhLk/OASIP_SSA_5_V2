@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 const props = defineProps({
     getUsers: {
@@ -92,7 +93,7 @@ const createUser = async (user) => {
         })
     })
     if (res.status === 201) {
-        alert("You have a new Booking")
+        alert("You have a new User")
     }
 }
 const reset = () => {
@@ -106,6 +107,12 @@ const reset = () => {
     isNameEmpty.value = false
     isDuplicateName.value = false
     isDuplicateEmail.value = false
+    GoUsers()
+}
+
+const myRouter = useRouter()
+const GoUsers = () => {
+    myRouter.push({ name: 'UserPage' })
 }
 
 const countName = computed(() => {
@@ -153,7 +160,8 @@ const countEmail = computed(() => {
                     <div class="mt-4">
                         <button class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]"
                             @click="checkInfor(newUser)">OK</button>
-                        <button class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
+                        <button class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]"
+                            @click="GoUsers()">Cancle</button>
                     </div>
                 </div>
             </div>

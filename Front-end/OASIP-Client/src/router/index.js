@@ -12,9 +12,9 @@ const routes = [
     {path: '/AddPage',name: 'AddPage',component: AddPage},
     {path: '/ShowPage',name: 'ShowPage',component: ShowPage},
     {path: '/AboutPage',name:'AboutPage',component:AboutPage},
-    {path: '/UserPage',nmae: 'UserPage',component: UserPage},
-    {path: '/LoginPage',nmae: 'LoginPage',component: LoginPage},
-    {path: '/AddUserPage',nmae: 'AddUserPage',component: AddUserPage},
+    {path: '/UserPage',name: 'UserPage',component: UserPage},
+    {path: '/LoginPage',name: 'LoginPage',component: LoginPage},
+    {path: '/AddUserPage',name: 'AddUserPage',component: AddUserPage},
 ]
 const router = createRouter({ history, routes })
 export default router
