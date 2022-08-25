@@ -150,7 +150,7 @@ const countName = computed(() => {
 })
 
 const countEmail = computed(() => {
-    return 100 - newUser.value.email.length
+    return 50 - newUser.value.email.length
 })
 </script>
  
@@ -171,11 +171,11 @@ const countEmail = computed(() => {
                     </div>
                     <div class="mr-2 mt-1">
                         <p>E-mail : <input type="email" placeholder=" example@example.com" v-model="newUser.email"
-                                maxlength="100"
+                                maxlength="50"
                                 @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
                                 @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false"></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
-                        <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input your
+                        <p v-if="isEmailEmpty && countEmail === 50" class="text-xs text-red-600">*Plase Input your
                             e-mail*</p>
                         <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not follow
                             format</p>
