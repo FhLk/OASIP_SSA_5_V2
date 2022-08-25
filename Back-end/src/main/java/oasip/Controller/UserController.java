@@ -40,6 +40,11 @@ public class UserController {
         EventUser eventUser = service.NewUser(newUser);
         return new ResponseEntity<>(modelMapper.map(eventUser, UserDetailDTO.class),HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDetailDTO> update(@PathVariable Integer id ,@Valid @RequestBody UserDetailDTO updateUser) throws BookingException{
+        service.UpdateUser(id,updateUser);
+        return new ResponseEntity<>(updateUser,HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id){

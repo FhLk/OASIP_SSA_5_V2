@@ -7,8 +7,8 @@ let DateFormat = "YYYY-MM-DD HH:mm"
 const getAllUser = ref([])
 const isDetail = ref(-1)
 const getUser = ref({})
-const getUsers = async () => {
-    const res = await fetch(`${fetchUrl}/users`, {
+const getUsers = async (page = 0) => {
+    const res = await fetch(`${fetchUrl}/users?page=${page}`, {
         method: 'GET'
     })
     if (res.status === 200) {
@@ -32,11 +32,33 @@ const detailUser = async (id) => {
             count = id;
         }
     }
-    isDetail.value = isDetail.value === id ? "" : id
+    isDetail.value = isDetail.value === id ? -1 : id
 }
 
 const showTimeStampe = (datatime) => {
     return moment(datatime).local().format(DateFormat)
+}
+
+const page = ref(0)
+const NextPage = () => {
+    if (page.value < 0) {
+        page.value = 0
+    }
+    reset()
+    getUsers(page.value += 1)
+}
+
+const BackPage = () => {
+    if (page.value < 0) {
+        page.value = 0
+    }
+    reset()
+    getUsers(page.value -= 1)
+}
+
+const reset = () => {
+    isDetail.value = -1
+    count = 0
 }
 
 const deleteUser = async (user) => {
@@ -45,7 +67,8 @@ const deleteUser = async (user) => {
             method: 'DELETE'
         })
         if (res.status === 200) {
-            await getUsers()
+            await getUsers(page.value)
+            reset()
         }
         else {
             alert("Can't Delete this Booking")
@@ -91,33 +114,56 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     </div>
                     <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
                         <div>
-                            <div class="flex">
-                                <p class="pr-2">Name : </p>
-                                <p class="text-[#535252]">{{ getUser.name }}</p>
+                            <p class="text-3xl">{{ user.name }}</p>
+                            <p class="text-[#5C5A5A] mt-1 mx-4 text-lg "><span class="text-black">E-mail :</span> {{
+                                    user.email
+                            }} <span class="text-black">Role :</span> {{ user.role }} </p>
+                        </div>
+                        <div class="flex justify-between cf">
+                            <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
+                                <button @click="detailUser(user.id)">{{ isDetail === user.id ? "Closed" : "Detail"
+                                }}</button>
                             </div>
-                            <div class="flex">
-                                <p class="pr-2">E-mail : </p>
-                                <p class="text-[#535252]">{{ getUser.email }}</p>
-                            </div>
-                            <div class="flex">
-                                <p class="pr-2">Role : </p>
-                                <p class="text-[#535252]">{{ getUser.role }}</p>
-                            </div>
-                            <div class="flex">
-                                <p class="pr-2">Created : </p>
-                                <p class="text-[#535252]">{{ getUser.createdOn }}</p>
-                            </div>
-                            <div class="flex">
-                                <p class="pr-2">Updated : </p>
-                                <p class="text-[#535252]">{{ getUser.updateOn }}</p>
+                            <div class="mr-5">
+                                <img @click="deleteUser(user)" src="../assets/trash.png"
+                                    class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                             </div>
                         </div>
-                    </div>
+                        <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
+                            <div>
+                                <div class="flex">
+                                    <p class="pr-2">Name : </p>
+                                    <p class="text-[#535252]">{{ getUser.name }}</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="pr-2">E-mail : </p>
+                                    <p class="text-[#535252]">{{ getUser.email }}</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="pr-2">Role : </p>
+                                    <p class="text-[#535252]">{{ getUser.role }}</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="pr-2">Created : </p>
+                                    <p class="text-[#535252]">{{ getUser.createdOn }}</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="pr-2">Updated : </p>
+                                    <p class="text-[#535252]">{{ getUser.updateOn }}</p>
+                                </div>
+                            </div>
+                        </div>
                 </li>
             </ul>
         </div>
         <div v-else>
             No Users.
+        </div>
+        <div class="flex justify-center pb-5">
+            <button v-if="page !== 0" @click="BackPage"
+                class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">Back</button>
+            <button v-if="getAllUser.length === 5" @click="NextPage"
+                class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">Next</button>
         </div>
     </div>
 </template>

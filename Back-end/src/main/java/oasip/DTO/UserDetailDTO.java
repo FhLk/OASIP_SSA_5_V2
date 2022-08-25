@@ -1,6 +1,8 @@
 package oasip.DTO;
 
 import lombok.*;
+import oasip.Utils.EnumRole;
+import oasip.exeption.EnumValidator;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -13,8 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class UserDetailDTO {
-
     private Integer id;
+
     @NotNull(message = "Name shouldn't be null")
     @NotEmpty(message = "Name shouldn't be empty")
     @Size(max = 100,message = "Your Name have length more than 100 character")
@@ -27,6 +29,7 @@ public class UserDetailDTO {
     private String email;
 
     @NotNull(message = "Role shouldn't be null")
+    @EnumValidator(enumClass = EnumRole.class)
     private String role;
     private LocalDateTime createdOn;
 
@@ -47,12 +50,15 @@ public class UserDetailDTO {
         return this.updateOn.toString();
     }
 
-    public void setUpdateOn(String updateOn){
-        if(updateOn==null){
-            this.updateOn=LocalDateTime.now();
-        }
-        else{
-            this.updateOn= LocalDateTime.parse(updateOn);
+    public void setEmail(String email){
+        this.email = email.trim();
+    }
+
+    public void setRole(String role) {
+        this.role =role.toLowerCase();
+        if (role.trim() == ""){
+            this.role = "student";
         }
     }
+
 }
