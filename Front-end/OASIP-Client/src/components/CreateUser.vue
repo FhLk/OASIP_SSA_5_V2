@@ -117,6 +117,7 @@ const createUser = async (user) => {
             'content-type': 'application/json'
         },
         body: JSON.stringify({
+            id: 0,
             name: user.name.trim(),
             email: user.email.trim(),
             role: user.role

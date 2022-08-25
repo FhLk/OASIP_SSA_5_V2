@@ -34,8 +34,8 @@ public class UserService {
         return listMapper.mapList(userlist, UserDTO.class, modelMapper);
     }
 
-    public UserDetailDTO getUserDetail(String userName) {
-        EventUser user = repository.findById(userName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User" + userName + "does not exits."));
+    public UserDetailDTO getUserDetail(Integer id) {
+        EventUser user = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User" + id + "does not exits."));
         return modelMapper.map(user, UserDetailDTO.class);
     }
 
@@ -61,8 +61,8 @@ public class UserService {
         }
         return repository.saveAndFlush(user);
     }
-    public void DeleteUser(String Username){
-        repository.deleteById(Username);
+    public void DeleteUser(Integer id){
+        repository.deleteById(id);
     }
 }
 

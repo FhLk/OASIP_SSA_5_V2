@@ -1,6 +1,8 @@
 package oasip.Entity;
 
 
+import org.hibernate.annotations.GeneratorType;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,6 +10,10 @@ import java.time.LocalDateTime;
 @Table(name = "user")
 public class EventUser {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",nullable = false)
+    private Integer id;
+
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
@@ -23,6 +29,14 @@ public class EventUser {
 
     @Column(name = "update_on", nullable = false,insertable = false,updatable = false)
     private LocalDateTime updateOn;
+
+    public Integer getId(){
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {return name;}
 

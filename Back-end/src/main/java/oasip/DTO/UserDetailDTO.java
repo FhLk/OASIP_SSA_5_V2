@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class UserDetailDTO {
+
+    private Integer id;
     @NotNull(message = "Name shouldn't be null")
     @NotEmpty(message = "Name shouldn't be empty")
     @Size(max = 100,message = "Your Name have length more than 100 character")

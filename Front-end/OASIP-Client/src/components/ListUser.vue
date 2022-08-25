@@ -19,20 +19,20 @@ const getUsers = async () => {
     }
 }
 
-let count = ""
-const detailUser = async (name) => {
-    if (count !== name) {
-        const res = await fetch(`${fetchUrl}/users/${name}`, {
+let count = 0
+const detailUser = async (id) => {
+    if (count !== id) {
+        const res = await fetch(`${fetchUrl}/users/${id}`, {
             method: 'GET'
         })
         if (res.status === 200) {
             getUser.value = await res.json();
             getUser.value.createdOn = showTimeStampe(getUser.value.createdOn)
             getUser.value.updateOn = showTimeStampe(getUser.value.updateOn)
-            count = name;
+            count = id;
         }
     }
-    isDetail.value = isDetail.value === name ? "" : name
+    isDetail.value = isDetail.value === id ? "" : id
 }
 
 const showTimeStampe = (datatime) => {
@@ -41,7 +41,7 @@ const showTimeStampe = (datatime) => {
 
 const deleteUser = async (user) => {
     if (confirm("Are you sure?")) {
-        const res = await fetch(`${fetchUrl}/users/${user.name}`, {
+        const res = await fetch(`${fetchUrl}/users/${user.id}`, {
             method: 'DELETE'
         })
         if (res.status === 200) {
@@ -81,7 +81,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     </div>
                     <div class="flex justify-between cf">
                         <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
-                            <button @click="detailUser(user.name)">{{ isDetail === user.name ? "Closed" : "Detail"
+                            <button @click="detailUser(user.id)">{{ isDetail === user.id ? "Closed" : "Detail"
                             }}</button>
                         </div>
                         <div class="mr-5">
