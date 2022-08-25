@@ -44,7 +44,7 @@ public class UserService {
     public EventUser NewUser(@Valid UserDTO newUser) throws UserException {
         newUser.setName(newUser.getName().trim());
         newUser.setEmail(newUser.getEmail().trim());
-        newUser.setRole(newUser.getRole().trim());
+        newUser.setRole(newUser.getRole().trim().toLowerCase());
         EventUser user = modelMapper.map(newUser, EventUser.class);
         List<EventUser> duplicateName = repository.findByName(user.getName());
         List<EventUser> duplicateEmail = repository.findByEmail(user.getEmail());
