@@ -56,11 +56,6 @@ const BackPage = () => {
     getUsers(page.value -= 1)
 }
 
-const reset = () => {
-    isDetail.value = -1
-    count = 0
-}
-
 const deleteUser = async (user) => {
     if (confirm("Are you sure?")) {
         const res = await fetch(`${fetchUrl}/users/${user.id}`, {
@@ -152,6 +147,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                     <p class="text-[#535252]">{{ getUser.updateOn }}</p>
                                 </div>
                             </div>
+                        </div>
                         </div>
                 </li>
             </ul>
