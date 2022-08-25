@@ -29,9 +29,9 @@ public class UserController {
         return ResponseEntity.ok(service.getUsers(page,pageSize,sort));
     }
 
-    @GetMapping("/{Username}")
-    public ResponseEntity<UserDetailDTO> getUser(@PathVariable String Username){
-        return ResponseEntity.ok(service.getUserDetail(Username));
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDetailDTO> getUser(@PathVariable Integer id){
+        return ResponseEntity.ok(service.getUserDetail(id));
     }
 
     @PostMapping("")
@@ -41,9 +41,16 @@ public class UserController {
         return new ResponseEntity<>(modelMapper.map(eventUser,UserDTO.class),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{name}")
-    public void deleteUser(@PathVariable String name){
-        service.DeleteUser(name);
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDetailDTO> update(@PathVariable Integer id ,@Valid @RequestBody UserDetailDTO updateUser) throws BookingException{
+        service.UpdateUser(id,updateUser);
+        return new ResponseEntity<>(updateUser,HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id){
+        service.DeleteUser(id);
     }
 
 
