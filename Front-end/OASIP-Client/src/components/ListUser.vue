@@ -142,10 +142,6 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                 class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">Next</button>
         </div>
     </div>
-    <div v-else>
-        <p>No Users.</p>
-    </div>
-    </div>
 </template>
  
 <style scoped>
