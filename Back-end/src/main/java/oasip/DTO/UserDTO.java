@@ -13,6 +13,8 @@ import javax.validation.constraints.*;
 @Setter
 public class UserDTO {
 
+    private Integer id;
+
     @NotNull(message = "Name shouldn't be null")
     @NotEmpty(message = "Name shouldn't be empty")
     @Size(max = 100,message = "Your Name have length more than 100 character")
@@ -33,6 +35,10 @@ public class UserDTO {
         if (role.trim() == ""){
             this.role = "student";
         }
+    }
+
+    public void setEmail(String email){
+        this.email = email.trim();
     }
 
 }
