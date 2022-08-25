@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/default.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/default.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +160,7 @@
       <workItem from="1661270689382" duration="2670000" />
       <workItem from="1661333156393" duration="1817000" />
       <workItem from="1661398147697" duration="440000" />
-      <workItem from="1661411801290" duration="220000" />
+      <workItem from="1661411801290" duration="1554000" />
     </task>
     <servers />
   </component>

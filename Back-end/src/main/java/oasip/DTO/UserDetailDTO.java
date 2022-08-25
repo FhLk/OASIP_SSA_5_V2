@@ -31,8 +31,26 @@ public class UserDetailDTO {
     public String getCreatedOn(){
         return this.createdOn.toString();
     }
+
+    public void setCreatedOn(String createdOn){
+        if(createdOn==null){
+            this.createdOn=LocalDateTime.now();
+        }
+        else{
+            this.createdOn= LocalDateTime.parse(createdOn);
+        }
+    }
     private LocalDateTime updateOn;
     public String getUpdateOn(){
         return this.updateOn.toString();
+    }
+
+    public void setUpdateOn(String updateOn){
+        if(updateOn==null){
+            this.updateOn=LocalDateTime.now();
+        }
+        else{
+            this.updateOn= LocalDateTime.parse(updateOn);
+        }
     }
 }
