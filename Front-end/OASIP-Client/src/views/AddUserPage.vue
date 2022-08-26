@@ -4,7 +4,7 @@ const fetchUrl = import.meta.env.VITE_BASE_URL
 import CreateUser from '../components/CreateUser.vue';
 const getAllUser=ref([])
 const getUsers = async () => {
-    const res = await fetch(`${fetchUrl}/users`, {
+    const res = await fetch(`${fetchUrl}/users/check`, {
         method: 'GET'
     })
     if (res.status === 200) {

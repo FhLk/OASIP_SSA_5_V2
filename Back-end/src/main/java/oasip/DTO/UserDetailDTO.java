@@ -33,14 +33,8 @@ public class UserDetailDTO {
     @EnumValidator(enumClass = EnumRole.class)
     private String role;
     private LocalDateTime createdOn;
-
-    public String getCreatedOn(){
-        return this.createdOn.toString();
-    }
+    
     private LocalDateTime updateOn;
-    public String getUpdateOn(){
-        return this.updateOn.toString();
-    }
 
     public void setEmail(String email){
         this.email = email.trim();

@@ -1,12 +1,22 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import moment from "moment"
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
+const props = defineProps({
+    getUsers: {
+        type: Array,
+        require: true
+    }
+})
 
 const getAllUser = ref([])
 const isDetail = ref(-1)
 const getUser = ref({})
+const isEdit = ref(false)
+const isEditId = ref(0)
+
 const getUsers = async (page = 0) => {
     const res = await fetch(`${fetchUrl}/users?page=${page}`, {
         method: 'GET'
@@ -14,8 +24,8 @@ const getUsers = async (page = 0) => {
     if (res.status === 200) {
         getAllUser.value = await res.json()
     }
-    else{
-        getAllUser.value=[]
+    else {
+        getAllUser.value = []
     }
 }
 
@@ -33,6 +43,7 @@ const detailUser = async (id) => {
         }
     }
     isDetail.value = isDetail.value === id ? -1 : id
+    isEdit.value = false
 }
 
 const showTimeStampe = (datatime) => {
@@ -56,11 +67,6 @@ const BackPage = () => {
     getUsers(page.value -= 1)
 }
 
-const reset = () => {
-    isDetail.value = -1
-    count = 0
-}
-
 const deleteUser = async (user) => {
     if (confirm("Are you sure?")) {
         const res = await fetch(`${fetchUrl}/users/${user.id}`, {
@@ -76,9 +82,186 @@ const deleteUser = async (user) => {
         }
     }
 }
+let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+let mailFormat3 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+let mailFormat4 = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+let mailFormat5 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+const isEmailNotFormat = ref(false)
+const isNameEmpty = ref(false);
+const isEmailEmpty = ref(false);
+const isDuplicateName = ref(false)
+const isDuplicateEmail = ref(false)
+const isHaveRole = ref(true)
+
+const EditName = ref("")
+const EditEmail = ref("")
+const EditRole = ref("")
+const EditEvent = (user) => {
+    isEdit.value = isEdit.value ? false : true
+    if (isEdit.value) {
+        isEditId.value = user.id
+        EditName.value = user.name
+        EditEmail.value = user.email
+        EditRole.value = user.role
+    }
+    else {
+        isEdit.value = false
+        isEditId.value = 0
+        EditName.value = getUser.value.name
+        EditEmail.value = getUser.value.email
+        EditRole.value = getUser.value.role
+        isNameEmpty.value = false
+        isDuplicateName.value=false
+    }
+}
+
+const checkInfor = async (user) => {
+    let isCheck = true;
+    let getUserName = []
+    let getUserEmail = []
+    let getRole = ["student", "lecturer", "admin"]
+    props.getUsers.forEach((user) => {
+        getUserName.push(user.name.toLowerCase())
+        getUserEmail.push(user.email.toLowerCase())
+    })
+    if (EditName.value === "") {
+        isCheck = false
+        isNameEmpty.value = true
+    }
+    else if (getUserName.includes(EditName.value.toLowerCase().trim())) {
+        isCheck = false
+        isDuplicateName.value = true
+    }
+    if (EditEmail.value === "") {
+        isCheck = false
+        isEmailEmpty.value = true
+    }
+    else if (getUserEmail.includes(EditEmail.value.toLowerCase().trim())) {
+        isCheck = false
+        isDuplicateEmail.value = true
+    }
+    else if (!EditEmail.value.match(mailFormat5)) {
+        if (!EditEmail.value.match(mailFormat4)) {
+            if (!EditEmail.value.match(mailFormat3)) {
+                if (!EditEmail.value.match(mailFormat2)) {
+                    if (!EditEmail.value.match(mailFormat1)) {
+                        isCheck = false
+                        isEmailNotFormat.value = true
+                        isEmailEmpty.value = false
+                    }
+                }
+                isCheck = false
+                isEmailNotFormat.value = true
+                isEmailEmpty.value = false
+            }
+            isCheck = false
+            isEmailNotFormat.value = true
+            isEmailEmpty.value = false
+        }
+        isCheck = false
+        isEmailNotFormat.value = true
+        isEmailEmpty.value = false
+    }
+    else if (EditEmail.value.match(mailFormat5)) {
+        if (EditEmail.value.match(mailFormat4)) {
+            if (EditEmail.value.match(mailFormat3)) {
+                if (EditEmail.value.match(mailFormat2)) {
+                    if (EditEmail.value.match(mailFormat1)) {
+                        isEmailNotFormat.value = false
+                        isEmailEmpty.value = false
+                    }
+                }
+                isEmailNotFormat.value = false
+                isEmailEmpty.value = false
+            }
+            isEmailNotFormat.value = false
+            isEmailEmpty.value = false
+        }
+        isEmailNotFormat.value = false
+        isEmailEmpty.value = false
+    }
+    if (!getRole.includes(EditRole.value.toLowerCase().trim())) {
+        isCheck = false
+        isHaveRole.value = false
+        alert("Not Have this role.")
+        EditRole.value = "student"
+    }
+    if (isCheck) {
+        isEmailEmpty.value = false
+        isEmailNotFormat.value = false
+        isNameEmpty.value = false
+        isDuplicateName.value = false
+        isDuplicateEmail.value = false
+        if (confirm("Are You sure ?")) {
+            await saveUser(user)
+            reset()
+        }
+    }
+}
+
+const saveUser = async (updateUser) => {
+
+}
+// const savebooking = async (updateUser) => {
+//     updateUser.startTime = `${EditDate.value}T${EditTime.value}`
+//     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
+//         alert("You can't change Booking in past")
+//         await Page(page.value)
+//         reset()
+//     }
+//     else if (confirm("You sure change this Booking ?")) {
+//         const res = await fetch(`${fetchUrl}/bookings/${updateBooking.id}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'content-type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 id: updateBooking.id,
+//                 bookingName: updateBooking.bookingName.trim(),
+//                 bookingEmail: updateBooking.bookingEmail.trim(),
+//                 category: {
+//                     id: updateBooking.category.id,
+//                     categoryName: updateBooking.category.categoryName
+//                 },
+//                 startTime: updateBooking.startTime,
+//                 bookingDuration: updateBooking.bookingDuration,
+//                 eventNote: updateBooking.eventNote.trim()
+//            isEditId })
+//         })
+//         if (res.status === 200) {
+//             alert("You have a change Booking.")
+//             await Page(page.value)
+//             reset()
+//         }
+//         else {
+//             alert("You can't change this Booking")
+//             reset()
+//         }
+//     }
+// }
+
+const reset = () => {
+    isDetail.value = -1
+    count = 0
+    isEdit.value = false
+    isEditId.value = 0
+    EditName.value = ""
+    EditEmail.value = ""
+    EditRole.value = ""
+}
 
 onBeforeMount(async () => {
     await getUsers()
+})
+
+const countName = computed(() => {
+    return 100 - EditName.value.length
+})
+
+const countEmail = computed(() => {
+    return 100 - getUser.value.email.length
 })
 
 const ced = " edit rounded-full px-2 text-white background-color: rgb(114, 143, 206) hover:bg-[#AECBFF]";
@@ -88,49 +271,75 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
  
 <template>
     <div class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
-        <div v-if="getAllUser.length!==0">
-        <ul>
-            <li class="bgl2 my-2 pt-2 pb-4 px-9 rounded-md" v-for="(user, index) in getAllUser" :key="index">
-                <div>
-                    <p class="text-3xl">{{ user.name }}</p>
-                    <p class="text-[#5C5A5A] mt-1 mx-4 text-lg "><span class="text-black">E-mail :</span> {{ user.email
-                    }} <span class="text-black">Role :</span> {{ user.role }} </p>
-                </div>
-                <div class="flex justify-between cf">
-                    <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
-                        <button @click="detailUser(user.id)">{{ isDetail === user.id ? "Closed" : "Detail" }}</button>
-                    </div>
-                    <div class="mr-5">
-                        <img @click="deleteUser(user)" src="../assets/trash.png"
-                            class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
-                    </div>
-                </div>
-                <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
+        <div v-if="getAllUser.length !== 0">
+            <ul>
+                <li class="bgl2 my-2 pt-2 pb-4 px-9 rounded-md" v-for="(user, index) in getAllUser" :key="index">
                     <div>
-                        <div class="flex">
-                            <p class="pr-2">Name : </p>
-                            <p class="text-[#535252]">{{ getUser.name }}</p>
+                        <p class="text-3xl">{{ user.name }}</p>
+                        <p class="text-[#5C5A5A] mt-1 mx-4 text-lg "><span class="text-black">E-mail :</span> {{
+                                user.email
+                        }} <span class="text-black">Role :</span> {{ user.role }} </p>
+                    </div>
+                    <div class="flex justify-between cf">
+                        <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
+                            <button @click="detailUser(user.id)">{{ isDetail === user.id ? "Closed" : "Detail"
+                            }}</button>
                         </div>
-                        <div class="flex">
-                            <p class="pr-2">E-mail : </p>
-                            <p class="text-[#535252]">{{ getUser.email }}</p>
-                        </div>
-                        <div class="flex">
-                            <p class="pr-2">Role : </p>
-                            <p class="text-[#535252]">{{ getUser.role }}</p>
-                        </div>
-                        <div class="flex">
-                            <p class="pr-2">Created : </p>
-                            <p class="text-[#535252]">{{ getUser.createdOn }}</p>
-                        </div>
-                        <div class="flex">
-                            <p class="pr-2">Updated : </p>
-                            <p class="text-[#535252]">{{ getUser.updateOn }}</p>
+                        <div class="mr-5">
+                            <img @click="deleteUser(user)" src="../assets/trash.png"
+                                class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                         </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                    <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
+                        <div>
+                            <div class="flex">
+                                <p class="pr-2">Name : </p>
+                                <input v-if="isEdit && isEditId === user.id" type="text" v-model="EditName"
+                                    @click="isNameEmpty = false, isDuplicateName = false"
+                                    @keydown.backspace="isDuplicateName = false" />
+                                <p v-else class="text-[#535252]">{{ getUser.name }}</p>
+                                <p v-show="isEdit" class="text-sm text-stone-500"> (Number of Character : {{ countName
+                                }})</p>
+                                <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input
+                                    your name*
+                                </p>
+                                <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already
+                                    use*</p>
+                            </div>
+                            <div class="flex">
+                                <p class="pr-2">E-mail : </p>
+                                <input v-if="isEdit && isEditId === user.id" type="text" v-model="EditEmail" />
+                                <p v-else class="text-[#535252]">{{ getUser.email }}</p>
+                            </div>
+                            <div class="flex">
+                                <p class="pr-2">Role : </p>
+                                <select v-if="isEdit && isEditId === user.id" v-model="EditRole"
+                                    class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
+                                    <option :value="'admin'">ADMIN</option>
+                                    <option :value="'lecturer'">LECTURER</option>
+                                    <option :value="'student'">STUDENT</option>
+                                </select>
+                                <p v-else class="text-[#535252]">{{ getUser.role }}</p>
+                            </div>
+                            <div class="flex">
+                                <p class="pr-2">Created : </p>
+                                <p class="text-[#535252]">{{ getUser.createdOn }}</p>
+                            </div>
+                            <div class="flex">
+                                <p class="pr-2">Updated : </p>
+                                <p class="text-[#535252]">{{ getUser.updateOn }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button @click="checkInfor(user)" v-if="isEdit"
+                                class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
+                            <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
+                                    "Edit"
+                            }}</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div v-else>
             No Users.

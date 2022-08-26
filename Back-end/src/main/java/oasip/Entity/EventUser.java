@@ -1,6 +1,9 @@
 package oasip.Entity;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.LastModifiedBy;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,10 +24,13 @@ public class EventUser {
     @Column(name = "role", nullable = false)
     private String role = "student";
 
-    @Column(name = "created_on", nullable = false,insertable = false)
+    @Column(name = "created_on", nullable = false,insertable = false,updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdOn;
 
     @Column(name = "update_on", nullable = false,insertable = false,updatable = false)
+    @CreationTimestamp
+    @LastModifiedBy
     private LocalDateTime updateOn;
 
     public Integer getId(){return  id;}

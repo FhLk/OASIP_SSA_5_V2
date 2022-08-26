@@ -31,6 +31,11 @@ public class UserController {
         return ResponseEntity.ok(service.getUsers(page,pageSize,sort));
     }
 
+    @GetMapping("/check")
+    public ResponseEntity<List<UserDTO>> getAllUser(){
+        return ResponseEntity.ok(service.getAllUser());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserDetailDTO> getUser(@PathVariable Integer id){
         return ResponseEntity.ok(service.getUserDetail(id));
@@ -44,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDetailDTO> update(@PathVariable Integer id ,@Valid @RequestBody UserDetailDTO updateUser) throws BookingException{
+    public ResponseEntity<UserDTO> update(@PathVariable Integer id ,@Valid @RequestBody UserDTO updateUser) throws BookingException{
         service.UpdateUser(id,updateUser);
         return new ResponseEntity<>(updateUser,HttpStatus.OK);
     }

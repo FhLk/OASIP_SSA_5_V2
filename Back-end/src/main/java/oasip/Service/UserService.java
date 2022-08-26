@@ -36,9 +36,19 @@ public class UserService {
         return listMapper.mapList(userlist, UserDTO.class, modelMapper);
     }
 
+    public List<UserDTO> getAllUser(){
+        List<EventUser> userList =repository.findAll();
+        return listMapper.mapList(userList, UserDTO.class, modelMapper);
+    }
+
     public UserDetailDTO getUserDetail(Integer id) {
         EventUser user = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User" + id + "does not exits."));
         return modelMapper.map(user, UserDetailDTO.class);
+    }
+
+    public UserDTO getTestUser(Integer id) {
+        EventUser user = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User" + id + "does not exits."));
+        return modelMapper.map(user, UserDTO.class);
     }
 
     public EventUser NewUser(@Valid UserDTO newUser) throws UserException {
@@ -65,34 +75,36 @@ public class UserService {
         return repository.saveAndFlush(user);
     }
 
-    public EventUser UpdateUser(Integer id,@Valid UserDetailDTO updateUser) throws BookingException{
-        UserDetailDTO oldUser = getUserDetail(id);
-        List<String> errors=new ArrayList<>();
-        if (!oldUser.getName().equals(updateUser.getName())){
-            errors.add("Username is already use");
-            if (!oldUser.getEmail().equals(updateUser.getEmail())){
-                errors.add("Email is already use");
+    public EventUser UpdateUser(Integer id, @Valid UserDTO updateUser) throws BookingException {
+        List<EventUser> oldUser = repository.findAll();
+        List<String> errors = new ArrayList<>();
+        for (EventUser eventUser : oldUser) {
+            if (eventUser.getId() != id) {
+                if (eventUser.getName().equals(updateUser.getName())) {
+                    errors.add("Username is already use");
+                    if (eventUser.getEmail().equals(updateUser.getEmail())) {
+                        errors.add("Email is already use");
+                    }
+                    throw new BookingException(errors.toString());
+                }
             }
-            throw new BookingException(errors.toString());
         }
-//        updateUser.setName(updateUser.getName().trim());
-//        updateUser.setEmail(updateUser.getEmail().trim());
-//        updateUser.setRole(updateUser.getRole().trim());
-        EventUser users = repository.findById(id).map(b->mapUser(modelMapper.map(b,UserDetailDTO.class),updateUser))
-                .orElseGet(()->{
+        EventUser users = repository.findById(id).map(b -> mapUser(modelMapper.map(b, UserDTO.class), updateUser))
+                .orElseGet(() -> {
                     updateUser.setId(id);
-                    return modelMapper.map(updateUser,EventUser.class);
+                    return modelMapper.map(updateUser, EventUser.class);
                 });
         return repository.saveAndFlush(users);
     }
-    private EventUser mapUser(UserDetailDTO oldUser,UserDetailDTO newUser){
+
+    private EventUser mapUser(UserDTO oldUser, UserDTO newUser) {
         oldUser.setName(newUser.getName().trim());
         oldUser.setEmail(newUser.getEmail().trim());
         oldUser.setRole(newUser.getRole().trim());
-        return modelMapper.map(oldUser,EventUser.class);
+        return modelMapper.map(oldUser, EventUser.class);
     }
 
-    public void DeleteUser(Integer id){
+    public void DeleteUser(Integer id) {
         repository.deleteById(id);
     }
 
