@@ -109,46 +109,28 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     </div>
                     <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
                         <div>
-                            <p class="text-3xl">{{ user.name }}</p>
-                            <p class="text-[#5C5A5A] mt-1 mx-4 text-lg "><span class="text-black">E-mail :</span> {{
-                                    user.email
-                            }} <span class="text-black">Role :</span> {{ user.role }} </p>
-                        </div>
-                        <div class="flex justify-between cf">
-                            <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
-                                <button @click="detailUser(user.id)">{{ isDetail === user.id ? "Closed" : "Detail"
-                                }}</button>
+                            <div class="flex">
+                                <p class="pr-2">Name : </p>
+                                <p class="text-[#535252]">{{ getUser.name }}</p>
                             </div>
-                            <div class="mr-5">
-                                <img @click="deleteUser(user)" src="../assets/trash.png"
-                                    class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
+                            <div class="flex">
+                                <p class="pr-2">E-mail : </p>
+                                <p class="text-[#535252]">{{ getUser.email }}</p>
                             </div>
-                        </div>
-                        <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
-                            <div>
-                                <div class="flex">
-                                    <p class="pr-2">Name : </p>
-                                    <p class="text-[#535252]">{{ getUser.name }}</p>
-                                </div>
-                                <div class="flex">
-                                    <p class="pr-2">E-mail : </p>
-                                    <p class="text-[#535252]">{{ getUser.email }}</p>
-                                </div>
-                                <div class="flex">
-                                    <p class="pr-2">Role : </p>
-                                    <p class="text-[#535252]">{{ getUser.role }}</p>
-                                </div>
-                                <div class="flex">
-                                    <p class="pr-2">Created : </p>
-                                    <p class="text-[#535252]">{{ getUser.createdOn }}</p>
-                                </div>
-                                <div class="flex">
-                                    <p class="pr-2">Updated : </p>
-                                    <p class="text-[#535252]">{{ getUser.updateOn }}</p>
-                                </div>
+                            <div class="flex">
+                                <p class="pr-2">Role : </p>
+                                <p class="text-[#535252]">{{ getUser.role }}</p>
+                            </div>
+                            <div class="flex">
+                                <p class="pr-2">Created : </p>
+                                <p class="text-[#535252]">{{ getUser.createdOn }}</p>
+                            </div>
+                            <div class="flex">
+                                <p class="pr-2">Updated : </p>
+                                <p class="text-[#535252]">{{ getUser.updateOn }}</p>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
