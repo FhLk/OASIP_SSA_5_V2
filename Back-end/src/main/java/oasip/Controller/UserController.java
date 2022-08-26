@@ -36,9 +36,9 @@ public class UserController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDetailDTO> AddUser(@Valid @RequestBody UserDTO newUser) throws UserException {
+    public ResponseEntity<UserDTO> AddUser(@Valid @RequestBody UserDTO newUser) throws UserException {
         EventUser eventUser = service.NewUser(newUser);
-        return new ResponseEntity<>(modelMapper.map(eventUser, UserDetailDTO.class),HttpStatus.CREATED);
+        return new ResponseEntity<>(modelMapper.map(eventUser, UserDTO.class),HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public ResponseEntity<UserDetailDTO> update(@PathVariable Integer id ,@Valid @RequestBody UserDetailDTO updateUser) throws BookingException{
