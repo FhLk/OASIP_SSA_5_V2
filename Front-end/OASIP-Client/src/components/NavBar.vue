@@ -12,7 +12,7 @@ const isLoginPage=ref(false)
             <router-link to="/">
                 <h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold " >OASIP</h1>   
             </router-link>
-            <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-1">
+            <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
         </div> 
             <div class="justify-self-end">
                 <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/LoginPage" @click="$emit('login',true)">Login</router-link></button>
