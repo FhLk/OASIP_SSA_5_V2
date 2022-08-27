@@ -266,7 +266,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                 <li class="bgl2 my-2 pt-2 pb-4 px-9 rounded-md" v-for="(user, index) in getAllUser" :key="index">
                     <div>
                         <p class="text-3xl">{{ user.name }}</p>
-                        <p class="text-[#5C5A5A] mt-1 mx-4 text-lg "><span class="text-black">E-mail :</span> {{
+                        <p class="text-[#5C5A5A] mt-1 mx-4 text-xl "><span class="text-black">E-mail :</span> {{
                                 user.email
                         }} <span class="text-black">Role :</span> {{ user.role }} </p>
                     </div>
@@ -280,28 +280,30 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                         </div>
                     </div>
-                    <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md">
+                    <div v-if="isDetail === user.id" class="bgl3 px-5 pt-2 mt-2 pb-3 rounded-md text-lg">
                         <div>
                             <div class="flex">
                                 <p class="pr-2">Name : </p>
                                 <input v-if="isEdit && isEditId === user.id" type="text" v-model="EditName"
                                     @click="isNameEmpty = false, isDuplicateName = false"
-                                    @keydown.backspace="isDuplicateName = false" />
+                                    @keydown.backspace="isDuplicateName = false" 
+                                    class="px-1 rounded-sm" size="20" />
                                 <p v-else class="text-[#535252]">{{ getUser.name }}</p>
                                 <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input
                                     your name*
                                 </p>
                                 <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already
                                     use*</p>
-                                <p v-show="isEdit" class="text-sm text-stone-500"> (Number of Character : {{ countName
+                                <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1"> (Number of Character : {{ countName
                                 }})</p>
                             </div>
-                            <div class="flex">
+                            <div class="flex mt-2">
                                 <p class="pr-2">E-mail : </p>
                                 <input v-if="isEdit && isEditId === user.id" type="email" v-model="EditEmail"
                                     maxlength="100"
                                     @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
-                                    @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false" />
+                                    @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false" 
+                                    class="px-1 rounded-sm" size="25" />
                                 <p v-else class="text-[#535252]">{{ getUser.email }}</p>
                                 <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input
                                     your
@@ -311,10 +313,10 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                     format</p>
                                 <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*
                                 </p>
-                                <p v-show="isEdit" class="text-sm text-stone-500">(Number of Character : {{ countEmail
+                                <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1">(Number of Character : {{ countEmail
                                 }})</p>
                             </div>
-                            <div class="flex">
+                            <div class="flex mt-2">
                                 <p class="pr-2">Role : </p>
                                 <select v-if="isEdit && isEditId === user.id" v-model="EditRole"
                                     class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
@@ -324,16 +326,16 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 </select>
                                 <p v-else class="text-[#535252]">{{ getUser.role }}</p>
                             </div>
-                            <div class="flex">
+                            <div class="flex mt-2">
                                 <p class="pr-2">Created : </p>
                                 <p class="text-[#535252]">{{ getUser.createdOn }}</p>
                             </div>
-                            <div class="flex">
+                            <div class="flex mt-2">
                                 <p class="pr-2">Updated : </p>
                                 <p class="text-[#535252]">{{ getUser.updateOn }}</p>
                             </div>
                         </div>
-                        <div class="mt-2">
+                        <div class="mt-3">
                             <button @click="checkInfor(user)" v-if="isEdit"
                                 class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80] disabled:bg-[#8F9892]" :disabled="isUserOld">Save</button>
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :

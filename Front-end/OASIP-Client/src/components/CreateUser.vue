@@ -156,14 +156,15 @@ const countEmail = computed(() => {
  
 <template>
     <div class="font ccf text-lg bg pt-28 pb-96 ">
-        <h1 class="text-4xl flex justify-center mt-4 ">Add new user</h1>
+        <h1 class="text-5xl flex justify-center mt-4 ">Add new user</h1>
         <div>
             <div class="flex justify-center">
                 <div class="bgc px-16 pt-8 pb-9 pb-6 mt-10 rounded-lg">
                     <div class="mr-2 mt-2">
-                        <p>Username : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
+                        <p class="text-xl">Username : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
                                 @click="isNameEmpty = false, isDuplicateName = false"
-                                @keydown.backspace="isDuplicateName = false">
+                                @keydown.backspace="isDuplicateName = false" 
+                                class="rounded-sm" size="20" >
                         </p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                         <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input your name*
@@ -171,10 +172,11 @@ const countEmail = computed(() => {
                         <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already use*</p>
                     </div>
                     <div class="mr-2 mt-1">
-                        <p>E-mail : <input type="email" placeholder=" example@example.com" v-model="newUser.email"
+                        <p class="text-xl">E-mail : <input type="email" placeholder=" example@example.com" v-model="newUser.email"
                                 maxlength="100"
                                 @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
-                                @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false"></p>
+                                @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false" 
+                                class="rounded-sm" size="25" ></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                         <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input your
                             e-mail*</p>
@@ -183,7 +185,7 @@ const countEmail = computed(() => {
                         <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*</p>
                     </div>
                     <div class="mr-2 mt-1">
-                        <p>Role:
+                        <p class="text-xl">Role :
                             <select v-model="newUser.role" class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
                                 <option :value="'admin'">ADMIN</option>
                                 <option :value="'lecturer'">LECTURER</option>
