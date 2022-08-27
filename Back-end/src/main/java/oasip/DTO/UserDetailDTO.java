@@ -32,9 +32,8 @@ public class UserDetailDTO {
     @NotNull(message = "Role shouldn't be null")
     @EnumValidator(enumClass = EnumRole.class)
     private String role;
-    private LocalDateTime createdOn;
-    
-    private LocalDateTime updateOn;
+    private String createdOn;
+    private String updateOn;
 
     public void setEmail(String email){
         this.email = email.trim();

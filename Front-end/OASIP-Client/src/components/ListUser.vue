@@ -113,34 +113,39 @@ const EditEvent = (user) => {
         EditEmail.value = getUser.value.email
         EditRole.value = getUser.value.role
         isNameEmpty.value = false
-        isDuplicateName.value=false
+        isDuplicateName.value = false
+        isDuplicateEmail.value= false
+        isEmailEmpty.value=false
     }
 }
-
+const isUserOld=computed(()=>{
+    return EditName.value !== getUser.value.name 
+            || EditEmail.value !== getUser.value.email
+            || EditRole.value !== getUser.value.role
+             ? false:true
+});
 const checkInfor = async (user) => {
     let isCheck = true;
-    let getUserName = []
-    let getUserEmail = []
     let getRole = ["student", "lecturer", "admin"]
-    props.getUsers.forEach((user) => {
-        getUserName.push(user.name.toLowerCase())
-        getUserEmail.push(user.email.toLowerCase())
-    })
     if (EditName.value === "") {
         isCheck = false
         isNameEmpty.value = true
     }
-    else if (getUserName.includes(EditName.value.toLowerCase().trim())) {
-        isCheck = false
-        isDuplicateName.value = true
-    }
+    props.getUsers.forEach((u) => {
+        if (user.id !== u.id) {
+            if (EditEmail.value === u.email) {
+                isCheck = false
+                isDuplicateEmail.value = true
+            }
+            if (EditName.value === u.name) {
+                isCheck = false
+                isDuplicateName.value = true
+            }
+        }
+    })
     if (EditEmail.value === "") {
         isCheck = false
         isEmailEmpty.value = true
-    }
-    else if (getUserEmail.includes(EditEmail.value.toLowerCase().trim())) {
-        isCheck = false
-        isDuplicateEmail.value = true
     }
     else if (!EditEmail.value.match(mailFormat5)) {
         if (!EditEmail.value.match(mailFormat4)) {
@@ -195,6 +200,9 @@ const checkInfor = async (user) => {
         isDuplicateName.value = false
         isDuplicateEmail.value = false
         if (confirm("Are You sure ?")) {
+            user.name = EditName.value
+            user.email = EditEmail.value
+            user.role = EditRole.value
             await saveUser(user)
             reset()
         }
@@ -202,45 +210,27 @@ const checkInfor = async (user) => {
 }
 
 const saveUser = async (updateUser) => {
-
+    const res = await fetch(`${fetchUrl}/users/${updateUser.id}`, {
+        method: "PUT",
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: updateUser.name.trim(),
+            email: updateUser.email.trim(),
+            role: updateUser.role
+        })
+    })
+    if (res.status === 200) {
+        alert("You have a change User.")
+        await getUsers(page.value)
+        reset()
+    }
+    else {
+        alert("You can't change this Booking")
+        reset()
+    }
 }
-// const savebooking = async (updateUser) => {
-//     updateUser.startTime = `${EditDate.value}T${EditTime.value}`
-//     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
-//         alert("You can't change Booking in past")
-//         await Page(page.value)
-//         reset()
-//     }
-//     else if (confirm("You sure change this Booking ?")) {
-//         const res = await fetch(`${fetchUrl}/bookings/${updateBooking.id}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'content-type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 id: updateBooking.id,
-//                 bookingName: updateBooking.bookingName.trim(),
-//                 bookingEmail: updateBooking.bookingEmail.trim(),
-//                 category: {
-//                     id: updateBooking.category.id,
-//                     categoryName: updateBooking.category.categoryName
-//                 },
-//                 startTime: updateBooking.startTime,
-//                 bookingDuration: updateBooking.bookingDuration,
-//                 eventNote: updateBooking.eventNote.trim()
-//            isEditId })
-//         })
-//         if (res.status === 200) {
-//             alert("You have a change Booking.")
-//             await Page(page.value)
-//             reset()
-//         }
-//         else {
-//             alert("You can't change this Booking")
-//             reset()
-//         }
-//     }
-// }
 
 const reset = () => {
     isDetail.value = -1
@@ -261,7 +251,7 @@ const countName = computed(() => {
 })
 
 const countEmail = computed(() => {
-    return 100 - getUser.value.email.length
+    return 100 - EditEmail.value.length
 })
 
 const ced = " edit rounded-full px-2 text-white background-color: rgb(114, 143, 206) hover:bg-[#AECBFF]";
@@ -298,18 +288,31 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                     @click="isNameEmpty = false, isDuplicateName = false"
                                     @keydown.backspace="isDuplicateName = false" />
                                 <p v-else class="text-[#535252]">{{ getUser.name }}</p>
-                                <p v-show="isEdit" class="text-sm text-stone-500"> (Number of Character : {{ countName
-                                }})</p>
                                 <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input
                                     your name*
                                 </p>
                                 <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already
                                     use*</p>
+                                <p v-show="isEdit" class="text-sm text-stone-500"> (Number of Character : {{ countName
+                                }})</p>
                             </div>
                             <div class="flex">
                                 <p class="pr-2">E-mail : </p>
-                                <input v-if="isEdit && isEditId === user.id" type="text" v-model="EditEmail" />
+                                <input v-if="isEdit && isEditId === user.id" type="email" v-model="EditEmail"
+                                    maxlength="100"
+                                    @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
+                                    @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false" />
                                 <p v-else class="text-[#535252]">{{ getUser.email }}</p>
+                                <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input
+                                    your
+                                    e-mail*</p>
+                                <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not
+                                    follow
+                                    format</p>
+                                <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*
+                                </p>
+                                <p v-show="isEdit" class="text-sm text-stone-500">(Number of Character : {{ countEmail
+                                }})</p>
                             </div>
                             <div class="flex">
                                 <p class="pr-2">Role : </p>
@@ -332,7 +335,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                         </div>
                         <div class="mt-2">
                             <button @click="checkInfor(user)" v-if="isEdit"
-                                class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
+                                class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80] disabled:bg-[#8F9892]" :disabled="isUserOld">Save</button>
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
                                     "Edit"
                             }}</button>
