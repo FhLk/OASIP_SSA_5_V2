@@ -156,9 +156,10 @@ const countEmail = computed(() => {
  
 <template>
     <div class="font ccf text-lg bg pt-28 pb-96 ">
+        <h1 class="text-4xl flex justify-center mt-4 ">Add new user</h1>
         <div>
             <div class="flex justify-center">
-                <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
+                <div class="bgc px-16 pt-8 pb-9 pb-6 mt-10 rounded-lg">
                     <div class="mr-2 mt-2">
                         <p>Username : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
                                 @click="isNameEmpty = false, isDuplicateName = false"
@@ -190,9 +191,9 @@ const countEmail = computed(() => {
                             </select>
                         </p>
                     </div>
-                    <div class="mt-4">
+                    <div class="mt-10 flex justify-center">
                         <button class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]"
-                            @click="checkInfor(newUser)">OK</button>
+                            @click="checkInfor(newUser)">Add</button>
                         <button class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]"
                             @click="GoUsers()">Cancle</button>
                     </div>

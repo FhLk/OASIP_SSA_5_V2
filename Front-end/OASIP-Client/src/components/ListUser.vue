@@ -271,8 +271,8 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                         }} <span class="text-black">Role :</span> {{ user.role }} </p>
                     </div>
                     <div class="flex justify-between cf">
-                        <div class="mx-2 bg-green-600 hover:bg-green-400 px-2 rounded-xl text-s mt-4 mb-1">
-                            <button @click="detailUser(user.id)">{{ isDetail === user.id ? "Closed" : "Detail"
+                        <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
+                            <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">{{ isDetail === user.id ? "Closed" : "Detail"
                             }}</button>
                         </div>
                         <div class="mr-5">
