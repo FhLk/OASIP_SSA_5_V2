@@ -236,7 +236,7 @@ const countEmail = computed(() => {
                         <textarea rows="5" cols="50" v-model="newbooking.eventNote" maxlength="500" class="px-1 rounded-sm" ></textarea>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countNote }})</p>
                     </div>
-                    <div>
+                    <div class="mt-4">
                         <button @click="CheckInput(newbooking)"
                             class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]">OK</button>
                         <button @click="reset"
