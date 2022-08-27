@@ -344,7 +344,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                 </li>
             </ul>
         </div>
-        <div v-else>
+        <div v-else class="flex justify-center">
             No Users.
         </div>
         <div class="flex justify-center pb-5">
