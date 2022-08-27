@@ -19,11 +19,19 @@ onBeforeMount(async () => {
 </script>
  
 <template>
-<div>
+<div class="bg">
+    <h1 class="font text-5xl flex justify-center pt-36">Add new user</h1>
     <CreateUser :getUsers="getAllUser"/>
 </div>
 </template>
  
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
+.font {
+    font-family: 'Mitr', sans-serif;
+}
+body {
+    background-color: (255, 255, 247);
+}
 </style>

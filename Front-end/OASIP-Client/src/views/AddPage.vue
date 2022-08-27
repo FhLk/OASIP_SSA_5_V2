@@ -107,6 +107,7 @@ const countName=computed(()=>{
  
 <template>
 <div class="bg h-screen h-full">
+    <h1 class="font text-5xl flex justify-center pt-36">Add new schedule</h1>
     <div>
         <Create :getCategories="getListCategories" />
     </div>
