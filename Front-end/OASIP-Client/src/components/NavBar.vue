@@ -1,7 +1,5 @@
 <script setup>
 import { ref } from "vue";
-const emits = defineEmits(['login'])
-const isLoginPage=ref(false)
 </script>
  
 <template>
@@ -15,7 +13,7 @@ const isLoginPage=ref(false)
             <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
         </div> 
             <div class="justify-self-end">
-                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/LoginPage" @click="$emit('login',true)">Login</router-link></button>
+                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/LoginPage">Login</router-link></button>
                 <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddUserPage">Add New User</router-link></button>
                 <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/UserPage">User</router-link></button>
                 <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/ShowPage">Show Schedule </router-link></button>
