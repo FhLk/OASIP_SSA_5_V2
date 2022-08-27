@@ -19,7 +19,9 @@ onBeforeMount(async () => {
 
 <template>
 <div class="pt-36 font bg pb-56">
-    <h1 class="text-5xl mb-4 ml-5 flex justify-between rounded-md p-2">List ALL User</h1>
+    <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
+        <img src="../assets/team.png" class="user ml-5 " >
+    </h1>
     <ListUser :getUsers="getAllUser"/>
 </div>
 </template>
@@ -32,5 +34,10 @@ onBeforeMount(async () => {
 
 .bg{
     background-color: rgb(255, 255, 247);
+}
+.user {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: 0.35rem;
 }
 </style>
