@@ -111,7 +111,7 @@ const countName=computed(()=>{
         <Create :getCategories="getListCategories" />
     </div>
     <div class="font ccf mt-5 bgcat mx-7 py-5 rounded-lg ">
-        <h2 class="ml-10 text-lg">Definition of category</h2>
+        <h2 class="ml-10 text-xl">Definition of category</h2>
         <div class="ml-14 rounded-full">
             <ul>
                 <p v-for="(category, index) in getListCategories" :key="index" class="mt-2 pb-8">
