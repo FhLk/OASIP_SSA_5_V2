@@ -1,6 +1,7 @@
 package oasip.Service;
 
 import oasip.DTO.UserDTO;
+import oasip.DTO.UserDTOwithPassword;
 import oasip.DTO.UserDetailDTO;
 import oasip.Entity.EventUser;
 import oasip.Repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -51,10 +53,12 @@ public class UserService {
         return modelMapper.map(user, UserDTO.class);
     }
 
-    public EventUser NewUser(@Valid UserDTO newUser) throws UserException {
+    public EventUser NewUser(@Valid UserDTOwithPassword newUser) throws UserException {
+        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(8,32,1,65536,10);
         newUser.setName(newUser.getName().trim());
         newUser.setEmail(newUser.getEmail().trim());
         newUser.setRole(newUser.getRole().trim().toLowerCase());
+        newUser.setPassword(encoder.encode(newUser.getPassword()).trim());
         EventUser user = modelMapper.map(newUser, EventUser.class);
         List<EventUser> duplicateName = repository.findByName(user.getName());
         List<EventUser> duplicateEmail = repository.findByEmail(user.getEmail());

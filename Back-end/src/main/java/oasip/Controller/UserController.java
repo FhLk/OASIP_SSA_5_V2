@@ -1,6 +1,7 @@
 package oasip.Controller;
 
 import oasip.DTO.UserDTO;
+import oasip.DTO.UserDTOwithPassword;
 import oasip.DTO.UserDetailDTO;
 import oasip.Entity.EventUser;
 import oasip.Service.UserService;
@@ -43,9 +44,9 @@ public class UserController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> AddUser(@Valid @RequestBody UserDTO newUser) throws UserException {
+    public ResponseEntity<UserDTOwithPassword> AddUser(@Valid @RequestBody UserDTOwithPassword newUser) throws UserException {
         EventUser eventUser = service.NewUser(newUser);
-        return new ResponseEntity<>(modelMapper.map(eventUser,UserDTO.class),HttpStatus.CREATED);
+        return new ResponseEntity<>(modelMapper.map(eventUser,UserDTOwithPassword.class),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

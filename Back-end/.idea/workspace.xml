@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="" />
+    <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +73,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/ampla/Downloads/OASIP-OR5-Backend",
+    "last_opened_file_path": "C:/Users/ampla/Downloads",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,7 +83,7 @@
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "show.run.dashboard.notification": "false",
-    "spring.configuration.checksum": "41bf188e222cdeb9a738b2943286985e"
+    "spring.configuration.checksum": "911c5e705bc64305fd6d4e3485d4a915"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -89,7 +96,7 @@
       <recent name="oasip" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.OasipSsa5Application">
+  <component name="RunManager" selected="Spring Boot.OasipSsa5Application (2)">
     <configuration name="OasipSsa5Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="OASIP" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
@@ -99,6 +106,13 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OasipSsa5Application (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Back-end" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -114,6 +128,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Spring Boot.OasipSsa5Application (2)" />
       <item itemvalue="Spring Boot.OasipSsa5Application" />
       <item itemvalue="Spring Boot.OasipSsa5Application (1)" />
     </list>
@@ -165,6 +180,7 @@
       <workItem from="1661535292680" duration="125000" />
       <workItem from="1661572625337" duration="2023000" />
       <workItem from="1661583416720" duration="1452000" />
+      <workItem from="1661665663203" duration="3304000" />
     </task>
     <servers />
   </component>

@@ -33,6 +33,9 @@ public class EventUser {
     @LastModifiedBy
     private LocalDateTime updateOn;
 
+    @Column(name = "password",nullable = false)
+    private String password;
+
     public Integer getId(){return  id;}
 
     public void setId(Integer id){this.id = id;}
@@ -74,6 +77,9 @@ public class EventUser {
     public void setCreatedOn(String createdOn) {
         this.createdOn = LocalDateTime.parse(createdOn);
     }
+
+    public String getPassword(){return password;}
+    public void setPassword(String password){this.password = password;}
 
 
 }
