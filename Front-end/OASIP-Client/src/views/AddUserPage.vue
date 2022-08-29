@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
-const fetchUrl = import.meta.env.VITE_BASE_URL
 import CreateUser from '../components/CreateUser.vue';
+const fetchUrl = import.meta.env.VITE_BASE_URL
 const getAllUser=ref([])
 const getUsers = async () => {
     const res = await fetch(`${fetchUrl}/users/check`, {

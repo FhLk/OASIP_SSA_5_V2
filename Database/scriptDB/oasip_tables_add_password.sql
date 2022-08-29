@@ -36,13 +36,13 @@ ENGINE = InnoDB;
 -- Table `oasip`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oasip`.`user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL auto_increment,
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   `role` ENUM('ADMIN', 'LECTURER', 'STUDENT') NOT NULL,
-  `update_on` DATETIME NOT NULL,
-  `created_on` DATETIME NOT NULL,
-  `password` VARCHAR(14) NOT NULL,
+  `update_on`DATETIME NOT NULL default current_timestamp on update current_timestamp not null,
+  `created_on` DATETIME NOT NULL default current_timestamp not null,
+  `password` VARCHAR(100) NOT NULL,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -52,27 +52,28 @@ ENGINE = InnoDB;
 -- Table `oasip`.`eventbooking`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `oasip`.`eventbooking` (
-  `booking_id` INT NOT NULL,
+  `booking_id` INT NOT NULL auto_increment,
   `booking_name` VARCHAR(150) NOT NULL,
   `booking_email` VARCHAR(150) NOT NULL,
   `start_time` DATETIME NOT NULL,
   `booking_duration` INT NOT NULL,
   `event_note` VARCHAR(550) NULL,
   `category` INT NOT NULL,
-  `user_id_student` INT NOT NULL,
+--   `user_id_student` INT NOT NULL,
   PRIMARY KEY (`booking_id`),
   INDEX `fk_eventbooking_eventcategory_idx` (`category` ASC) VISIBLE,
-  INDEX `fk_eventbooking_user1_idx` (`user_id_student` ASC) VISIBLE,
+--   INDEX `fk_eventbooking_user1_idx` (`user_id_student` ASC) VISIBLE,
   CONSTRAINT `fk_eventbooking_eventcategory`
     FOREIGN KEY (`category`)
     REFERENCES `oasip`.`eventcategory` (`category_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_eventbooking_user1`
-    FOREIGN KEY (`user_id_student`)
-    REFERENCES `oasip`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+--   CONSTRAINT `fk_eventbooking_user1`
+--     FOREIGN KEY (`user_id_student`)
+--     REFERENCES `oasip`.`user` (`id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION
+    )
 ENGINE = InnoDB;
 
 
