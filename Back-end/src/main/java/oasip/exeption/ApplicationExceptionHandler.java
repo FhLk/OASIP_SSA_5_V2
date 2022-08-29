@@ -22,13 +22,13 @@ public class ApplicationExceptionHandler {
         ShowException errors=new ShowException();
         Map<String, String> errorsMap = new HashMap<>();
         errors.setStatusCode(400);
-        errors.setError("BAD REQUEST");
+        errors.setStatus("BAD REQUEST");
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errorsMap.put(fieldName,errorMessage);
         });
-        errors.setErrorMessage(errorsMap);
+        errors.setMessage(errorsMap);
         return errors;
     }
 
@@ -37,10 +37,10 @@ public class ApplicationExceptionHandler {
     public ShowException handleBusinessException(BookingException ex) {
         ShowException errors=new ShowException();
         errors.setStatusCode(500);
-        errors.setError("INTERNAL SERVER ERROR");
+        errors.setStatus("INTERNAL SERVER ERROR");
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Message", ex.getMessage());
-        errors.setErrorMessage(errorMap);
+        errors.setMessage(errorMap);
         return errors;
     }
 
@@ -49,10 +49,46 @@ public class ApplicationExceptionHandler {
     public ShowException handleBusinessException(UserException ex) {
         ShowException errors=new ShowException();
         errors.setStatusCode(400);
-        errors.setError("BAD REQUEST");
+        errors.setStatus("BAD REQUEST");
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Message", ex.getMessage());
-        errors.setErrorMessage(errorMap);
+        errors.setMessage(errorMap);
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(OkException.class)
+    public ShowException handleBusinessException(OkException ok) {
+        ShowException errors=new ShowException();
+        errors.setStatusCode(200);
+        errors.setStatus("OK");
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Message", ok.getMessage());
+        errors.setMessage(errorMap);
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UnauthorizedEx.class)
+    public ShowException handleBusinessException(UnauthorizedEx un) {
+        ShowException errors=new ShowException();
+        errors.setStatusCode(401);
+        errors.setStatus("UNAUTHORIZED");
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Message", un.getMessage());
+        errors.setMessage(errorMap);
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotfoundEx.class)
+    public ShowException handleBusinessException(NotfoundEx nf) {
+        ShowException errors=new ShowException();
+        errors.setStatusCode(404);
+        errors.setStatus("NOT FOUND");
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Message", nf.getMessage());
+        errors.setMessage(errorMap);
         return errors;
     }
 }

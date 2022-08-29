@@ -7,10 +7,7 @@ import lombok.Setter;
 import oasip.Utils.EnumRole;
 import oasip.exeption.EnumValidator;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +32,8 @@ public class UserDTOwithPassword {
     private String role;
 
     @NotNull
+    @NotBlank(message = "Email shouldn't be blank")
+    @NotEmpty(message = "Email shouldn't be empty")
     @Size(min = 8,max = 14,message = "Your password doesn't in length")
     private String password;
 
