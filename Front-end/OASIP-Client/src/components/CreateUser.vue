@@ -187,7 +187,7 @@ const countEmail = computed(() => {
 </script>
  
 <template>
-    <div class="font ccf text-lg bg pt-28 pb-96 ">
+    <div class="font ccf text-lg bg pb-96 ">
         <div class="flex justify-center">
             <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
                 <div class="mr-2 mt-2">

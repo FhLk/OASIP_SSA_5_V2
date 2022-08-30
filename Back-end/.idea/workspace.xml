@@ -7,12 +7,6 @@
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/MatchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/MatchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTOwithPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTOwithPassword.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/MatchService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/CreateUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/CreateUser.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Login.vue" afterDir="false" />
     </list>
@@ -87,7 +81,7 @@
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "show.run.dashboard.notification": "false",
-    "spring.configuration.checksum": "5d087328fccf7967d4d6a69079da89a2"
+    "spring.configuration.checksum": "41bf188e222cdeb9a738b2943286985e"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -100,7 +94,7 @@
       <recent name="oasip" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.OasipSsa5Application (1)">
+  <component name="RunManager" selected="Spring Boot.OasipSsa5Application">
     <configuration name="OasipSsa5Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="OASIP" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
@@ -187,6 +181,7 @@
       <workItem from="1661665663203" duration="13526000" />
       <workItem from="1661752614345" duration="1790000" />
       <workItem from="1661852481725" duration="4665000" />
+      <workItem from="1661860920132" duration="632000" />
     </task>
     <servers />
   </component>
