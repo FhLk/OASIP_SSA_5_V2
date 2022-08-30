@@ -1,20 +1,19 @@
 package oasip.DTO;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import oasip.Utils.EnumRole;
 import oasip.exeption.EnumValidator;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import javax.validation.constraints.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDetailDTO {
+public class UserDTOwithPassword {
     private Integer id;
 
     @NotNull(message = "Name shouldn't be null")
@@ -28,19 +27,15 @@ public class UserDetailDTO {
     @Size(max = 50,message = "Your Email have length more than 50 character")
     private String email;
 
-    @NotNull
-    @Size(min = 8,max = 14,message = "Your password doesn't in length")
-    private String password;
-
     @NotNull(message = "Role shouldn't be null")
     @EnumValidator(enumClass = EnumRole.class)
     private String role;
-    private String createdOn;
-    private String updateOn;
 
-    public void setEmail(String email){
-        this.email = email.trim();
-    }
+    @NotNull
+    @NotBlank(message = "Email shouldn't be blank")
+    @NotEmpty(message = "Email shouldn't be empty")
+    @Size(min = 8,max = 14,message = "Your password doesn't in length")
+    private String password;
 
     public void setRole(String role) {
         this.role =role.toLowerCase();
@@ -49,4 +44,7 @@ public class UserDetailDTO {
         }
     }
 
+    public void setEmail(String email){
+        this.email = email.trim();
+    }
 }

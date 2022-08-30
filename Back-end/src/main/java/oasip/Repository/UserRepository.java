@@ -12,6 +12,7 @@ public interface UserRepository extends JpaRepository<EventUser,Integer> {
     List<EventUser> findByName(String name);
     List<EventUser> findByEmail(String email);
 
+    List<EventUser> findByPassword(String password);
 
 
 }
