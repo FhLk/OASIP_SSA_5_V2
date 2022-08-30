@@ -11,6 +11,6 @@ import java.util.Map;
 @ToString
 public class ShowException{
     private Integer statusCode;
-    private String error;
-    private Map<String,String> errorMessage;
+    private String status;
+    private Map<String,String> message;
 }

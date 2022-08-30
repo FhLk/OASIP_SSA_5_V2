@@ -29,8 +29,8 @@ const mem = ref( [
  
 <template>
 <div class="bg h-screen font">
-    <h2 class="mt-32 text-4xl pb-1 pl-5 bg-[#AAF2FF]"> Create and Design  </h2>
-    <h2 class="text-2xl ml-96 mt-5 bg1 w-fit p-1 rounded-md ">Team Bento and Bento</h2>
+    <h2 class="mt-32 text-4xl pb-1 pl-5 bg-[#AAF2FF]">My Team</h2>
+    <h2 class="text-2xl ml-96 mt-5 bg1 w-fit p-1 rounded-md ">Bento and Bento</h2>
     <div class="ml-28 mt-1 flex grid justify-center">
     <ul v-for="members in mem"  class="mt-6 flex text-xl bg-[#96DEFF] py-2 rounded-lg pr-3">
         <div class="ml-6 mr-10">

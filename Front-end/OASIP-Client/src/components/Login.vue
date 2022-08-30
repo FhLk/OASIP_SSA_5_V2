@@ -1,104 +1,121 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-const emits=defineEmits(['login'])
-// const props=defineProps({
-//   isLogin:{
-//     type:Boolean,
-//     default:true
-//   }
-// })
 
 const username = ref("");
 const password = ref("");
-const errorMessage=ref("")
-const isUser=ref(false)
-const isPass=ref(false)
+const errorMessage = ref("")
+const isUser = ref(false)
+const isPass = ref(false)
 
-const checkLogin=(user,pass)=>{
-  if(user===""&&pass===""){
-    isUser.value=true
-    isPass.value=true
-    errorMessage.value="mb-2 text-[#FF0000] text-sm"
+const database = ref([
+  {
+    name: "PBI24 สมส่วน สุขศรี 1",
+    email: "somsuan.s241@kmutt.ac.th",
+    password: "somsuans",
+    role: "student"
+  },
+  {
+    name: "PBI24 สมส่วน สุขศรี 2",
+    email: "somsuan.s242@kmutt.ac.th",
+    password: "somsuans123456",
+    role: "student"
+  },
+  {
+    name: "PBI24 สมส่วน สุขศรี 3",
+    email: "somsuan.s243@kmutt.ac.th",
+    password: "somsuans1234567",
+    role: "student"
   }
-  else if(user!==""&&pass===""){
-    isUser.value=false
-    isPass.value=true
-    errorMessage.value="mb-2 text-[#FF0000] text-sm"
-  }
+])
 
-  else if(user===""&&pass!==""){
-    isPass.value=false
-    isUser.value=true
-    errorMessage.value="mb-2 text-[#FF0000] text-sm"
+const checkLogin = (user, pass) => {
+  let isCheck=true
+  if (user === "" && pass === "") {
+    isUser.value = true
+    isPass.value = true
+    errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  else{
-    isPass.value=false
-    isUser.value=false
+  else if (user !== "" && pass === "") {
+    isUser.value = false
+    isPass.value = true
+    errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  reset()
-  GoIndex()
+  else if (user === "" && pass !== "") {
+    isPass.value = false
+    isUser.value = true
+    errorMessage.value = "mb-2 text-[#FF0000] text-sm"
+  }
+  else {
+    isPass.value = false
+    isUser.value = false
+    reset()
+    GoIndex()
+  }
 }
 
-const reset=()=>{
-  username.value="";
-  password.value="";
-  isPass.value=false
-  isUser.value=false
-  errorMessage.value=""
+const reset = () => {
+  username.value = "";
+  password.value = "";
+  isPass.value = false
+  isUser.value = false
+  errorMessage.value = ""
 }
 
-// const myRouter=useRouter()
-// const GoIndex =()=>{
-//     myRouter.push({name:'indexPage'})
-// }
+const myRouter = useRouter()
+const GoIndex = () => {
+  myRouter.push({ name: 'indexPage' })
+}
 
 </script>
  
 <template>
-<div>
-      <div class="header ">
-        OASIP
+  <div>
+    <div class="header ">
+      OASIP
     </div>
-<div class="login">
-    <h1 class="login-header bg-red-500">
+    <div class="login">
+      <h1 class="login-header bg-red-500">
         LOGIN
-    </h1>
-    <div class="login-body">
+      </h1>
+      <div class="login-body">
         <div class="login-input">
-        <img src="../assets/user.png" class="user-img"/>
-        <input class="info-input" type="text" placeholder="Username" v-model="username" @click="isUser=false"/>
-        <p :class="isUser ? errorMessage:''" v-if="isUser">*Plase Input your username*</p>
-        <img src="../assets/padlock.png" class="pass-img"/>
-        <input class="info-input" type="password" placeholder="Password" v-model="password" @click="isPass=false"/>
-        <p :class="isPass ? errorMessage:''" v-if="isPass">*Plase Input your password*</p>
+          <img src="../assets/user.png" class="user-img" />
+          <input class="info-input" type="text" placeholder="Username" v-model="username" @click="isUser = false" />
+          <p :class="isUser ? errorMessage : ''" v-if="isUser">*Plase Input your username*</p>
+          <img src="../assets/padlock.png" class="pass-img" />
+          <input class="info-input" type="password" placeholder="Password" v-model="password" @click="isPass = false" />
+          <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
         </div>
+      </div>
+      <div class="flex space-x-2 justify-center">
+        <button class="login-button hover:bg-blue-700 hover:shadow-lg"
+          @click="checkLogin(username, password)">Log-in</button>
+      </div>
     </div>
-    <div class="flex space-x-2 justify-center">
-        <button class="login-button hover:bg-blue-700 hover:shadow-lg"><router-link to="/">Log-in</router-link></button>
-    </div>
-</div>
-</div>
+  </div>
 </template>
  
 <style scoped>
+.header {
+  display: flex;
+  justify-content: center;
+  font-size: 70px;
+}
 
-.header{
-    display: flex;
-    justify-content: center;
-    font-size: 70px;
+.pass-img {
+  height: 10%;
+  width: 10%;
+  margin-right: 5%;
 }
-.pass-img{
-    height: 10%;
-    width: 10%;
-    margin-right: 5%;
+
+.user-img {
+  display: inline-block;
+  height: 10%;
+  width: 10%;
+  margin-right: 5%;
 }
-.user-img{
-    display: inline-block;
-    height: 10%;
-    width: 10%;
-    margin-right: 5%;
-}
+
 .login-button {
   display: inline-block;
   background-color: lightblue;
@@ -109,9 +126,11 @@ const reset=()=>{
   color: antiquewhite;
   width: 55%;
 }
-.login-input{
-    text-align: center;
+
+.login-input {
+  text-align: center;
 }
+
 .info-input {
   border-style: solid;
   border-width: 5px;
@@ -119,26 +138,29 @@ const reset=()=>{
   border-color: black;
   width: 60%;
 }
-.login-header{
-    font-size: 30px;
-    text-align: center;
+
+.login-header {
+  font-size: 30px;
+  text-align: center;
 }
+
 .login {
-    position: fixed;
-    align-items: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    z-index: 10;
-    background-color: white;
-    width: 40%;
-    height: 40%;
-    color: black;
-    border: black 2px solid;
-    box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.507);
+  position: fixed;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 40%;
+  height: 40%;
+  color: black;
+  border: black 2px solid;
+  box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.507);
 }
+
 /* 
 .login-input{
   text-align: center;

@@ -7,8 +7,9 @@ const isShow=ref(false)
 </script>
  
 <template>
-<div class="bg1 font h-full">
-    <h1 class=" ccf cr text-5xl pt-32 mb-4 ml-5 flex justify-between rounded-md p-2">Schedule</h1>
+<div class="bg1 font h-full ">
+    <h1 class=" ccf cr text-5xl pt-32 mb-4 ml-5 flex justify-start rounded-md p-2">Schedule
+        <img src="../assets/timetable.png" class="calendar ml-5 " ></h1>
     <List/>
 </div>
 </template>
@@ -29,5 +30,10 @@ const isShow=ref(false)
 }
 .bg1{
     background-color: rgb(255, 255, 247);
+}
+.calendar {
+    width: 3rem;
+    height: 3rem;
+    margin-top: 0.3rem;
 }
 </style>

@@ -1,4 +1,5 @@
 <script setup>
+import { hasChanged } from '@vue/shared';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const fetchUrl = import.meta.env.VITE_BASE_URL
@@ -11,6 +12,8 @@ const props = defineProps({
 const newUser = ref({
     name: "",
     email: "",
+    password: "",
+    confirm: "",
     role: "student"
 })
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
@@ -25,6 +28,11 @@ const isEmailEmpty = ref(false);
 const isDuplicateName = ref(false)
 const isDuplicateEmail = ref(false)
 const isHaveRole = ref(true)
+const isPasswordEmpty = ref(false)
+const isPasswordlength = ref(false)
+const isConfirm = ref(false)
+const isConfirmEmpty = ref(false)
+const isMatch= ref(false)
 
 const checkInfor = async (user) => {
     let isCheck = true;
@@ -91,6 +99,24 @@ const checkInfor = async (user) => {
         isEmailNotFormat.value = false
         isEmailEmpty.value = false
     }
+    if (user.password === "") {
+        isPasswordEmpty.value = true
+    }
+    else if (user.password.length < 8 || user.password.length > 14) {
+        isCheck = false
+        isPasswordlength.value = true
+    }
+    else if (user.password !== user.confirm) {
+        isCheck = false
+        isConfirm.value = true
+    }
+    else if(user.password===user.confirm && user.confirm.length !==0){
+        isMatch.value=true
+    }
+    if (user.confirm === "") {
+        isCheck = false
+        isConfirmEmpty.value = true
+    }
     if (!getRole.includes(user.role.toLowerCase().trim())) {
         isCheck = false
         isHaveRole.value = false
@@ -119,6 +145,7 @@ const createUser = async (user) => {
         body: JSON.stringify({
             name: user.name.trim(),
             email: user.email.trim(),
+            password: user.password,
             role: user.role
         })
     })
@@ -130,6 +157,8 @@ const reset = () => {
     newUser.value = {
         name: "",
         email: "",
+        password: "",
+        confirm:"",
         role: "student"
     }
     isEmailEmpty.value = false
@@ -152,50 +181,74 @@ const countName = computed(() => {
 const countEmail = computed(() => {
     return 100 - newUser.value.email.length
 })
+
+// const isMatch =computed(()=>{
+//     return newUser.value.password === newUser.value.confirm ? true:false
+// })
 </script>
  
 <template>
     <div class="font ccf text-lg bg pt-28 pb-96 ">
-        <div>
-            <div class="flex justify-center">
-                <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
-                    <div class="mr-2 mt-2">
-                        <p>Username : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
-                                @click="isNameEmpty = false, isDuplicateName = false"
-                                @keydown.backspace="isDuplicateName = false">
-                        </p>
-                        <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
-                        <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input your name*
-                        </p>
-                        <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already use*</p>
-                    </div>
-                    <div class="mr-2 mt-1">
-                        <p>E-mail : <input type="email" placeholder=" example@example.com" v-model="newUser.email"
-                                maxlength="100"
-                                @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
-                                @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false"></p>
-                        <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
-                        <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input your
-                            e-mail*</p>
-                        <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not follow
-                            format</p>
-                        <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*</p>
-                    </div>
-                    <div class="mr-2 mt-1">
-                        <p>Role:
-                            <select v-model="newUser.role" class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
-                                <option :value="'admin'">ADMIN</option>
-                                <option :value="'lecturer'">LECTURER</option>
-                                <option :value="'student'">STUDENT</option>
-                            </select>
-                        </p>
-                    </div>
-                    <div class="mt-4">
-                        <button class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]"
-                            @click="checkInfor(newUser)">OK</button>
-                        <button class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]"
-                            @click="GoUsers()">Cancle</button>
-                    </div>
+        <div class="flex justify-center">
+            <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
+                <div class="mr-2 mt-2">
+                    <p>Username : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
+                            @click="isNameEmpty = false, isDuplicateName = false"
+                            @keydown="isDuplicateName = false">
+                    </p>
+                    <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
+                    <p v-if="isNameEmpty" class="text-xs text-red-600">*Plase Input your name.*
+                    </p>
+                    <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already use.*</p>
+                </div>
+                <div class="mr-2 mt-1">
+                    <p>Password <span class="text-sm text-stone-500">
+                            ({{ newUser.password.length }}) </span> :
+                        <input type="password" placeholder="password" v-model="newUser.password" minlength="8"
+                            @click="isPasswordEmpty = false, isPasswordlength = false"
+                            @keydown="isPasswordlength = false" maxlength="50" />
+                    </p>
+                    <p v-if="isPasswordEmpty" class="text-xs text-red-600">*Plase Input your password.*</p>
+                    <p v-else-if="isPasswordlength" class="text-xs text-red-600">*Password have length less/more than
+                        required.*</p>
+                    <p class="text-sm text-stone-500">(The password must be between 8-14 characters.)</p>
+                </div>
+                <div class="mr-2 mt-1">
+                    <p>Confirm Password :
+                         <input type="password" v-model="newUser.confirm" 
+                         @click="isConfirm = false, isConfirmEmpty = false,isMatch=false"
+                        @keydown="isConfirm = false,isMatch=false"/>
+                    </p>
+                    <p v-if="isConfirmEmpty" class="text-xs text-red-600">*Plase confirm your password.*</p>
+                    <p v-else-if="isConfirm" class="text-xs text-red-600">*Password Not Match.*</p>
+                    <p v-else-if="isMatch" class="text-xs text-green-600">Password is match.</p>
+                </div>
+                <div class="mr-2 mt-1">
+                    <p>E-mail : <input type="email" placeholder="example@example.com" v-model="newUser.email"
+                            maxlength="100"
+                            @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
+                            @keydown="isDuplicateEmail = false, isEmailNotFormat = false"></p>
+                    <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
+                    <p v-if="isEmailEmpty" class="text-xs text-red-600">*Plase Input your
+                        e-mail.*</p>
+                    <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">*Your Email address is not follow
+                        format.*</p>
+                    <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use.*</p>
+                </div>
+                <div class="mr-2 mt-1">
+                    <p>Role:
+                        <select v-model="newUser.role" class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
+                            <option :value="'admin'">ADMIN</option>
+                            <option :value="'lecturer'">LECTURER</option>
+                            <option :value="'student'">STUDENT</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <button class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]"
+                        @click="checkInfor(newUser)">OK</button>
+                    <button class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]"
+                        @click="GoUsers()">Cancle</button>
                 </div>
             </div>
         </div>

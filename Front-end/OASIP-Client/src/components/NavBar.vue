@@ -1,24 +1,27 @@
 <script setup>
 import { ref } from "vue";
-const emits = defineEmits(['login'])
-const isLoginPage=ref(false)
 </script>
  
 <template>
 <div>  
     <nav class="scd  border-gray-200 px-2 sm:px-4 py-5 font fixed top-0 left-0 right-0">
     <div class="flex justify-between">
-        <router-link to="/"><h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold" >OASIP</h1></router-link>
-        <div class="justify-self-end">
-            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/LoginPage" @click="$emit('login',true)">Login</router-link></button>
-            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddUserPage">Add New User</router-link></button>
-            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/UserPage">User</router-link></button>
-            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/ShowPage">Show Schedule </router-link></button>
-            <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddPage">Add New Schedule</router-link></button>
-        </div>
+        <div class="flex">
+            <router-link to="/">
+                <h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold " >OASIP</h1>   
+            </router-link>
+            <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
+        </div> 
+            <div class="justify-self-end">
+                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/LoginPage">Login</router-link></button>
+                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddUserPage">Add New User</router-link></button>
+                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/UserPage">User</router-link></button>
+                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/ShowPage">Show Schedule </router-link></button>
+                <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2"><router-link to="/AddPage">Add New Schedule</router-link></button>
+            </div>   
     </div>
 </nav>
-<div class="navbar pt-1 flex justify-end">
+<div class="navbar pt-1 pb-1 flex justify-end">
     <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font"><router-link to="/AboutPage">About Us</router-link></button>
 </div>
 </div>
@@ -49,5 +52,10 @@ const isLoginPage=ref(false)
   position: fixed ;
   bottom: 0;
   width: 100%; 
+}
+.schedule {
+    width: 4rem;
+    height: 4rem;
+    margin-top: 0.4rem;
 }
 </style>

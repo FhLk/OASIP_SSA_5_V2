@@ -107,17 +107,18 @@ const countName=computed(()=>{
  
 <template>
 <div class="bg h-screen h-full">
+    <h1 class="font text-5xl flex justify-center pt-36">Add new schedule</h1>
     <div>
         <Create :getCategories="getListCategories" />
     </div>
     <div class="font ccf mt-5 bgcat mx-7 py-5 rounded-lg ">
-        <h2 class="ml-10 text-lg">Definition of category</h2>
+        <h2 class="ml-10 text-xl">Definition of category</h2>
         <div class="ml-14 rounded-full">
             <ul>
                 <p v-for="(category, index) in getListCategories" :key="index" class="mt-2 pb-8">
                     {{ index + 1 }}. 
                     <span v-if="isEdit && isEditId===category.id">
-                        <input type="text" v-model="EditName" maxlength="100"/>
+                        <input type="text" v-model="EditName" maxlength="100" class="rounded-sm px-1" />
                         <p class="text-sm text-stone-500">(Number of Character : {{countName}})</p>
                         <p v-if="isNameEmpty && countName===100" class="text-xs text-red-600">Plase Input Category Name.</p>
                     </span>
@@ -127,7 +128,7 @@ const countName=computed(()=>{
                 <div class="ml-4">
                     <p>Description: </p>
                     <span v-if="isEdit && isEditId===category.id">
-                        <textarea rows="5" cols="50" v-model="EditDescription" maxlength="500"></textarea>
+                        <textarea rows="5" cols="50" v-model="EditDescription" maxlength="500" class="rounded-sm px-1" ></textarea>
                         <p class="text-sm text-stone-500">(Number of Character : {{countDescription}})</p>
                     </span>
                     <span v-else>
@@ -139,7 +140,7 @@ const countName=computed(()=>{
                 <div class="ml-4">
                     Duration: 
                     <span v-if="isEdit && isEditId===category.id">
-                        <input type="number" v-model="EditDuration" min="1" max="480"/>
+                        <input type="number" v-model="EditDuration" min="1" max="480" class="rounded-sm pl-1"  />
                         : <span class="text-sm text-stone-500">(1 to 480 mins)</span>
                         <p v-if="isDuration" class="text-xs text-red-600">Duration have time less/more than range</p>
                     </span>

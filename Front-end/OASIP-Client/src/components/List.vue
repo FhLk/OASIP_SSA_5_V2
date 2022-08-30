@@ -345,8 +345,8 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     <p>Date & Time :
                                         <span v-if="isEdit && isEditId === data.id" class="pl-2">
                                             <input type="date" v-model="EditDate"
-                                                :min="new Date().toISOString().split('T')[0]" /> |
-                                            <input type="time" v-model="EditTime" />
+                                                :min="new Date().toISOString().split('T')[0]" class="px-1 rounded-sm" /> |
+                                            <input type="time" v-model="EditTime" class="px-1 pl-1 rounded-sm" />
                                         </span>
                                         <span v-else>
                                             {{ getBooking.startTime }}
@@ -361,7 +361,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     <p class="pr-2">Note :</p>
                                     <span v-if="isEdit && isEditId === data.id"
                                         :class="getBooking.eventNote ? note : nonote">
-                                        <textarea rows="5" cols="50" v-model="EditNote" maxlength="500"></textarea>
+                                        <textarea rows="5" cols="50" v-model="EditNote" maxlength="500" class=" px-1 rounded-sm" ></textarea>
                                     </span>
                                     <span v-else>
                                         <div>
