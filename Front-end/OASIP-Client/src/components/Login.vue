@@ -77,7 +77,7 @@ const GoIndex = () => {
 <template>
   <div class="font">
     <div class="header mt-32 ">
-     Welcome to  OASIP
+     Welcome to OASIP
     </div>
     <div class="login mt-8">
       <h1 class="login-header bg-red-500">
