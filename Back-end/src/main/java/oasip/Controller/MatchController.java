@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/match")
+@RequestMapping("/api/login")
 @CrossOrigin(origins = "http://localhost:3000/",allowedHeaders = "*",allowCredentials = "true",
         methods = {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 public class MatchController {

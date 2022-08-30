@@ -28,15 +28,14 @@ public class MatchService {
         match.setPassword(match.getPassword().trim());
         List<EventUser> checkPassword = repository.findAll();
         List<EventUser> duplicateEmail = repository.findByEmail(match.getEmail());
-        List<EventUser> duplicatePassword = repository.findByPassword(match.getPassword());
         List<String> errors = new ArrayList<>();
         for (EventUser eventUser : checkPassword){
             if (eventUser.getEmail().equals(match.getEmail())){
-                if (encoder.matches(match.getPassword(), eventUser.getPassword()) == true){
+                if (encoder.matches(match.getPassword(), eventUser.getPassword())){
                     errors.add("Password Matched");
                     throw new OkException(errors.toString());
                 }
-                if (encoder.matches(match.getPassword(), eventUser.getPassword()) == false){
+                if (!encoder.matches(match.getPassword(), eventUser.getPassword())){
                     errors.add("Password Not Matched");
                     throw new UnauthorizedEx(errors.toString());
                 }

@@ -1,57 +1,62 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+const fetchUrl = import.meta.env.VITE_BASE_URL
 
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("")
 const isUser = ref(false)
 const isPass = ref(false)
-
-const database = ref([
-  {
-    name: "PBI24 สมส่วน สุขศรี 1",
-    email: "somsuan.s241@kmutt.ac.th",
-    password: "somsuans",
-    role: "student"
-  },
-  {
-    name: "PBI24 สมส่วน สุขศรี 2",
-    email: "somsuan.s242@kmutt.ac.th",
-    password: "somsuans123456",
-    role: "student"
-  },
-  {
-    name: "PBI24 สมส่วน สุขศรี 3",
-    email: "somsuan.s243@kmutt.ac.th",
-    password: "somsuans1234567",
-    role: "student"
-  }
-])
-
-const checkLogin = (user, pass) => {
+const login=ref({
+  email:"",
+  password:""
+})
+const checkLogin = (login) => {
   let isCheck=true
-  if (user === "" && pass === "") {
+  if (login.email === "" && login.password === "") {
+    isCheck=false
     isUser.value = true
     isPass.value = true
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  else if (user !== "" && pass === "") {
+  else if (login.email !== "" && login.password === "") {
+    isCheck=false
     isUser.value = false
     isPass.value = true
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  else if (user === "" && pass !== "") {
+  else if (login.email === "" && login.password !== "") {
+    isCheck=false
     isPass.value = false
     isUser.value = true
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  else {
+  if(isCheck) {
     isPass.value = false
     isUser.value = false
+    logIn(login)
     reset()
-    GoIndex()
   }
+}
+
+const logIn=async (login)=>{
+  const res = await fetch(`${fetchUrl}/login`, {
+        method: "POST",
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          email:login.email,
+          password:login.password
+        })
+    })
+    if (res.status === 200) {
+        alert("Match")
+    }
+    else{
+      alert("Not Match")
+    }
 }
 
 const reset = () => {
@@ -80,17 +85,17 @@ const GoIndex = () => {
       </h1>
       <div class="login-body">
         <div class="login-input">
-          <img src="../assets/user.png" class="user-img" />
-          <input class="info-input" type="text" placeholder="Username" v-model="username" @click="isUser = false" />
+          <!-- <img src="../assets/user.png" class="user-img" /> -->
+          <input class="info-input" type="text" placeholder="Username" v-model="login.email" @click="isUser = false" />
           <p :class="isUser ? errorMessage : ''" v-if="isUser">*Plase Input your username*</p>
-          <img src="../assets/padlock.png" class="pass-img" />
-          <input class="info-input" type="password" placeholder="Password" v-model="password" @click="isPass = false" />
+          <!-- <img src="../assets/padlock.png" class="pass-img" /> -->
+          <input class="info-input" type="password" placeholder="Password" v-model="login.password" @click="isPass = false" />
           <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
         </div>
       </div>
       <div class="flex space-x-2 justify-center">
         <button class="login-button hover:bg-blue-700 hover:shadow-lg"
-          @click="checkLogin(username, password)">Log-in</button>
+          @click="checkLogin(login)">Log-in</button>
       </div>
     </div>
   </div>
@@ -103,21 +108,8 @@ const GoIndex = () => {
   font-size: 70px;
 }
 
-.pass-img {
-  height: 10%;
-  width: 10%;
-  margin-right: 5%;
-}
-
-.user-img {
-  display: inline-block;
-  height: 10%;
-  width: 10%;
-  margin-right: 5%;
-}
-
 .login-button {
-  display: inline-block;
+  /* display: inline-block; */
   background-color: lightblue;
   height: 50%;
   margin-top: 2%;
@@ -125,6 +117,7 @@ const GoIndex = () => {
   font-size: 30px;
   color: antiquewhite;
   width: 55%;
+  margin-top: 5%;
 }
 
 .login-input {
@@ -137,6 +130,7 @@ const GoIndex = () => {
   border-radius: 5px;
   border-color: black;
   width: 60%;
+  margin-top: 5%;
 }
 
 .login-header {
@@ -155,7 +149,8 @@ const GoIndex = () => {
   z-index: 10;
   background-color: white;
   width: 40%;
-  height: 40%;
+  height: 45%;
+  max-height: 50%;
   color: black;
   border: black 2px solid;
   box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.507);

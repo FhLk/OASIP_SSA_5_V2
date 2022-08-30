@@ -1,9 +1,11 @@
 package oasip.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+//import net.minidev.json.annotate.JsonIgnore;
 import oasip.Utils.EnumRole;
 import oasip.exeption.EnumValidator;
 

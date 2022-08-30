@@ -1,5 +1,4 @@
 <script setup>
-import { hasChanged } from '@vue/shared';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const fetchUrl = import.meta.env.VITE_BASE_URL
