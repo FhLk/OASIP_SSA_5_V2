@@ -76,10 +76,10 @@ const GoIndex = () => {
  
 <template>
   <div class="font">
-    <div class="header mt-28 ">
+    <div class="header mt-32 ">
      Welcome to  OASIP
     </div>
-    <div class="login mt-4">
+    <div class="login mt-8">
       <h1 class="login-header bg-red-500">
         LOGIN
       </h1>
