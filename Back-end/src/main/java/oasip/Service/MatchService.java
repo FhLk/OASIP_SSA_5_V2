@@ -25,12 +25,12 @@ public class MatchService {
 
     public MatchDTO Matching(MatchDTO match)throws OkException, UnauthorizedEx, NotfoundEx {
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(8,32,1,65536,10);
-        match.setPassword(match.getPassword().trim());
+        match.setPassword(match.getPassword());
         List<EventUser> checkPassword = repository.findAll();
         List<EventUser> duplicateEmail = repository.findByEmail(match.getEmail());
         List<String> errors = new ArrayList<>();
         for (EventUser eventUser : checkPassword){
-            if (eventUser.getEmail().equals(match.getEmail())){
+            if (eventUser.getEmail().equals(match.getEmail().trim())){
                 if (encoder.matches(match.getPassword(), eventUser.getPassword())){
                     errors.add("Password Matched");
                     throw new OkException(errors.toString());
