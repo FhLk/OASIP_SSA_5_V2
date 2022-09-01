@@ -42,9 +42,9 @@ public class UserController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTOwithPassword> AddUser(@Valid @RequestBody UserDTOwithPassword newUser) throws UserException {
+    public ResponseEntity<UserDTO> AddUser(@Valid @RequestBody UserDTOwithPassword newUser) throws UserException {
         EventUser eventUser = service.NewUser(newUser);
-        return new ResponseEntity<>(modelMapper.map(eventUser,UserDTOwithPassword.class),HttpStatus.CREATED);
+        return new ResponseEntity<>(modelMapper.map(eventUser,UserDTO.class),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

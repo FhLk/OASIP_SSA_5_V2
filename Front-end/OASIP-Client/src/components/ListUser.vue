@@ -228,6 +228,7 @@ const saveUser = async (updateUser) => {
     }
     else {
         alert("You can't change this Booking")
+        await getUsers(page.value)
         reset()
     }
 }
