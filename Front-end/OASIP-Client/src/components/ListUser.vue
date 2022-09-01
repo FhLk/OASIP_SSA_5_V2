@@ -361,15 +361,13 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
-
-.bgl3 {
-    background-color: rgb(135, 206, 235);
-}
-
 .font {
     font-family: 'Mitr', sans-serif;
 }
 
+.bgl3 {
+    background-color: rgb(135, 206, 235);
+}
 .bg {
     background-color: rgb(173, 216, 230);
 }

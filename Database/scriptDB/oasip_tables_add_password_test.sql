@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   `role` ENUM('ADMIN', 'LECTURER', 'STUDENT') NOT NULL,
-  `update_on` DATETIME NOT NULL,
-  `created_on` DATETIME NOT NULL,
+  `update_on`DATETIME NOT NULL default current_timestamp on update current_timestamp not null,
+  `created_on` DATETIME NOT NULL default current_timestamp not null,
   `password` VARCHAR(14) NOT NULL,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   PRIMARY KEY (`id`))

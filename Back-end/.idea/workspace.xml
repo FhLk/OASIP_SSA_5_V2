@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,13 +68,17 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/INT222/Oasip_SSA5/OASIP_SSA_5_V2/Back-end&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;5d087328fccf7967d4d6a69079da89a2&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ampla/Downloads&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;show.run.dashboard.notification&quot;: &quot;false&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;41bf188e222cdeb9a738b2943286985e&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -93,15 +91,8 @@
       <recent name="oasip" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="configurationTypes">
-      <set>
-        <option value="SpringBootApplicationConfigurationType" />
-      </set>
-    </option>
-  </component>
-  <component name="RunManager">
-    <configuration name="OasipSsa5Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.OasipSsa5Application">
+    <configuration name="OasipSsa5Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="OASIP" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
       <extension name="coverage">
@@ -114,9 +105,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OasipSsa5Application (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Back-end" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OasipSsa5Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="Oasip_SSA5" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.OasipSsa5Application (2)" />
+      <item itemvalue="Spring Boot.OasipSsa5Application" />
+      <item itemvalue="Spring Boot.OasipSsa5Application (1)" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.OasipSsa5Application" />
+        <item itemvalue="Spring Boot.OasipSsa5Application (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -153,19 +166,20 @@
       <workItem from="1661148490735" duration="16367000" />
       <workItem from="1661165495756" duration="9461000" />
       <workItem from="1661185603342" duration="1951000" />
-      <workItem from="1661237829929" duration="1178000" />
-      <workItem from="1661239264061" duration="5552000" />
-      <workItem from="1661248969481" duration="2572000" />
-      <workItem from="1661252811027" duration="6877000" />
-      <workItem from="1661264418072" duration="945000" />
-      <workItem from="1661265394019" duration="1488000" />
-      <workItem from="1661266921710" duration="219000" />
-      <workItem from="1661267150451" duration="1863000" />
-      <workItem from="1661269103803" duration="1555000" />
-      <workItem from="1661270689382" duration="2670000" />
-      <workItem from="1661333156393" duration="1817000" />
-      <workItem from="1661398147697" duration="440000" />
-      <workItem from="1661411801290" duration="5368000" />
+      <workItem from="1661322741622" duration="297000" />
+      <workItem from="1661326242901" duration="678000" />
+      <workItem from="1661331528134" duration="10000" />
+      <workItem from="1661442063557" duration="1586000" />
+      <workItem from="1661494554209" duration="5309000" />
+      <workItem from="1661502812034" duration="977000" />
+      <workItem from="1661535292680" duration="125000" />
+      <workItem from="1661572625337" duration="2023000" />
+      <workItem from="1661583416720" duration="1452000" />
+      <workItem from="1661665663203" duration="13526000" />
+      <workItem from="1661752614345" duration="1790000" />
+      <workItem from="1661852481725" duration="4665000" />
+      <workItem from="1661860920132" duration="632000" />
+      <workItem from="1661934011929" duration="1661000" />
     </task>
     <servers />
   </component>
@@ -188,9 +202,5 @@
       <path value="$PROJECT_DIR$" />
       <path value="$PROJECT_DIR$/OASIP_SSA_5_V2" />
     </ignored-roots>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
