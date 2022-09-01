@@ -191,9 +191,10 @@ const countEmail = computed(() => {
         <div class="flex justify-center">
             <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
                 <div class="mr-2 mt-2">
-                    <p>Username : <input type="text" placeholder=" Name..." v-model="newUser.name" maxlength="100"
+                    <p>Username : <input type="text" placeholder="Name..." v-model="newUser.name" maxlength="100"
                             @click="isNameEmpty = false, isDuplicateName = false"
-                            @keydown="isDuplicateName = false">
+                            @keydown="isDuplicateName = false"
+                            class="px-1 rounded-sm" />
                     </p>
                     <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                     <p v-if="isNameEmpty" class="text-xs text-red-600">*Plase Input your name.*
@@ -205,7 +206,8 @@ const countEmail = computed(() => {
                             ({{ newUser.password.length }}) </span> :
                         <input type="password" placeholder="password" v-model="newUser.password" minlength="8"
                             @click="isPasswordEmpty = false, isPasswordlength = false"
-                            @keydown="isPasswordlength = false" maxlength="50" />
+                            @keydown="isPasswordlength = false" maxlength="50"
+                            class="px-1 rounded-sm" />
                     </p>
                     <p v-if="isPasswordEmpty" class="text-xs text-red-600">*Plase Input your password.*</p>
                     <p v-else-if="isPasswordlength" class="text-xs text-red-600">*Password have length less/more than
@@ -216,17 +218,19 @@ const countEmail = computed(() => {
                     <p>Confirm Password :
                          <input type="password" v-model="newUser.confirm" 
                          @click="isConfirm = false, isConfirmEmpty = false,isMatch=false"
-                        @keydown="isConfirm = false,isMatch=false"/>
+                        @keydown="isConfirm = false,isMatch=false" 
+                        class="px-1 rounded-sm" />
                     </p>
                     <p v-if="isConfirmEmpty" class="text-xs text-red-600">*Plase confirm your password.*</p>
                     <p v-else-if="isConfirm" class="text-xs text-red-600">*Password Not Match.*</p>
                     <p v-else-if="isMatch" class="text-xs text-green-600">Password is match.</p>
                 </div>
-                <div class="mr-2 mt-1">
+                <div class="mr-2 mt-2">
                     <p>E-mail : <input type="email" placeholder="example@example.com" v-model="newUser.email"
                             maxlength="100"
                             @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
-                            @keydown="isDuplicateEmail = false, isEmailNotFormat = false"></p>
+                            @keydown="isDuplicateEmail = false, isEmailNotFormat = false"
+                            class="px-1 rounded-sm" /></p>
                     <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                     <p v-if="isEmailEmpty" class="text-xs text-red-600">*Plase Input your
                         e-mail.*</p>
