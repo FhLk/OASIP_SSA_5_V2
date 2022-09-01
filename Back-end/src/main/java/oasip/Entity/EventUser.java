@@ -33,7 +33,7 @@ public class EventUser {
     @LastModifiedBy
     private LocalDateTime updateOn;
 
-    @Column(name = "password",nullable = false,length = 100)
+    @Column(name = "password",nullable = false,length = 100,updatable = false)
     private String password;
 
     public Integer getId(){return  id;}

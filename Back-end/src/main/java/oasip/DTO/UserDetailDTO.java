@@ -29,10 +29,6 @@ public class UserDetailDTO {
     @Size(max = 50,message = "Your Email have length more than 50 character")
     private String email;
 
-    @NotNull
-    @Size(min = 8,max = 14,message = "Your password doesn't in length")
-    private String password;
-
     @NotNull(message = "Role shouldn't be null")
     @EnumValidator(enumClass = EnumRole.class)
     private String role;
