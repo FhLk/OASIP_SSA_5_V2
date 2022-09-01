@@ -204,7 +204,7 @@ const countEmail = computed(() => {
                 <div class="mr-2 mt-1">
                     <p>Password <span class="text-sm text-stone-500">
                             ({{ newUser.password.length }}) </span> :
-                        <input type="password" placeholder="password" v-model="newUser.password" minlength="8"
+                        <input type="password" placeholder="Password..." v-model="newUser.password" minlength="8"
                             @click="isPasswordEmpty = false, isPasswordlength = false"
                             @keydown="isPasswordlength = false" maxlength="50"
                             class="px-1 rounded-sm" />
