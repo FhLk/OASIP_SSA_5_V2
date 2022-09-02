@@ -5,8 +5,8 @@ services:
     image: oasip_front_img
     build: ./
     volumes:
-      - ./cert/private.key:/etc/nginx/ssl/www-ip21ssa.key
-      - ./cert/www-ip21ssa.crt:/etc/nginx/ssl/www-ip21ssa.crt
+      - ./cert/private.key:/etc/nginx/ssl/ip21ssa5.key
+      - ./cert/www-ip21ssa.crt:/etc/nginx/ssl/ip21ssa5.crt
     ports : 
       - '80:80'
     restart: always
