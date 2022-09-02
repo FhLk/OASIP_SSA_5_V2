@@ -9,6 +9,7 @@ services:
       - ./cert/www-ip21ssa.crt:/etc/nginx/ssl/ip21ssa5.crt
     ports : 
       - '80:80'
+      - '443:443'
     restart: always
 networks:
   default:
