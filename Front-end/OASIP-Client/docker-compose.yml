@@ -4,6 +4,9 @@ services:
     container_name: oasip_Front_End
     image: oasip_front_img
     build: ./
+    volumes:
+      - ./cert/private.key:/etc/nginx/ssl/www-s01.key
+      - ./cert/www-ip21ssa.crt:/etc/nginx/ssl/www-s01.crt
     ports : 
       - '80:80'
     restart: always
