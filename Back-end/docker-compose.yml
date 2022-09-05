@@ -1,11 +1,11 @@
 version: '3.3'
 services:
-  oasipBackEnd:
-    container_name: oasip_Back_End
+  backEnd:
+    container_name: backEnd
     image: oasip_back_img
     build: ./
     environment:
-      - spring.datasource.url=jdbc:mysql://oasip_DB:3306/oasip
+      - spring.datasource.url=jdbc:mysql://oasipDB:3306/oasip
     restart: always
     ports:
       - '8080:8080'

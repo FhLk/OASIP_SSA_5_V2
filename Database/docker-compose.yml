@@ -1,7 +1,7 @@
 version: '3.3'
 services:
-  oasip_DB:
-    container_name: oasip_DB
+  oasipDB:
+    container_name: DB
     volumes:
       - ./scriptDB/oasip_v2_script.sql:/docker-entrypoint-initdb.d/oasip.sql
     environment:

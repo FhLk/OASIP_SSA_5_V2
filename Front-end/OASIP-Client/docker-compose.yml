@@ -1,15 +1,11 @@
 version: '3.3'
 services:
-  oasip_Front_End:
-    container_name: oasip_Front_End
+  frontEnd:
+    container_name: frontEnd
     image: oasip_front_img
     build: ./
-    volumes:
-      - ./cert/private.key:/etc/ssl/ip21ssa5.key
-      - ./cert/www-ip21ssa.crt:/etc/ssl/ip21ssa5.crt
     ports : 
-      - '80:80'
-      - '443:443'
+      - '3000:3000'
     restart: always
 networks:
   default:

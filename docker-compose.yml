@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  proxy:
+    container_name: reverseProxy
+    image: nginx
+    ports:
+      - 80:80
+    networks:
+      - oasip_nw
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      # - ./cert/:/etc/nginx/ssl:ro
+    restart: always
+
+networks:
+  oasip-network:
+    external:
+     name: oasip_nw
