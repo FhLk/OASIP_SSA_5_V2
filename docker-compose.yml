@@ -11,8 +11,7 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       # - ./cert/:/etc/nginx/ssl:ro
     restart: always
-
 networks:
-  oasip-network:
+  default:
     external:
      name: oasip_nw
