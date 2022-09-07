@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+// import { getUsers } from '../fetch/fetchAPI.js';
 import moment from "moment"
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -19,7 +20,10 @@ const isEditId = ref(0)
 
 const getUsers = async (page = 0) => {
     const res = await fetch(`${fetchUrl}/users?page=${page}`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
     })
     if (res.status === 200) {
         getAllUser.value = await res.json()
@@ -114,15 +118,15 @@ const EditEvent = (user) => {
         EditRole.value = getUser.value.role
         isNameEmpty.value = false
         isDuplicateName.value = false
-        isDuplicateEmail.value= false
-        isEmailEmpty.value=false
+        isDuplicateEmail.value = false
+        isEmailEmpty.value = false
     }
 }
-const isUserOld=computed(()=>{
-    return EditName.value !== getUser.value.name 
-            || EditEmail.value !== getUser.value.email
-            || EditRole.value !== getUser.value.role
-             ? false:true
+const isUserOld = computed(() => {
+    return EditName.value !== getUser.value.name
+        || EditEmail.value !== getUser.value.email
+        || EditRole.value !== getUser.value.role
+        ? false : true
 });
 const checkInfor = async (user) => {
     let isCheck = true;
@@ -268,12 +272,13 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     <div>
                         <p class="text-3xl">{{ user.name }}</p>
                         <p class="text-[#5C5A5A] mt-1 mx-4 text-xl "><span class="text-black">E-mail :</span> {{
-                                user.email
+                        user.email
                         }} <span class="text-black">Role :</span> {{ user.role }} </p>
                     </div>
                     <div class="flex justify-between cf">
                         <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
-                            <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">{{ isDetail === user.id ? "Closed" : "Detail"
+                            <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">{{ isDetail
+                            === user.id ? "Closed" : "Detail"
                             }}</button>
                         </div>
                         <div class="mr-5">
@@ -287,15 +292,15 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 <p class="pr-2">Name : </p>
                                 <input v-if="isEdit && isEditId === user.id" type="text" v-model="EditName"
                                     @click="isNameEmpty = false, isDuplicateName = false"
-                                    @keydown.backspace="isDuplicateName = false" 
-                                    class="px-1 rounded-sm" size="20" />
+                                    @keydown.backspace="isDuplicateName = false" class="px-1 rounded-sm" size="20" />
                                 <p v-else class="text-[#535252]">{{ getUser.name }}</p>
                                 <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">*Plase Input
                                     your name*
                                 </p>
                                 <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already
                                     use*</p>
-                                <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1"> (Number of Character : {{ countName
+                                <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1"> (Number of Character : {{
+                                countName
                                 }})</p>
                             </div>
                             <div class="flex mt-2">
@@ -303,7 +308,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 <input v-if="isEdit && isEditId === user.id" type="email" v-model="EditEmail"
                                     maxlength="100"
                                     @click="isEmailEmpty = false, isDuplicateEmail = false, isEmailNotFormat = false"
-                                    @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false" 
+                                    @keydown.backspace="isDuplicateEmail = false, isEmailNotFormat = false"
                                     class="px-1 rounded-sm" size="25" />
                                 <p v-else class="text-[#535252]">{{ getUser.email }}</p>
                                 <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">*Plase Input
@@ -314,7 +319,8 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                     format</p>
                                 <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*
                                 </p>
-                                <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1">(Number of Character : {{ countEmail
+                                <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1">(Number of Character : {{
+                                countEmail
                                 }})</p>
                             </div>
                             <div class="flex mt-2">
@@ -338,9 +344,10 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                         </div>
                         <div class="mt-3">
                             <button @click="checkInfor(user)" v-if="isEdit"
-                                class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80] disabled:bg-[#8F9892]" :disabled="isUserOld">Save</button>
+                                class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80] disabled:bg-[#8F9892]"
+                                :disabled="isUserOld">Save</button>
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                    "Edit"
+                            "Edit"
                             }}</button>
                         </div>
                     </div>
@@ -361,6 +368,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
+
 .font {
     font-family: 'Mitr', sans-serif;
 }
@@ -368,6 +376,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
 .bgl3 {
     background-color: rgb(135, 206, 235);
 }
+
 .bg {
     background-color: rgb(173, 216, 230);
 }
