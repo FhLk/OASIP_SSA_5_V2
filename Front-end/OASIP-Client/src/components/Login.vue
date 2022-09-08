@@ -1,33 +1,33 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-const fetchUrl = import.meta.env.VITE_BASE_URL
+import { logIn } from '../fetch/fetchAPI.js'
 
 const errorMessage = ref("")
 const isEmail = ref(false)
 const isPass = ref(false)
 const isLogin = ref(false)
-const isEmailLogin=ref(false)
-const isPassLogin=ref(false)
+const isEmailLogin = ref(false)
+const isPassLogin = ref(false)
 const login = ref({
   email: "",
   password: ""
 })
-const checkLogin = async (login) => {
+const checkLogin = async (log) => {
   let isCheck = true
-  if (login.email === "" && login.password === "") {
+  if (log.email === "" && log.password === "") {
     isCheck = false
     isEmail.value = true
     isPass.value = true
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  else if (login.email !== "" && login.password === "") {
+  else if (log.email !== "" && log.password === "") {
     isCheck = false
     isEmail.value = false
     isPass.value = true
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
-  else if (login.email === "" && login.password !== "") {
+  else if (log.email === "" && log.password !== "") {
     isCheck = false
     isPass.value = false
     isEmail.value = true
@@ -36,46 +36,33 @@ const checkLogin = async (login) => {
   if (isCheck) {
     isPass.value = false
     isEmail.value = false
-    await logIn(login)
-  }
-}
-
-const logIn = async (log) => {
-  const res = await fetch(`${fetchUrl}/login`, {
-    method: "POST",
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: log.email.trim(),
-      password: log.password
-    })
-  })
-  if (res.status === 200) {
-    alert("Login success")
-    GoIndex()
-    reset()
-  }
-  else if (res.status === 404) {
-    isLogin.value = true
-    isEmailLogin.value=true
-    login.value.password = ""
-  }
-  else if (res.status === 401) {
-    isLogin.value = true
-    isPassLogin.value=true
-    login.value.password = ""
+    const resLogin = await logIn(log)
+    if (resLogin === 200) {
+      alert("Login success")
+      GoIndex()
+      reset()
+    }
+    else if (resLogin === 404) {
+      isLogin.value = true
+      isEmailLogin.value = true
+      login.value.password = ""
+    }
+    else if (resLogin === 401) {
+      isLogin.value = true
+      isPassLogin.value = true
+      login.value.password = ""
+    }
   }
 }
 
 const reset = () => {
-  login.value.email=""
-  login.value.password=""
+  login.value.email = ""
+  login.value.password = ""
   isPass.value = false
   isEmail.value = false
-  isLogin.value= false
-  isEmailLogin.value=false
-  isPassLogin.value=false
+  isLogin.value = false
+  isEmailLogin.value = false
+  isPassLogin.value = false
   errorMessage.value = ""
 }
 
@@ -83,13 +70,12 @@ const myRouter = useRouter()
 const GoIndex = () => {
   myRouter.push({ name: 'indexPage' })
 }
-
 </script>
  
 <template>
   <div class="font">
     <div class="header mt-32 ">
-     Welcome to OASIP
+      Welcome to OASIP
     </div>
     <div class="login mt-8">
       <h1 class="login-header bg-red-500">
@@ -99,17 +85,17 @@ const GoIndex = () => {
         <div class="login-input mt-14">
           <div class="flex justify-center mt-5 py-1">
             <img src="../assets/mail_user.png" class="user mx-2" />
-            <input class="info-input mt-2 px-1" type="text" placeholder="Username" v-model="login.email" 
-            @click="isEmail = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-            @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false"/>
+            <input class="info-input mt-2 px-1" type="text" placeholder="Username" v-model="login.email"
+              @click="isEmail = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
+              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" />
           </div>
           <p :class="isEmail ? errorMessage : ''" v-if="isEmail">*Plase Input your username*</p>
           <div class="flex justify-center py-1">
             <img src="../assets/padlock.png" class="password mx-2" />
-            <input class="info-input mt-2 px-1" type="password" placeholder="Password" v-model="login.password" 
-            @click="isPass = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-            @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false"/>
-          </div> 
+            <input class="info-input mt-2 px-1" type="password" placeholder="Password" v-model="login.password"
+              @click="isPass = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
+              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" />
+          </div>
           <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
         </div>
         <div v-show="isLogin" class="text-center text-red-500">
@@ -127,19 +113,23 @@ const GoIndex = () => {
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
+
 .font {
-    font-family: 'Mitr', sans-serif;
+  font-family: 'Mitr', sans-serif;
 }
+
 .user {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-top: 0.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0.25rem;
 }
+
 .password {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-top: 0.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0.25rem;
 }
+
 .header {
   display: flex;
   justify-content: center;
@@ -148,7 +138,7 @@ const GoIndex = () => {
 
 .login-button {
   /* display: inline-block; */
-  background-color: rgba(93, 143, 164) ;
+  background-color: rgba(93, 143, 164);
   height: 50%;
   margin-top: 2%;
   border-radius: 10px;

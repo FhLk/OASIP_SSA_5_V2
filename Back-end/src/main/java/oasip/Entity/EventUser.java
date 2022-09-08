@@ -3,6 +3,7 @@ package oasip.Entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -80,6 +81,7 @@ public class EventUser {
 
     public String getPassword(){return password;}
     public void setPassword(String password){this.password = password;}
+
 
 
 }

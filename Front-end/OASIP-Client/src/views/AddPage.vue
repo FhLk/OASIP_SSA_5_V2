@@ -6,7 +6,10 @@ const getListCategories = ref([]);
 
 const getCategories = async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }
     })
     getListCategories.value = await res.json()
 }

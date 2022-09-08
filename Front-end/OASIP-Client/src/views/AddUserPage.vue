@@ -5,7 +5,10 @@ const fetchUrl = import.meta.env.VITE_BASE_URL
 const getAllUser=ref([])
 const getUsers = async () => {
     const res = await fetch(`${fetchUrl}/users/check`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }
     })
     if (res.status === 200) {
         getAllUser.value = await res.json()
