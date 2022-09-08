@@ -58,6 +58,7 @@ const checkInfor = async (user) => {
         isCheck = false
         isDuplicateEmail.value = true
     }
+    checkEmail()
     else if (!user.email.match(mailFormat5)) {
         if (!user.email.match(mailFormat4)) {
             if (!user.email.match(mailFormat3)) {
