@@ -21,22 +21,34 @@ const Page = async (page = 0) => {
     if (page >= 0) {
         if (isSortByPast.value) {
             res = await fetch(`${fetchUrl}/bookings/sortByPast?page=${page}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
             })
         }
         else if (isSortByCategory.value) {
             res = await fetch(`${fetchUrl}/bookings/sortByCategory?page=${page}&category=${categoryID.value}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
             })
         }
         else if (isSortByDate.value) {
             res = await fetch(`${fetchUrl}/bookings/sortByDay?page=${page}&date=${sortDay.value}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
             })
         }
         else {
             res = await fetch(`${fetchUrl}/bookings?page=${page}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }
             })
         }
         if (res.status === 200) {
@@ -99,7 +111,10 @@ let count = 0
 const showDetail = async (id) => {
     if (id !== count) {
         const res = await fetch(`${fetchUrl}/bookings/${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getBooking.value = await res.json()
         getBooking.value.startTime = ShowDateTime(getBooking.value.startTime)
@@ -155,6 +170,7 @@ const savebooking = async (updateBooking) => {
         const res = await fetch(`${fetchUrl}/bookings/${updateBooking.id}`, {
             method: 'PUT',
             headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
@@ -185,7 +201,10 @@ const savebooking = async (updateBooking) => {
 const deleteBooking = async (booking) => {
     if (confirm("Do you want delete this Booking ?")) {
         const res = await fetch(`${fetchUrl}/bookings/${booking.id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         if (res.status === 200) {
             await Page(page.value)
@@ -213,7 +232,10 @@ const SortByPast = async () => {
     if (isSortByPast.value === false) {
         isSortByPast.value = true
         const res = await fetch(`${fetchUrl}/bookings/sortByPast`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
@@ -237,7 +259,10 @@ const SortByDate = async (StartDate = sortDay.value) => {
     page.value = 0
     if (isSortByDate.value) {
         const res = await fetch(`${fetchUrl}/bookings/sortByDay?date=${StartDate}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
@@ -260,7 +285,10 @@ const SortByCategory = async (id = 1) => {
     page.value = 0
     if (isSortByCategory.value) {
         const res = await fetch(`${fetchUrl}/bookings/sortByCategory?category=${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
@@ -345,7 +373,8 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     <p>Date & Time :
                                         <span v-if="isEdit && isEditId === data.id" class="pl-2">
                                             <input type="date" v-model="EditDate"
-                                                :min="new Date().toISOString().split('T')[0]" class="px-1 rounded-sm" /> |
+                                                :min="new Date().toISOString().split('T')[0]" class="px-1 rounded-sm" />
+                                            |
                                             <input type="time" v-model="EditTime" class="px-1 pl-1 rounded-sm" />
                                         </span>
                                         <span v-else>
@@ -361,7 +390,8 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     <p class="pr-2">Note :</p>
                                     <span v-if="isEdit && isEditId === data.id"
                                         :class="getBooking.eventNote ? note : nonote">
-                                        <textarea rows="5" cols="50" v-model="EditNote" maxlength="500" class=" px-1 rounded-sm" ></textarea>
+                                        <textarea rows="5" cols="50" v-model="EditNote" maxlength="500"
+                                            class=" px-1 rounded-sm"></textarea>
                                     </span>
                                     <span v-else>
                                         <div>
@@ -374,7 +404,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
                                 <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                        "Edit"
+                                "Edit"
                                 }}</button>
                             </div>
                         </div>
@@ -445,7 +475,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
                                 <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                        "Edit"
+                                "Edit"
                                 }}</button>
                             </div>
                         </div>
