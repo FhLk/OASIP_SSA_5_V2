@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { logIn } from '../fetch/fetchAPI.js'
+import { Match,Authen } from '../fetch/fetchAPI.js'
 
 const errorMessage = ref("")
 const isEmail = ref(false)
@@ -36,9 +36,10 @@ const checkLogin = async (log) => {
   if (isCheck) {
     isPass.value = false
     isEmail.value = false
-    const resLogin = await logIn(log)
+    const resLogin = await Match(log)
     if (resLogin === 200) {
       alert("Login success")
+      await Authen(log)
       GoIndex()
       reset()
     }
