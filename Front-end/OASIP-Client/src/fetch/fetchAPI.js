@@ -1,6 +1,5 @@
 const fetchUrl = import.meta.env.VITE_BASE_URL;
 
-
 export const logIn = async (log) => {
   const res = await fetch(`${fetchUrl}/login`, {
     method: "POST",
@@ -25,7 +24,10 @@ export const logIn = async (log) => {
 export const AllUser = async () => {
   let all=[]
   const res = await fetch(`${fetchUrl}/users/check`, {
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }
   })
   if (res.status === 200) {
       return all = await res.json()
@@ -35,7 +37,10 @@ export const AllUser = async () => {
 // export const getUsers = async (page = 0) => {
 //   let users=[];
 //   const res = await fetch(`${fetchUrl}/users?page=${page}`, {
-//       method: 'GET'
+//       method: 'GET',
+//       headers: {
+//         "Authorization": `Bearer ${localStorage.getItem('token')}`
+//     }
 //   })
 //   if (res.status === 200) {
 //       return users = await res.json()
@@ -44,6 +49,7 @@ export const AllUser = async () => {
 //     return users=[]
 //   }
 // }
+
 // export const authen = async (log) => {
 //   let token;
 //   const res = await fetch(`http://localhost:8080/authenticate`, {

@@ -9,7 +9,11 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>oasip_user</user-name>
-      <schema-mapping />
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="oasip" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
     <data-source name="OASIP/Hibernate" uuid="39e22281-ab48-4efb-9df8-6c3d1f80c9bc">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />

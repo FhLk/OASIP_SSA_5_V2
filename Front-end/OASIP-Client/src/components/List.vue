@@ -111,7 +111,10 @@ let count = 0
 const showDetail = async (id) => {
     if (id !== count) {
         const res = await fetch(`${fetchUrl}/bookings/${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getBooking.value = await res.json()
         getBooking.value.startTime = ShowDateTime(getBooking.value.startTime)
@@ -167,6 +170,7 @@ const savebooking = async (updateBooking) => {
         const res = await fetch(`${fetchUrl}/bookings/${updateBooking.id}`, {
             method: 'PUT',
             headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
@@ -197,7 +201,10 @@ const savebooking = async (updateBooking) => {
 const deleteBooking = async (booking) => {
     if (confirm("Do you want delete this Booking ?")) {
         const res = await fetch(`${fetchUrl}/bookings/${booking.id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         if (res.status === 200) {
             await Page(page.value)
@@ -225,7 +232,10 @@ const SortByPast = async () => {
     if (isSortByPast.value === false) {
         isSortByPast.value = true
         const res = await fetch(`${fetchUrl}/bookings/sortByPast`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
@@ -249,7 +259,10 @@ const SortByDate = async (StartDate = sortDay.value) => {
     page.value = 0
     if (isSortByDate.value) {
         const res = await fetch(`${fetchUrl}/bookings/sortByDay?date=${StartDate}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
@@ -272,7 +285,10 @@ const SortByCategory = async (id = 1) => {
     page.value = 0
     if (isSortByCategory.value) {
         const res = await fetch(`${fetchUrl}/bookings/sortByCategory?category=${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {

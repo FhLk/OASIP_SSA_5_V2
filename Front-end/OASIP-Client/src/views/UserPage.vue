@@ -1,22 +1,12 @@
 <script setup>
 import ListUser from '../components/ListUser.vue';
 import { computed, onBeforeMount, ref } from 'vue';
+import {AllUser} from '../fetch/fetchAPI.js'
 const fetchUrl = import.meta.env.VITE_BASE_URL
 const getAllUser = ref([])
-const getUsers = async () => {
-    const res = await fetch(`${fetchUrl}/users/check`, {
-        method: 'GET',
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-    })
-    if (res.status === 200) {
-        getAllUser.value = await res.json()
-    }
-}
 
 onBeforeMount(async () => {
-    await getUsers()
+   getAllUser.value= await AllUser()
 })
 </script>
 

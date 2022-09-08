@@ -37,7 +37,10 @@ let count = 0
 const detailUser = async (id) => {
     if (count !== id) {
         const res = await fetch(`${fetchUrl}/users/${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         if (res.status === 200) {
             getUser.value = await res.json();
@@ -74,7 +77,10 @@ const BackPage = () => {
 const deleteUser = async (user) => {
     if (confirm("Are you sure?")) {
         const res = await fetch(`${fetchUrl}/users/${user.id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
         })
         if (res.status === 200) {
             await getUsers(page.value)
@@ -217,6 +223,7 @@ const saveUser = async (updateUser) => {
     const res = await fetch(`${fetchUrl}/users/${updateUser.id}`, {
         method: "PUT",
         headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,
             'content-type': 'application/json'
         },
         body: JSON.stringify({
