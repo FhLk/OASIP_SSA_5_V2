@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/api/match")
 public class MatchController {
     @Autowired private MatchService service;
     @Autowired private ModelMapper modelMapper;
