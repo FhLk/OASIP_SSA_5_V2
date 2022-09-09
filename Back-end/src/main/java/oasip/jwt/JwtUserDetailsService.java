@@ -8,7 +8,9 @@ import java.util.List;
 import oasip.DTO.UserDTOwithPassword;
 import oasip.Entity.EventUser;
 import oasip.Repository.UserRepository;
+import oasip.exeption.NotfoundEx;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +28,12 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<EventUser> user = repository.findByEmail(username);
         if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with mail: " + username);
+            try{
+                throw new NotfoundEx("User not found with mail: " + username);
+            } catch (NotfoundEx ex){
+                throw new RuntimeException(ex);
+            }
+
         }
         return new User(user.get(0).getEmail(),user.get(0).getPassword(),new ArrayList<>());
 //        if ("javainuse".equals(username)) {
