@@ -27,21 +27,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<EventUser> user = repository.findByEmail(username);
-        if (user.isEmpty()) {
+        if (user == null) {
             try{
                 throw new NotfoundEx("User not found with mail: " + username);
             } catch (NotfoundEx ex){
                 throw new RuntimeException(ex);
             }
-
         }
         return new User(user.get(0).getEmail(),user.get(0).getPassword(),new ArrayList<>());
-//        if ("javainuse".equals(username)) {
-//            return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-//                    new ArrayList<>());
-//        } else {
-//            throw new UsernameNotFoundException("User not found with username: " + username);
-//        }
     }
 
 

@@ -1,5 +1,6 @@
 package oasip.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import oasip.DTO.UserDTOwithPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,13 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -39,9 +39,10 @@ public class JwtAuthenticationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
-        final String token = jwtTokenUtil.generateToken(userDetails);
+        final String access_token = jwtTokenUtil.generateToken(userDetails);
+        final String refresh_token = jwtTokenUtil.generateRefreshToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(access_token,refresh_token));
     }
 
 
@@ -54,4 +55,36 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
+    @GetMapping("/api/refresh")
+    public ResponseEntity<?> refreshToken(HttpServletRequest request){
+        String requestTokenHeader = request.getHeader("Authorization");
+        String username = null;
+        String access_token = null;
+        String refresh_token = null;
+
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            refresh_token = requestTokenHeader.substring(7);
+            username = jwtTokenUtil.getUsernameFromToken(refresh_token);
+        }
+
+        if (username != null ) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            access_token = jwtTokenUtil.generateToken(userDetails);
+
+            if (jwtTokenUtil.validateToken(refresh_token, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        } else {
+            throw new RuntimeException("RefreshToken is missing");
+        }
+        return ResponseEntity.status(200).body(new JwtResponse(access_token,refresh_token));
+    }
+
 }
