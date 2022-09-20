@@ -72,28 +72,18 @@ public class JwtTokenUtil implements Serializable {
     //   compaction of the JWT to a URL-safe string
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
-//        String access_token = Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-//                .signWith(SignatureAlgorithm.HS512, secret).compact();
-//        String refresh_token = Jwts.builder().setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-//                .signWith(SignatureAlgorithm.HS512, secret).compact();
-//        Map<String,String> tokens = new HashMap<>();
-//        tokens.put("accress_token",access_token);
-//        tokens.put("refresh_token",refresh_token);
-//        return String.valueOf(tokens);
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
-//        Map<String, Object> claims = new HashMap<>();
-        return doGenerateRefreshToken( userDetails.getUsername());
+        Map<String, Object> claims = new HashMap<>();
+        return doGenerateRefreshToken(claims, userDetails.getUsername());
     }
 
-    private String doGenerateRefreshToken( String subject){
-        return Jwts.builder().setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+    private String doGenerateRefreshToken(Map<String, Object> claims, String subject){
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + refreshExpirationDateInMs))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }

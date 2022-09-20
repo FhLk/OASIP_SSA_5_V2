@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtAuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtAuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/jwt/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtTokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtTokenUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +203,8 @@
       <workItem from="1663507790608" duration="7175000" />
       <workItem from="1663516650514" duration="58000" />
       <workItem from="1663525929486" duration="56000" />
-      <workItem from="1663641346752" duration="96000" />
+      <workItem from="1663641346752" duration="130000" />
+      <workItem from="1663641655262" duration="525000" />
     </task>
     <servers />
   </component>
