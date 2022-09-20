@@ -71,6 +71,7 @@ public class JwtAuthenticationController {
         if (username != null ) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             access_token = jwtTokenUtil.generateToken(userDetails);
+            refresh_token = jwtTokenUtil.generateRefreshToken(userDetails);
 
             if (jwtTokenUtil.validateToken(refresh_token, userDetails)) {
 
