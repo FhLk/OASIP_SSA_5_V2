@@ -6,7 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtAuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtAuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/OasipSsa5Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/OasipSsa5Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/MatchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/MatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtAuthenticationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtAuthenticationEntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtRequestFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtTokenUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/JwtUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/jwt/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,6 +219,10 @@
       <workItem from="1663641346752" duration="130000" />
       <workItem from="1663641655262" duration="703000" />
       <workItem from="1663649783653" duration="852000" />
+      <workItem from="1663652452045" duration="26000" />
+      <workItem from="1663653706046" duration="594000" />
+      <workItem from="1663768939696" duration="5868000" />
+      <workItem from="1663774876354" duration="9168000" />
     </task>
     <servers />
   </component>
