@@ -8,6 +8,17 @@ const props = defineProps({
         require: true
     }
 })
+
+const isToken=ref(false)
+const checkToken = () => {
+  if (localStorage.getItem("token") === null) {
+    isToken.value = false;
+  } else {
+    isToken.value = true;
+  }
+};
+checkToken()
+
 const newUser = ref({
     name: "",
     email: "",
@@ -139,7 +150,7 @@ const createUser = async (user) => {
     const res = await fetch(`${fetchUrl}/users`, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            // "Authorization": `Bearer ${localStorage.getItem('token')}`,
             'content-type': 'application/json'
         },
         body: JSON.stringify({
@@ -185,7 +196,7 @@ const countEmail = computed(() => {
 </script>
  
 <template>
-    <div class="font ccf text-lg bg pb-96 ">
+    <div class="font ccf text-lg bg pb-96">
         <div class="flex justify-center">
             <div class="bgc px-10 py-3 pb-6 mt-10 rounded-lg">
                 <div class="mr-2 mt-2">

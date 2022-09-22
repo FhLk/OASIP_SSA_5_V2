@@ -23,7 +23,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings/sortByPast?page=${page}`, {
                 method: 'GET',
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             })
         }
@@ -31,7 +31,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings/sortByCategory?page=${page}&category=${categoryID.value}`, {
                 method: 'GET',
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             })
         }
@@ -39,7 +39,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings/sortByDay?page=${page}&date=${sortDay.value}`, {
                 method: 'GET',
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             })
         }
@@ -47,7 +47,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings?page=${page}`, {
                 method: 'GET',
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             })
         }
@@ -63,8 +63,12 @@ const Page = async (page = 0) => {
                 getListBooking.value = SortByDateTimeDESC(getListBooking.value)
             }
         }
+        else if (res.status === 401) {
+            alert("Plase Login.")
+            getListBooking.value = []
+        }
         else {
-            alert("You can't connect Database.")
+            alert("Try again.")
             getListBooking.value = []
         }
     }
