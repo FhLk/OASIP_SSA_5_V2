@@ -1,12 +1,15 @@
 <script setup>
 import ListUser from '../components/ListUser.vue';
+import { AllUser } from '../fetch/fetchUserAPI.js'
 import { computed, onBeforeMount, ref } from 'vue';
-import {AllUser} from '../fetch/fetchAPI.js'
-const fetchUrl = import.meta.env.VITE_BASE_URL
+import {checkToken} from '../Store/local.js';
+
 const getAllUser = ref([])
+const isToken = ref(false)
 
 onBeforeMount(async () => {
-   getAllUser.value= await AllUser()
+    getAllUser.value = await AllUser()
+    isToken.value=checkToken()
 })
 </script>
 
@@ -15,13 +18,32 @@ onBeforeMount(async () => {
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../assets/team.png" class="user ml-5 ">
         </h1>
-        <ListUser :getUsers="getAllUser" />
+        <ListUser v-if="isToken" :getUsers="getAllUser" />
+        <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
+            <div class="flex justify-center">
+                <p>No Users.</p>
+                <p>Plase Sign-in for use OASIP.</p>
+                <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
+                    <router-link to="/LoginPage">Sign In</router-link>
+                </button>
+            </div>
+        </div>
     </div>
 </template>
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
+.btt {
+    background-color: rgb(25, 25, 112);
+}
+
+.cf {
+    color: rgb(251, 251, 249);
+}
+.bgl {
+    background-color: rgb(92, 179, 255);
+}
 .font {
     font-family: 'Mitr', sans-serif;
 }

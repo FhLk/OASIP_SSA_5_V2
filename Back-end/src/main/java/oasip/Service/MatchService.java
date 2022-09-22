@@ -27,7 +27,7 @@ public class MatchService {
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(8,32,1,65536,10);
         match.setPassword(match.getPassword());
         List<EventUser> checkPassword = repository.findAll();
-        List<EventUser> duplicateEmail = repository.findByEmail(match.getEmail());
+        EventUser duplicateEmail = repository.findByEmail(match.getEmail());
         List<String> errors = new ArrayList<>();
         for (EventUser eventUser : checkPassword){
             if (eventUser.getEmail().equals(match.getEmail().trim())){
@@ -41,7 +41,7 @@ public class MatchService {
                 }
             }
         }
-        if (duplicateEmail.isEmpty()) {
+        if (duplicateEmail == null) {
             errors.add("A user with the specified email DOES NOT exist");
             throw new NotfoundEx(errors.toString());
         }

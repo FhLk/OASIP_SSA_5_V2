@@ -7,25 +7,30 @@ import oasip.Entity.EventUser;
 import oasip.Repository.UserRepository;
 import oasip.Utils.ListMapper;
 import oasip.exeption.BookingException;
+import oasip.exeption.NotfoundEx;
 import oasip.exeption.UserException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService  {
     @Autowired
     private UserRepository repository;
     @Autowired
@@ -61,9 +66,9 @@ public class UserService {
         newUser.setPassword(encoder.encode(newUser.getPassword()).trim());
         EventUser user = modelMapper.map(newUser, EventUser.class);
         List<EventUser> duplicateName = repository.findByName(user.getName());
-        List<EventUser> duplicateEmail = repository.findByEmail(user.getEmail());
+        EventUser duplicateEmail = repository.findByEmail(user.getEmail());
         List<String> errors = new ArrayList<>();
-        if (!duplicateName.isEmpty() && !duplicateEmail.isEmpty()) {
+        if (!duplicateName.isEmpty() && duplicateEmail == null) {
             errors.add("This Username and Email are already use!!!");
             throw new UserException(errors.toString());
         }
@@ -72,7 +77,7 @@ public class UserService {
 
             throw new UserException(errors.toString());
         }
-        if (!duplicateEmail.isEmpty()) {
+        if (duplicateEmail == null) {
             errors.add("This Email is already use!!!");
             throw new UserException(errors.toString());
         }
