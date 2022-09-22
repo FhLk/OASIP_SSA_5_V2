@@ -18,17 +18,15 @@ export const Authen = async (log) => {
   const res = await fetch(`${fetchUrl}/login`, {
     method: "POST",
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/x-www-form-urlencoded'
     },
-    body: JSON.stringify({
-      username: log.email.trim(),
-      password: log.password
-    })
+    body: `email=${log.email.trim()}&password=${log.password}`
   })
   if (res.status === 200) {
     let token = await res.json()
-    localStorage.setItem("token", token.token)
-    return token.token
+    localStorage.setItem("access_token", token.access_token)
+    localStorage.setItem("refresh_token", token.refresh_token)
+    return token.access_token
   }
   else {
     alert("Can't Authentication")

@@ -1,14 +1,14 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { Match,Authen } from '../fetch/fetchUserAPI.js'
-const emits=defineEmits(['login'])
+import { Match, Authen } from '../fetch/fetchUserAPI.js'
+const emits = defineEmits(['login'])
 const errorMessage = ref("")
 const isEmail = ref(false)
 const isPass = ref(false)
 const isLogin = ref(false)
 const isEmailLogin = ref(false)
-const token=ref("")
+const token = ref("")
 const isPassLogin = ref(false)
 const login = ref({
   email: "",
@@ -40,11 +40,17 @@ const checkLogin = async (log) => {
     isEmail.value = false
     const resLogin = await Match(log)
     if (resLogin === 200) {
-      alert("Login success")
-      token.value=await Authen(log)
-      emits('login',token.value)
-      GoIndex()
-      reset()
+      // await Authen(log)
+      token.value = await Authen(log)
+      if (token.value === "") {
+        alert("Login unsuccss")
+      }
+      else {
+        alert("Login success")
+        emits('login', token.value)
+        GoIndex()
+        reset()
+      }
     }
     else if (resLogin === 404) {
       isLogin.value = true
