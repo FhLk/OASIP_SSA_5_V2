@@ -1,3 +1,5 @@
+import { setToken } from "../Store/local";
+
 const fetchUrl = import.meta.env.VITE_BASE_URL;
 
 export const Match= async (log)=>{
@@ -24,8 +26,7 @@ export const Authen = async (log) => {
   })
   if (res.status === 200) {
     let token = await res.json()
-    localStorage.setItem("access_token", token.access_token)
-    localStorage.setItem("refresh_token", token.refresh_token)
+    setToken(token)
     return token.access_token
   }
   else {

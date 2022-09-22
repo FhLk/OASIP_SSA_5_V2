@@ -2,6 +2,9 @@
 import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
 import LoginPage from "../views/LoginPage.vue";
+import { checkToken } from '../Store/local';
+
+const emits=defineEmits(['signOut'])
 
 const props=defineProps({
     token: String
@@ -9,21 +12,18 @@ const props=defineProps({
 
 const isToken=ref(false)
 
-const checkToken = () => {
-  if (localStorage.getItem("token") === null) {
-    isToken.value = false;
-  } else {
-    isToken.value = true;
-  }
-};
+onBeforeMount(async () => {
+    isToken.value=checkToken()
+})
 
 const signOut= ()=>{
     localStorage.clear()
+    document.cookie.clear()
     alert("Sign Out Succes")
-    isToken.value=false
+    checkToken()
+    emits('signOut')
 }
 
-checkToken();
 </script>
  
 <template>

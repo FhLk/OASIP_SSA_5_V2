@@ -9,7 +9,7 @@ const sentToken=(t)=>{
 </script>
  
 <template>
-    <NavBar :token="token"/>
+    <NavBar :token="token" @signOut="token=''"/>
     <router-view @login="sentToken" ></router-view> 
 </template>
 
