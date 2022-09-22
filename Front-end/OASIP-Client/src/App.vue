@@ -1,11 +1,16 @@
 <script setup>
-import { ref } from "vue";
+import { computed } from "@vue/reactivity";
+import { onBeforeMount, onBeforeUpdate, onUpdated, ref } from "vue";
 import NavBar from './components/NavBar.vue';
+const token=ref("")
+const sentToken=(t)=>{
+    token.value=t
+}
 </script>
  
 <template>
-    <NavBar/>
-    <router-view></router-view> 
+    <NavBar :token="token"/>
+    <router-view @login="sentToken" ></router-view> 
 </template>
 
 

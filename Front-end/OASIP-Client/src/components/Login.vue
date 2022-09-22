@@ -1,18 +1,20 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { Match,Authen } from '../fetch/fetchAPI.js'
-
+import { Match,Authen } from '../fetch/fetchUserAPI.js'
+const emits=defineEmits(['login'])
 const errorMessage = ref("")
 const isEmail = ref(false)
 const isPass = ref(false)
 const isLogin = ref(false)
 const isEmailLogin = ref(false)
+const token=ref("")
 const isPassLogin = ref(false)
 const login = ref({
   email: "",
   password: ""
 })
+
 const checkLogin = async (log) => {
   let isCheck = true
   if (log.email === "" && log.password === "") {
@@ -39,7 +41,8 @@ const checkLogin = async (log) => {
     const resLogin = await Match(log)
     if (resLogin === 200) {
       alert("Login success")
-      await Authen(log)
+      token.value=await Authen(log)
+      emits('login',token.value)
       GoIndex()
       reset()
     }
@@ -75,9 +78,6 @@ const GoIndex = () => {
  
 <template>
   <div class="font">
-    <div class="header mt-32 ">
-      Welcome to OASIP
-    </div>
     <div class="login mt-8">
       <h1 class="login-header bg-red-500">
         LOGIN

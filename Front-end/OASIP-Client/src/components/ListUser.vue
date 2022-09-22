@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-// import { getUsers } from '../fetch/fetchAPI.js';
 import moment from "moment"
+import { deleteUser, getUsers } from '../fetch/fetchUserAPI';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 const props = defineProps({
@@ -18,28 +18,13 @@ const getUser = ref({})
 const isEdit = ref(false)
 const isEditId = ref(0)
 
-const getUsers = async (page = 0) => {
-    const res = await fetch(`${fetchUrl}/users?page=${page}`, {
-        method: 'GET',
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-    })
-    if (res.status === 200) {
-        getAllUser.value = await res.json()
-    }
-    else {
-        getAllUser.value = []
-    }
-}
-
 let count = 0
 const detailUser = async (id) => {
     if (count !== id) {
         const res = await fetch(`${fetchUrl}/users/${id}`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                // "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         })
         if (res.status === 200) {
@@ -58,40 +43,30 @@ const showTimeStampe = (datatime) => {
 }
 
 const page = ref(0)
-const NextPage = () => {
+const NextPage = async () => {
     if (page.value < 0) {
         page.value = 0
     }
     reset()
-    getUsers(page.value += 1)
+    getAllUser.value= await getUsers(page.value += 1)
 }
 
-const BackPage = () => {
+const BackPage = async () => {
     if (page.value < 0) {
         page.value = 0
     }
     reset()
-    getUsers(page.value -= 1)
+    getAllUser.value= await getUsers(page.value -= 1)
 }
 
-const deleteUser = async (user) => {
-    if (confirm("Are you sure?")) {
-        const res = await fetch(`${fetchUrl}/users/${user.id}`, {
-            method: 'DELETE',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        if (res.status === 200) {
-            await getUsers(page.value)
-            reset()
-        }
-        else {
-            alert("Can't Delete this Booking")
-            reset()
-        }
+const del = async(user)=>{
+    const res= await deleteUser(user)
+    if(res===200){
+        getAllUser.value=await getUsers(page.value)
+        reset()
     }
 }
+
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 let mailFormat3 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -234,12 +209,12 @@ const saveUser = async (updateUser) => {
     })
     if (res.status === 200) {
         alert("You have a change User.")
-        await getUsers(page.value)
+        getAllUser.value= await getUsers(page.value)
         reset()
     }
     else {
         alert("You can't change this Booking")
-        await getUsers(page.value)
+        getAllUser.value=await getUsers(page.value)
         reset()
     }
 }
@@ -255,7 +230,7 @@ const reset = () => {
 }
 
 onBeforeMount(async () => {
-    await getUsers()
+    getAllUser.value= await getUsers()
 })
 
 const countName = computed(() => {
@@ -289,7 +264,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                             }}</button>
                         </div>
                         <div class="mr-5">
-                            <img @click="deleteUser(user)" src="../assets/trash.png"
+                            <img @click="del(user)" src="../assets/trash.png"
                                 class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                         </div>
                     </div>

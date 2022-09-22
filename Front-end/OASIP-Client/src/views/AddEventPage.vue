@@ -1,120 +1,130 @@
 <script setup>
 import Create from '../components/Create.vue';
-import { computed, onBeforeMount, ref} from 'vue';
-
+import { computed, onBeforeMount, ref } from 'vue';
+import { checkToken } from '../Store/local';
+const isToken = ref(false)
 const getListCategories = ref([]);
 
 const getCategories = async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
         method: 'GET',
         headers: {
-        "Authorization": `Bearer ${localStorage.getItem('token')}`
-    }
+            // "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
     })
     getListCategories.value = await res.json()
 }
 
-onBeforeMount(async ()=>{
+onBeforeMount(async () => {
     await getCategories()
+    isToken.value = checkToken()
 })
 
-const isEdit=ref(false)
-const isEditId=ref(0)
+const isEdit = ref(false)
+const isEditId = ref(0)
 const EditDescription = ref("")
 const EditName = ref("")
-const EditDuration= ref(0)
+const EditDuration = ref(0)
 const EditCategoryOpen = (category) => {
     isEdit.value = true
-    isEditId.value=category.id
-    EditName.value=category.categoryName;
-    EditDescription.value=category.description
-    EditDuration.value=category.duration
+    isEditId.value = category.id
+    EditName.value = category.categoryName;
+    EditDescription.value = category.description
+    EditDuration.value = category.duration
 }
 
-const EditCategoryClose =()=>{
-    isDuration.value=false
-    isNameEmpty.value=false
-    isEditId.value=0
-    isEdit.value=false
+const EditCategoryClose = () => {
+    isDuration.value = false
+    isNameEmpty.value = false
+    isEditId.value = 0
+    isEdit.value = false
 }
 
-const reset=()=>{
-    isEdit.value=false
-    isEditId.value=0
-    EditName.value=""
-    EditDescription.value=""
-    EditDuration.value=0
+const reset = () => {
+    isEdit.value = false
+    isEditId.value = 0
+    EditName.value = ""
+    EditDescription.value = ""
+    EditDuration.value = 0
 }
 
-const isNameEmpty=ref(false)
-const isDuration=ref(false)
-const CheckInput= async (updateCategory)=>{
-    let isCheck=true
-    if(EditName.value === ''){
-        isCheck=false
-        isNameEmpty.value=true
+const isNameEmpty = ref(false)
+const isDuration = ref(false)
+const CheckInput = async (updateCategory) => {
+    let isCheck = true
+    if (EditName.value === '') {
+        isCheck = false
+        isNameEmpty.value = true
     }
-    if(EditDuration.value < 1 || EditDuration.value > 480){
-        isCheck=false
-        isDuration.value=true
+    if (EditDuration.value < 1 || EditDuration.value > 480) {
+        isCheck = false
+        isDuration.value = true
     }
-    else if(EditDuration.value >= 1 && EditDuration.value <= 480){
-        isDuration.value=false
+    else if (EditDuration.value >= 1 && EditDuration.value <= 480) {
+        isDuration.value = false
     }
-    if(isCheck){
-        EditDuration.value=updateCategory.duration
-        EditName.value=updateCategory.categoryName
-        EditDescription.value=updateCategory.description
-        isDuration.value=false
-        isNameEmpty.value=false
-        if(confirm("Are you sure")){
+    if (isCheck) {
+        EditDuration.value = updateCategory.duration
+        EditName.value = updateCategory.categoryName
+        EditDescription.value = updateCategory.description
+        isDuration.value = false
+        isNameEmpty.value = false
+        if (confirm("Are you sure")) {
             await saveCategory(updateCategory)
             reset()
         }
     }
 }
 
-const saveCategory= async (updateCategory)=>{
-    updateCategory.categoryName=EditName.value
-    updateCategory.description=EditDescription.value
-    updateCategory.duration= EditDuration.value
+const saveCategory = async (updateCategory) => {
+    updateCategory.categoryName = EditName.value
+    updateCategory.description = EditDescription.value
+    updateCategory.duration = EditDuration.value
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories/${updateCategory.id}`, {
         method: 'PUT',
-        headers:{
+        headers: {
             'content-type': 'application/json'
         },
         body: JSON.stringify({
-            id:updateCategory.id,
-            categoryName:updateCategory.categoryName.trim(),
-            description:updateCategory.description.trim(),
-            duration:updateCategory.duration
+            id: updateCategory.id,
+            categoryName: updateCategory.categoryName.trim(),
+            description: updateCategory.description.trim(),
+            duration: updateCategory.duration
         })
     })
-    if(res.status===200){
+    if (res.status === 200) {
         await getCategories()
         reset()
     }
 }
 
-const ced = " edit rounded-full px-2 text-white hover:bg-[#AECBFF]" ;
-const ccl = " bg-red-600 rounded-full px-2 text-white hover:bg-[#F87171]" ;
+const ced = " edit rounded-full px-2 text-white hover:bg-[#AECBFF]";
+const ccl = " bg-red-600 rounded-full px-2 text-white hover:bg-[#F87171]";
 
-const countDescription=computed(()=>{
-    return 500-EditDescription.value.length
+const countDescription = computed(() => {
+    return 500 - EditDescription.value.length
 })
 
-const countName=computed(()=>{
-    return 100-EditName.value.length
+const countName = computed(() => {
+    return 100 - EditName.value.length
 })
 </script>
  
 <template>
-<div class="bg h-screen h-full">
-    <h1 class="font text-5xl flex justify-center pt-36">Add new schedule</h1>
-    <div>
-        <Create :getCategories="getListCategories" />
-    </div>
-    <div class="font ccf mt-5 bgcat mx-7 py-5 rounded-lg ">
+    <div class="bg h-screen h-full">
+        <h1 class="font text-5xl flex justify-center pt-36">Add new schedule</h1>
+        <div>
+            <Create v-if="isToken" :getCategories="getListCategories" />
+            <div v-else>
+                <h1 class="font text-5xl flex justify-center mt-10">Plase Sign-in</h1>
+                <div class="font flex justify-center ">
+                    <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
+                        <router-link to="/LoginPage">Sign In</router-link>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="font ccf mt-5 bgcat mx-7 py-5 rounded-lg ">
         <h2 class="ml-10 text-xl">Definition of category</h2>
         <div class="ml-14 rounded-full">
             <ul>
@@ -159,32 +169,42 @@ const countName=computed(()=>{
                 </p>
             </ul>
         </div>
+    </div> -->
     </div>
-</div>   
 </template>
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
-.description{
+.description {
     max-width: 35%;
     margin-left: 2%;
 }
 
-.font{
+.btt {
+  background-color: rgb(25, 25, 112);
+}
+
+.cf {
+  color: rgb(251, 251, 249);
+}
+.font {
     font-family: 'Mitr', sans-serif;
 }
-.bg{
+
+.bg {
     background-color: rgb(255, 255, 247);
 }
+
 .ccf {
     color: rgb(42, 39, 40);
 }
-.bgcat{
+
+.bgcat {
     background-color: rgb(167, 214, 255);
 }
-.edit{
-    background-color: rgb(21, 49, 126) ;
-}
 
+.edit {
+    background-color: rgb(21, 49, 126);
+}
 </style>
