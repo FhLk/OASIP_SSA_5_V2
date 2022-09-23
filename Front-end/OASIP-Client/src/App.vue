@@ -1,15 +1,20 @@
 <script setup>
 import { computed } from "@vue/reactivity";
-import { onBeforeMount, onBeforeUpdate, onUpdated, ref } from "vue";
+import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from "vue";
 import NavBar from './components/NavBar.vue';
 const token=ref("")
+const isTimeout=ref(false)
 const sentToken=(t)=>{
+    token.value=t
+}
+
+const timeOut=(t)=>{
     token.value=t
 }
 </script>
  
 <template>
-    <NavBar :token="token" @signOut="token=''"/>
+    <NavBar :token="token" @signOut="token=''" @timeOut="timeOut"/>
     <router-view @login="sentToken" ></router-view> 
 </template>
 

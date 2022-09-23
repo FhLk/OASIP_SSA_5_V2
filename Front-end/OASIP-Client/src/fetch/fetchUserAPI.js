@@ -35,12 +35,31 @@ export const Authen = async (log) => {
   return 
 }
 
+export const reAuthen= async (log)=>{
+  const res = await fetch(`${fetchUrl}/token/refresh`, {
+    method: "POST",
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    body: `email=${log.email.trim()}&password=${log.password}`
+  })
+  if (res.status === 200) {
+    let token = await res.json()
+    setToken(token)
+    return token.access_token
+  }
+  else {
+    alert("Can't Authentication")
+  }
+  return 
+}
+
 export const AllUser = async () => {
   let all=[]
   const res = await fetch(`${fetchUrl}/users/check`, {
       method: 'GET',
       headers: {
-        // "Authorization": `Bearer ${localStorage.getItem('token')}`
+        "Authorization": `Bearer ${localStorage.getItem('access_token')}`
       }
   })
   if (res.status === 200) {
@@ -53,7 +72,7 @@ export const getUsers = async (page = 0) => {
   const res = await fetch(`${fetchUrl}/users?page=${page}`, {
       method: 'GET',
       headers: {
-          // "Authorization": `Bearer ${localStorage.getItem('token')}`
+          "Authorization": `Bearer ${localStorage.getItem('access_token')}`
       }
   })
   if (res.status === 200) {
@@ -70,7 +89,7 @@ export const deleteUser = async (user) => {
       const res = await fetch(`${fetchUrl}/users/${user.id}`, {
           method: 'DELETE',
           headers: {
-              // "Authorization": `Bearer ${localStorage.getItem('token')}`
+              "Authorization": `Bearer ${localStorage.getItem('access_token')}`
           }
       })
       if (res.status === 200) {

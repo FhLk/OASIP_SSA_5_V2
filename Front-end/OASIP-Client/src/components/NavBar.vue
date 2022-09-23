@@ -1,27 +1,40 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
+import { useRoute, useRouter } from 'vue-router';
 import LoginPage from "../views/LoginPage.vue";
-import { checkToken } from '../Store/local';
+import { checkToken, expiresToken } from '../Store/local';
 
-const emits=defineEmits(['signOut'])
+const emits = defineEmits(['signOut','timeOut'])
 
-const props=defineProps({
+const props = defineProps({
     token: String
 })
 
-const isToken=ref(false)
+const isToken = ref(false)
 
 onBeforeMount(async () => {
-    isToken.value=checkToken()
+    isToken.value = checkToken()
 })
 
-const signOut= ()=>{
+const myRouter = useRouter()
+const GoSignIn = () => {
+  myRouter.push({ name: 'LoginPage' })
+}
+
+const signOut = () => {
     localStorage.clear()
-    document.cookie.clear()
-    alert("Sign Out Succes")
-    checkToken()
+    isToken.value = checkToken()
     emits('signOut')
+    alert("Sign Out Succes")
+}
+
+const checKTimeOut = () => {
+    if(expiresToken() && props.token!==''){
+        isToken.value=false
+        emits('timeOut',"")
+        GoSignIn()
+    }
 }
 
 </script>
@@ -45,16 +58,16 @@ const signOut= ()=>{
                         class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign Out</router-link>
                     </button>
-                    <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/AddUserPage">Add New User</router-link>
                     </button>
-                    <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/UserPage">User</router-link>
                     </button>
-                    <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/EventPage">Show Schedule </router-link>
                     </button>
-                    <button class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/AddEventPage">Add New Schedule</router-link>
                     </button>
                 </div>

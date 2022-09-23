@@ -23,7 +23,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings/sortByPast?page=${page}`, {
                 method: 'GET',
                 headers: {
-                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
         }
@@ -31,7 +31,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings/sortByCategory?page=${page}&category=${categoryID.value}`, {
                 method: 'GET',
                 headers: {
-                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
         }
@@ -39,7 +39,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings/sortByDay?page=${page}&date=${sortDay.value}`, {
                 method: 'GET',
                 headers: {
-                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
         }
@@ -47,7 +47,7 @@ const Page = async (page = 0) => {
             res = await fetch(`${fetchUrl}/bookings?page=${page}`, {
                 method: 'GET',
                 headers: {
-                    // "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
                 }
             })
         }
@@ -117,7 +117,7 @@ const showDetail = async (id) => {
         const res = await fetch(`${fetchUrl}/bookings/${id}`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
             }
         })
         getBooking.value = await res.json()
@@ -174,7 +174,7 @@ const savebooking = async (updateBooking) => {
         const res = await fetch(`${fetchUrl}/bookings/${updateBooking.id}`, {
             method: 'PUT',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({

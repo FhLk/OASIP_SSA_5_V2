@@ -2,13 +2,14 @@
 import { computed, onBeforeMount, ref } from 'vue';
 import CreateUser from '../components/CreateUser.vue';
 import { AllUser } from '../fetch/fetchUserAPI.js'
-import {checkToken} from '../Store/local.js';
+import {checkToken,expiresToken} from '../Store/local.js';
 const getAllUser = ref([])
 
 const isToken = ref(false)
 
 
 onBeforeMount(async () => {
+  expiresToken()
   getAllUser.value = await AllUser()
   isToken.value= checkToken()
 })

@@ -145,14 +145,14 @@ const CheckInput = async (booking) => {
 
 const myRouter = useRouter()
 const GoHome = () => {
-    myRouter.push({ name: 'ShowPage' })
+    myRouter.push({ name: 'EventPage' })
 }
 
 const createBooking = async (booking) => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/bookings`, {
         method: 'POST',
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
             'content-type': 'application/json'
         },
         body: JSON.stringify({
