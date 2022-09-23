@@ -1,11 +1,13 @@
 <script setup>
-import { onUpdated, ref } from 'vue';
+import { onBeforeMount, onUpdated, ref } from 'vue';
 import Login from '../components/Login.vue';
 import NavBar from '../components/NavBar.vue';
 const emits=defineEmits(['login'])
+const token=ref("")
 const sentToken=(t)=>{
    emits('login',t)
 }
+
 </script>
  
 <template>

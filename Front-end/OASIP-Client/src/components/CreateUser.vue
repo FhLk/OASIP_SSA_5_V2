@@ -150,7 +150,7 @@ const createUser = async (user) => {
     const res = await fetch(`${fetchUrl}/users`, {
         method: "POST",
         headers: {
-            // "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
             'content-type': 'application/json'
         },
         body: JSON.stringify({

@@ -1,7 +1,7 @@
 <script setup>
 import Create from '../components/Create.vue';
 import { computed, onBeforeMount, ref } from 'vue';
-import { checkToken } from '../Store/local';
+import { checkToken, expiresToken } from '../Store/local.js';
 const isToken = ref(false)
 const getListCategories = ref([]);
 
@@ -9,15 +9,16 @@ const getCategories = async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
         method: 'GET',
         headers: {
-            // "Authorization": `Bearer ${localStorage.getItem('token')}`
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
         }
     })
     getListCategories.value = await res.json()
 }
 
 onBeforeMount(async () => {
-    await getCategories()
+    expiresToken()
     isToken.value = checkToken()
+    await getCategories()
 })
 
 const isEdit = ref(false)
@@ -182,12 +183,13 @@ const countName = computed(() => {
 }
 
 .btt {
-  background-color: rgb(25, 25, 112);
+    background-color: rgb(25, 25, 112);
 }
 
 .cf {
-  color: rgb(251, 251, 249);
+    color: rgb(251, 251, 249);
 }
+
 .font {
     font-family: 'Mitr', sans-serif;
 }
