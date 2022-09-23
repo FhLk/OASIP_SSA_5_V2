@@ -2,21 +2,17 @@
 import { computed, onBeforeMount, ref } from 'vue';
 import CreateUser from '../components/CreateUser.vue';
 import { AllUser } from '../fetch/fetchUserAPI.js'
+import {checkToken,expiresToken} from '../Store/local.js';
 const getAllUser = ref([])
 
-onBeforeMount(async () => {
-  getAllUser.value = await AllUser()
-})
-
 const isToken = ref(false)
-const checkToken = () => {
-  if (localStorage.getItem("token") === null) {
-    isToken.value = false;
-  } else {
-    isToken.value = true;
-  }
-};
-checkToken()
+
+
+onBeforeMount(async () => {
+  expiresToken()
+  getAllUser.value = await AllUser()
+  isToken.value= checkToken()
+})
 </script>
  
 <template>

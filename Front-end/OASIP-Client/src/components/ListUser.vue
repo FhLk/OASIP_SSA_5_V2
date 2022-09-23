@@ -24,7 +24,7 @@ const detailUser = async (id) => {
         const res = await fetch(`${fetchUrl}/users/${id}`, {
             method: 'GET',
             headers: {
-                // "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
             }
         })
         if (res.status === 200) {

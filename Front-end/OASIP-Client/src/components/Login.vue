@@ -40,10 +40,10 @@ const checkLogin = async (log) => {
     isEmail.value = false
     const resLogin = await Match(log)
     if (resLogin === 200) {
-      // await Authen(log)
       token.value = await Authen(log)
-      if (token.value === "") {
+      if (token.value.access_token === "") {
         alert("Login unsuccss")
+        login.value.password = ""
       }
       else {
         alert("Login success")
