@@ -16,7 +16,6 @@ const getCategories = async () => {
 }
 
 onBeforeMount(async () => {
-    expiresToken()
     isToken.value = checkToken()
     await getCategories()
 })

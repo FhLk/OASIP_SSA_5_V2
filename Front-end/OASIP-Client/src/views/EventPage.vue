@@ -1,12 +1,13 @@
 <script setup>
 import { onMounted, onBeforeMount, ref, onBeforeUpdate, onUpdated, computed } from 'vue';
 import List from '../components/List.vue'
-import {checkToken,expiresToken} from '../Store/local.js';
+import { checkToken, expiresToken } from '../Store/local.js';
 let DateFormat = "YYYY-MM-DD HH:mm"
 const isToken = ref(false)
 
+
 onBeforeMount(() => {
-    expiresToken()
+
     isToken.value = checkToken()
 })
 </script>
@@ -35,6 +36,7 @@ onBeforeMount(() => {
 .bgl2 {
     background-color: rgb(164, 220, 255);
 }
+
 .btt {
     background-color: rgb(25, 25, 112);
 }

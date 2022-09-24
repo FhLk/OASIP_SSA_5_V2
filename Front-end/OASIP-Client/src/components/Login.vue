@@ -108,6 +108,7 @@ const GoIndex = () => {
         <div v-show="isLogin" class="text-center text-red-500">
           <p v-if="isEmailLogin">Email does not exist</p>
           <p v-else-if="isPassLogin">Your Email or Password incorrect</p>
+          <p v-else>Something is Wrong. Plase Try Again.</p>
         </div>
       </div>
       <div class="flex space-x-2 justify-center mt-4">

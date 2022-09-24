@@ -7,11 +7,9 @@ const getAllUser = ref([])
 
 const isToken = ref(false)
 
-
 onBeforeMount(async () => {
-  expiresToken()
-  getAllUser.value = await AllUser()
   isToken.value= checkToken()
+  getAllUser.value = await AllUser()
 })
 </script>
  

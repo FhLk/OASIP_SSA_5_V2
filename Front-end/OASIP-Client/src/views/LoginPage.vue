@@ -1,12 +1,25 @@
 <script setup>
 import { onBeforeMount, onUpdated, ref } from 'vue';
 import Login from '../components/Login.vue';
-import NavBar from '../components/NavBar.vue';
+import { useRoute, useRouter } from 'vue-router';
+import { checkToken } from '../Store/local';
 const emits=defineEmits(['login'])
-const token=ref("")
+const isTimeOut=ref(false)
 const sentToken=(t)=>{
    emits('login',t)
 }
+
+const myRouter = useRouter()
+const GoIndex = () => {
+  myRouter.push({ name: 'indexPage' })
+}
+
+onBeforeMount(()=>{
+  isTimeOut.value=checkToken()
+  if(isTimeOut.value){
+    GoIndex()
+  }
+})
 
 </script>
  

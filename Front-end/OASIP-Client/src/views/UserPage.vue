@@ -1,19 +1,14 @@
 <script setup>
 import ListUser from '../components/ListUser.vue';
 import { AllUser } from '../fetch/fetchUserAPI.js'
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, onBeforeUnmount, onBeforeUpdate, ref } from 'vue';
 import {checkToken,expiresToken} from '../Store/local.js';
 
 const getAllUser = ref([])
 const isToken = ref(false)
-const isTimeout =ref(false)
-
-const sentToken=(t=localStorage.getItem("access_token"))=>{
-
-}
+const isExpire = ref(false)
 
 onBeforeMount(async () => {
-    expiresToken()
     isToken.value=checkToken()
     getAllUser.value = await AllUser()
 })
@@ -28,7 +23,6 @@ onBeforeMount(async () => {
         <ListUser v-if="isToken" :getUsers="getAllUser"/>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
             <div class="flex justify-center">
-                <p>No Users.</p>
                 <p>Plase Sign-in for use OASIP.</p>
                 <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
                     <router-link to="/LoginPage">Sign In</router-link>

@@ -2,20 +2,29 @@
 import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from "vue";
 import NavBar from './components/NavBar.vue';
-const token=ref("")
-const isTimeout=ref(false)
-const sentToken=(t)=>{
-    token.value=t
+import moment from "moment";
+import { expiresToken } from "./Store/local";
+const token = ref("")
+const isTimeOut=ref(false)
+const sentToken = (t) => {
+    token.value = t
 }
 
-const timeOut=(t)=>{
-    token.value=t
+onBeforeMount(()=>{
+    isTimeOut.value=expiresToken()
+    if(isTimeOut.value){
+        token.value=''
+    }
+})
+
+const timeOut = (t) => {
+    token.value = t
 }
 </script>
  
 <template>
-    <NavBar :token="token" @signOut="token=''" @timeOut="timeOut"/>
-    <router-view @login="sentToken" ></router-view> 
+    <NavBar :token="token" @signOut="token=''" @timeOut="timeOut" />
+    <router-view @login="sentToken"></router-view>
 </template>
 
 

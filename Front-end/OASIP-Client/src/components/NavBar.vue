@@ -1,39 +1,62 @@
 <script setup>
+import { useTimer } from "vue-timer-hook";
 import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import LoginPage from "../views/LoginPage.vue";
-import { checkToken, expiresToken } from '../Store/local';
-
-const emits = defineEmits(['signOut','timeOut'])
-
+import { checkToken, expiresToken, expiresAccess } from '../Store/local';
+import { reAuthen } from "../fetch/fetchUserAPI";
+import moment from "moment";
+const emits = defineEmits(['signOut', 'timeOut'])
 const props = defineProps({
     token: String
 })
 
 const isToken = ref(false)
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
     isToken.value = checkToken()
 })
 
+onUpdated(() => {
+    isToken.value = checkToken()
+})
+
+// onBeforeUpdate(()=>{
+//     if(props.startTime===1){
+//         countDown()
+//         // console.log("wow")
+//     }
+// })
 const myRouter = useRouter()
 const GoSignIn = () => {
-  myRouter.push({ name: 'LoginPage' })
+    myRouter.push({ name: 'LoginPage' })
+}
+
+const signIn = () => {
+    localStorage.clear()
+    isToken.value = checkToken()
+    GoSignIn()
 }
 
 const signOut = () => {
     localStorage.clear()
-    isToken.value = checkToken()
+    isToken.value = false
     emits('signOut')
     alert("Sign Out Succes")
+    GoSignIn()
 }
 
-const checKTimeOut = () => {
-    if(expiresToken() && props.token!==''){
-        isToken.value=false
-        emits('timeOut',"")
+const checkTimeOut = () => {
+    isToken.value = checkToken()
+    if (expiresToken() && (props.token !== '' || props.token === null)) {
+        localStorage.clear()
+        isToken.value = false
+        emits('timeOut', "")
         GoSignIn()
+    }
+    else if (expiresAccess()) {
+        reAuthen()
     }
 }
 
@@ -50,7 +73,7 @@ const checKTimeOut = () => {
                     <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
                 </div>
                 <div class="justify-self-end">
-                    <button v-if="isToken===false && token ===''"
+                    <button v-if="isToken===false && token ===''" @click="signIn"
                         class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign In</router-link>
                     </button>
@@ -58,16 +81,16 @@ const checKTimeOut = () => {
                         class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign Out</router-link>
                     </button>
-                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/AddUserPage">Add New User</router-link>
                     </button>
-                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/UserPage">User</router-link>
                     </button>
-                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/EventPage">Show Schedule </router-link>
                     </button>
-                    <button @click="checKTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/AddEventPage">Add New Schedule</router-link>
                     </button>
                 </div>
