@@ -62,6 +62,9 @@ export const AllUser = async () => {
   if (res.status === 200) {
       return all = await res.json()
   }
+  else{
+    return all;
+  }
 }
 
 export const getUsers = async (page = 0) => {

@@ -20,11 +20,12 @@ onBeforeMount(()=>{
 const timeOut = (t) => {
     token.value = t
 }
+
 </script>
  
 <template>
     <NavBar :token="token" @signOut="token=''" @timeOut="timeOut" />
-    <router-view @login="sentToken"></router-view>
+    <router-view @login="sentToken" @click="token=''"></router-view>
 </template>
 
 

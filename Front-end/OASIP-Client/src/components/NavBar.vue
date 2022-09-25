@@ -22,12 +22,6 @@ onUpdated(() => {
     isToken.value = checkToken()
 })
 
-// onBeforeUpdate(()=>{
-//     if(props.startTime===1){
-//         countDown()
-//         // console.log("wow")
-//     }
-// })
 const myRouter = useRouter()
 const GoSignIn = () => {
     myRouter.push({ name: 'LoginPage' })
@@ -49,9 +43,13 @@ const signOut = () => {
 
 const checkTimeOut = () => {
     isToken.value = checkToken()
+    if(isToken.value===false){
+        isToken.value=false
+        emits('timeOut', "")
+    }
     if (expiresToken() && (props.token !== '' || props.token === null)) {
         localStorage.clear()
-        isToken.value = false
+        isToken.value=false
         emits('timeOut', "")
         GoSignIn()
     }
@@ -83,21 +81,21 @@ const checkTimeOut = () => {
                         <router-link to="/UserPage">User</router-link>
                     </button>
                     <button v-if="isToken===false && token ===''" @click="signIn"
-                        class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                        class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign In</router-link>
                     </button>
                     <button v-else @click="signOut"
-                        class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                        class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign Out</router-link>
                     </button>
-                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checkTimeOut" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/AddUserPage">Create New Account</router-link>
                     </button>
                 </div>
             </div>
         </nav>
 
-        <div class="navbar pt-0.5 pb-1 flex justify-end">
+        <div class="navbar pt-0.5 pb-0.5 flex justify-end">
             <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font">
                 <router-link to="/AboutPage">About Us</router-link>
             </button>
@@ -124,7 +122,9 @@ const checkTimeOut = () => {
 .btAddNew {
     background-color: rgb(21, 49, 126);
 }
-
+.btLogIn {
+    background-color: rgb(105, 1, 29);
+}
 .hoa {
     background-color: rgb(101, 129, 206);
 }

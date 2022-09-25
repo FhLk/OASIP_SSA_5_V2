@@ -7,7 +7,6 @@ const isToken = ref(false)
 
 
 onBeforeMount(() => {
-
     isToken.value = checkToken()
 })
 </script>

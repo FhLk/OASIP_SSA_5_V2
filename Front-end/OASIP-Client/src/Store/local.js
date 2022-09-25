@@ -15,6 +15,7 @@ export const expiresToken=()=>{
         return false
     }
     else if(new Date(expire_refresh) < new Date()){
+        localStorage.clear()
         return true
     }
     else{
@@ -43,7 +44,7 @@ export const setToken = (token) => {
     localStorage.setItem("expire_access",expires)
     expires =new Date()
     if(new Date(expire_refresh)<expires||expire_refresh===null){
-        expires.setMinutes(expires.getMinutes() + 5)
+        expires.setSeconds(expires.getSeconds() + 10)
         localStorage.setItem("refresh_token", token.refresh_token)
         localStorage.setItem("expire_refresh",expires)
     }

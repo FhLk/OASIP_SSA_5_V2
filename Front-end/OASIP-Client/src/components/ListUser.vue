@@ -1,8 +1,9 @@
 <script setup>
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, onBeforeUpdate, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import moment from "moment"
 import { deleteUser, getUsers } from '../fetch/fetchUserAPI';
+import { checkToken } from '../Store/local';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 const props = defineProps({
@@ -12,6 +13,7 @@ const props = defineProps({
     }
 })
 
+const isTimeOut=ref(false)
 const getAllUser = ref([])
 const isDetail = ref(-1)
 const getUser = ref({})
