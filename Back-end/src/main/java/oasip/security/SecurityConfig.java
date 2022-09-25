@@ -16,7 +16,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+import static org.springframework.http.HttpMethod.*;
 
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
@@ -39,9 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.authorizeRequests().antMatchers("/api/login/**","/api/match/**","/api/token/refresh").permitAll();
-        http.authorizeRequests().antMatchers("/api/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh").permitAll();
+//        http.authorizeRequests().antMatchers("/api/**").permitAll();
 //        http.authorizeRequests().antMatchers(GET,"api/users/**").hasAnyAuthority("STUDENT");
+        http.authorizeRequests().antMatchers("api/users/**","/api/match/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers().
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
