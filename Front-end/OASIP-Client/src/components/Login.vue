@@ -84,7 +84,7 @@ const GoIndex = () => {
  
 <template>
   <div class="font">
-    <div class="login mt-8">
+    <div class="login mt-1">
       <h1 class="login-header bg-red-500">
         LOGIN
       </h1>

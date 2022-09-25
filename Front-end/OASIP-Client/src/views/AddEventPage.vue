@@ -112,12 +112,14 @@ const countName = computed(() => {
  
 <template>
     <div class="bg h-screen h-full">
-        <h1 class="font text-5xl flex justify-center pt-36">Add new schedule</h1>
+        <h1 class="font text-5xl flex justify-center pt-28">Add new schedule</h1>
         <div>
             <Create v-if="isToken" :getCategories="getListCategories" />
             <div v-else>
-                <h1 class="font text-5xl flex justify-center mt-10">Plase Sign-in</h1>
-                <div class="font flex justify-center ">
+                <div class="font flex justify-center "> 
+                    <h1 class="font text-4xl flex justify-center mt-10">Can not Add New Schedule. Plase Sign-in.</h1>
+                </div>
+                <div class="font flex justify-center mt-2">
                     <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
                         <router-link to="/LoginPage">Sign In</router-link>
                     </button>

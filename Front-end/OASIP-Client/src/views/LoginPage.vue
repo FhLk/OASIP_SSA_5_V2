@@ -25,7 +25,7 @@ onBeforeMount(()=>{
  
 <template>
 <div class="font">
-    <div class="header mt-32 ">
+    <div class="header mt-24 ">
       Welcome to OASIP
     </div>
     <Login @login="sentToken"/>

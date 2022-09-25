@@ -16,14 +16,16 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <div class="pt-36 font bg pb-56">
+    <div class="pt-28 font bg pb-56">
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../assets/team.png" class="user ml-5 ">
         </h1>
         <ListUser v-if="isToken" :getUsers="getAllUser"/>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
-            <div class="flex justify-center">
+            <div class="flex justify-center text-2xl">
                 <p>Plase Sign-in for use OASIP.</p>
+            </div>
+            <div class="flex justify-center pt-2">
                 <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
                     <router-link to="/LoginPage">Sign In</router-link>
                 </button>
