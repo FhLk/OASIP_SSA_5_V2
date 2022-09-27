@@ -22,6 +22,7 @@ onBeforeMount(() => {
 onUpdated(() => {
     isToken.value = checkToken()
 })
+
 </script>
  
 <template>

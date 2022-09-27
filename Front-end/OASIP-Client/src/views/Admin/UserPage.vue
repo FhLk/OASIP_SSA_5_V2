@@ -1,8 +1,9 @@
 <script setup>
-import ListUser from '../components/ListUser.vue';
-import { AllUser } from '../fetch/fetchUserAPI.js'
+import ListUser from '../../components/ListUser.vue';
+import { AllUser } from '../../fetch/fetchUserAPI.js'
 import { computed, onBeforeMount, onBeforeUnmount, onBeforeUpdate, ref } from 'vue';
-import {checkToken,expiresToken} from '../Store/local.js';
+import {checkToken,expiresToken} from '../../Store/local.js';
+import Match from '../../components/Match.vue';
 
 const getAllUser = ref([])
 const isToken = ref(false)
@@ -18,7 +19,7 @@ onBeforeMount(async () => {
 <template>
     <div class="pt-28 font bg pb-56">
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
-            <img src="../assets/team.png" class="user ml-5 ">
+            <img src="../../assets/team.png" class="user ml-5 ">
         </h1>
         <ListUser v-if="isToken" :getUsers="getAllUser"/>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">

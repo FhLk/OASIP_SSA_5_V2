@@ -10,6 +10,10 @@ const props = defineProps({
 })
 
 const isToken = ref(false)
+const time=ref(new Date())
+setInterval(()=>{
+    time.value= new Date()
+},1000)
 
 onBeforeMount(() => {
     isToken.value = checkToken()
@@ -23,12 +27,6 @@ onUpdated(() => {
 const myRouter = useRouter()
 const GoSignIn = () => {
     myRouter.push({ name: 'LoginPage' })
-}
-
-const signIn = () => {
-    localStorage.clear()
-    isToken.value = checkToken()
-    GoSignIn()
 }
 
 const signOut = () => {
@@ -87,6 +85,7 @@ const checkTimeOut = () => {
                     </button>
                 </div>
             </div>
+            <h1>{{time}}</h1>
         </nav>
 
         <div class="navbar pt-0.5 pb-0.5 flex justify-end">
