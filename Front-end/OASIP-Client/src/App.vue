@@ -3,7 +3,8 @@ import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from "vue";
 import NavBar from './views/NavBar.vue';
 import moment from "moment";
-import { checkRole, expiresToken } from "./Store/local";
+import { checkRole, expiresAccess, expiresToken } from "./Store/local";
+import { reAuthen } from "./fetch/fetchUserAPI";
 const token = ref("")
 const isTimeOut = ref(false)
 const role = ref(-1)
@@ -24,11 +25,17 @@ const timeOut = (t) => {
     token.value = t
 }
 
+const ReAuthen= async ()=>{
+    if(expiresAccess()){
+        await reAuthen()
+    }
+}
+
 </script>
  
 <template>
     <NavBar :token="token" :role="role" @signOut="token=''" @timeOut="timeOut" />
-    <router-view @login="sentToken" @click="token=''"></router-view>
+    <router-view @login="sentToken" @click="token='',ReAuthen()"></router-view>
 </template>
 
 

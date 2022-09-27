@@ -1,15 +1,25 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
-import CreateUser from '../components/CreateUser.vue';
-import { AllUser } from '../fetch/fetchUserAPI.js'
-import { checkRole, checkToken, expiresToken } from '../Store/local.js';
+import CreateUser from '../../components/CreateUser.vue';
+import { AllUser, reAuthen } from '../../fetch/fetchUserAPI.js'
+import { checkRole, checkToken, expiresAccess, expiresToken } from '../../Store/local.js';
 const getAllUser = ref([])
 
 const isToken = ref(false)
+const isTimeOut= ref(false)
 const role = ref(-1)
 
 onBeforeMount(async () => {
   isToken.value = checkToken()
+  isTimeOut.value = expiresToken()
+  if(isTimeOut.value){
+    isToken.value=false
+  }
+  else{
+    if(expiresAccess()){
+      await reAuthen()
+    }
+  }
   role.value = checkRole(localStorage.getItem("role"))
   getAllUser.value = await AllUser()
 })
@@ -18,7 +28,7 @@ onBeforeMount(async () => {
 <template>
   <div class="bg">
     <h1 class="font text-5xl flex justify-center pt-28">Add New Account</h1>
-    <CreateUser v-if="isToken && role===0" :getUsers="getAllUser" />
+    <CreateUser v-if="isToken && role===0" :getUsers="getAllUser"/>
     <div v-else-if="role!==0">
       <div class="font flex justify-center ">
         <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>

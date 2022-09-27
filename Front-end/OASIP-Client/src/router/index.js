@@ -3,10 +3,10 @@ import indexPage from '../views/indexPage.vue'
 import AddEventPage from '../views/AddEventPage.vue'
 import EventPage from '../views/EventPage.vue'
 import AboutPage from '../views/AboutPage.vue'
-import UserPage from '../views/UserPage.vue'
+import UserPage from '../views/Admin/UserPage.vue'
 import LoginPage from '../views/LoginPage.vue'
-import AddUserPage from '../views/AddUserPage.vue'
-const history = createWebHistory('/ssa5')
+import AddUserPage from '../views/Admin/AddUserPage.vue'
+const history = createWebHistory('ssa5')
 const routes = [
     {path: '/',name: 'indexPage',component: indexPage},
     {path: '/AddEventPage',name: 'AddEventPage',component: AddEventPage},

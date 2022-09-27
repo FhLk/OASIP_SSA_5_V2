@@ -1,126 +1,90 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { Match, Authen, checkAuthen } from '../fetch/fetchUserAPI.js'
-import jwt_decode from "jwt-decode";
+import { Match, Authen } from '../fetch/fetchUserAPI.js'
 import { checkRole } from '../Store/local';
-const emits = defineEmits(['login'])
-const errorMessage = ref("")
-const isEmail = ref(false)
-const isPass = ref(false)
-const isLogin = ref(false)
-const isEmailLogin = ref(false)
-const token = ref("")
-const role = ref(-1)
-const isPassLogin = ref(false)
-const login = ref({
-  email: "",
-  password: ""
+const props=defineProps({
+  user: Object
 })
+const isPass=ref(true)
+const isPassMatch=ref(true)
+const errorMessage=ref("")
+const userInfor=props.user
+const password=ref("")
 
-const checkLogin = async (log) => {
+const checkMatch = async (user,pass) => {
   let isCheck = true
-  if (log.email === "" && log.password === "") {
+  if (password.value === "") {
     isCheck = false
-    isEmail.value = true
-    isPass.value = true
-    errorMessage.value = "mb-2 text-[#FF0000] text-sm"
-  }
-  else if (log.email !== "" && log.password === "") {
-    isCheck = false
-    isEmail.value = false
-    isPass.value = true
-    errorMessage.value = "mb-2 text-[#FF0000] text-sm"
-  }
-  else if (log.email === "" && log.password !== "") {
-    isCheck = false
-    isPass.value = false
-    isEmail.value = true
+    isPass.value=false
+    isPassMatch.value=false
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
   if (isCheck) {
-    isPass.value = false
-    isEmail.value = false
-    const resLogin = await checkAuthen(log)
+    const resLogin = await Match({email:user.email,password:pass})
     if (resLogin === 200) {
-      token.value = await Authen(log)
-      if (token.value.access_token === "") {
-        alert("Login unsuccss")
-        login.value.password = ""
-      }
-      else {
-        role.value=checkRole(localStorage.getItem("role"))
-        alert("Login success")
-        emits('login', {token:token.value,role:role.value})
-        GoIndex()
+        alert("The pass word is match.")
         reset()
-      }
-    }
-    else if (resLogin === 404) {
-      isLogin.value = true
-      isEmailLogin.value = true
-      login.value.password = ""
     }
     else if (resLogin === 401) {
-      isLogin.value = true
-      isPassLogin.value = true
-      login.value.password = ""
+      alert("The password is not match.")
+      errorMessage.value = "mb-2 text-[#FF0000] text-sm"
+      isPass.value=true
+      isPassMatch.value=false
+      password.value = ""
+      reset()
     }
   }
 }
 
 const reset = () => {
-  login.value.email = ""
-  login.value.password = ""
-  isPass.value = false
-  isEmail.value = false
-  isLogin.value = false
-  isEmailLogin.value = false
-  isPassLogin.value = false
+  password.value=""
+  isPass.value = true
   errorMessage.value = ""
 }
 
-const myRouter = useRouter()
-const GoIndex = () => {
-  myRouter.push({ name: 'indexPage' })
-}
+const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
 </script>
  
 <template>
-  <div class="font">
+  <div>
+    <input type="password" placeholder="password" v-model="password" 
+    @click="isPass=true,isPassMatch=true" @keydown="isPass=true,isPassMatch=true"/>
+    <button @click="checkMatch(user,password)" :class="cdet">Check</button>
+    <p :class="isPass===false ? errorMessage : ''" v-if="isPass===false">*Plase Input password.*</p>
+    <p v-else-if="isPassMatch===false && isPass">*Password incorrect.*</p>
+  </div>
+  <!-- <div class="font">
     <div class="login mt-1">
       <h1 class="login-header bg-red-500">
-        LOGIN
+        CHECK USER
       </h1>
       <div class="login-body">
         <div class="login-input mt-14">
           <div class="flex justify-center mt-5 py-1">
             <img src="../assets/mail_user.png" class="user mx-2" />
-            <input class="info-input mt-2 px-1" type="text" placeholder="Username" v-model="login.email"
-              @click="isEmail = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" />
+            <input class="info-input mt-2 px-1 disabled:bg-[#99C0D0]" type="text" placeholder="Username"
+              v-model="login.email" disabled="true" />
           </div>
-          <p :class="isEmail ? errorMessage : ''" v-if="isEmail">*Plase Input your username*</p>
           <div class="flex justify-center py-1">
             <img src="../assets/padlock.png" class="password mx-2" />
             <input class="info-input mt-2 px-1" type="password" placeholder="Password" v-model="login.password"
-              @click="isPass = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" />
+              @click="isPass = false,isLogin=false,isPassLogin=false"
+              @keydown="isLogin=false,isPassLogin=false" />
           </div>
-          <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
+          <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input password*</p>
         </div>
         <div v-show="isLogin" class="text-center text-red-500">
-          <p v-if="isEmailLogin">Email does not exist</p>
-          <p v-else-if="isPassLogin">Your Email or Password incorrect</p>
+          <p v-if="isPassLogin">Password is incorrect</p>
           <p v-else>Something is Wrong. Plase Try Again.</p>
         </div>
       </div>
       <div class="flex space-x-2 justify-center mt-4">
         <button class="login-button hover:bg-[#99C0D0] hover:shadow-lg px-4"
-          @click="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false">submit</button>
+          @click="checkMatch(login),isLogin=false,isPassLogin=false">submit</button>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
  
 <style scoped>

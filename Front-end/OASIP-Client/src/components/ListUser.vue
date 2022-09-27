@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import moment from "moment"
 import { deleteUser, getUsers } from '../fetch/fetchUserAPI';
 import { checkToken } from '../Store/local';
+import Match from './Match.vue';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 const props = defineProps({
@@ -19,6 +20,7 @@ const isDetail = ref(-1)
 const getUser = ref({})
 const isEdit = ref(false)
 const isEditId = ref(0)
+const isOpen = ref(false)
 
 let count = 0
 const detailUser = async (id) => {
@@ -87,6 +89,7 @@ const EditEmail = ref("")
 const EditRole = ref("")
 const EditEvent = (user) => {
     isEdit.value = isEdit.value ? false : true
+    console.log(user)
     if (isEdit.value) {
         isEditId.value = user.id
         EditName.value = user.name
@@ -200,7 +203,7 @@ const saveUser = async (updateUser) => {
     const res = await fetch(`${fetchUrl}/users/${updateUser.id}`, {
         method: "PUT",
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
             'content-type': 'application/json'
         },
         body: JSON.stringify({
@@ -311,9 +314,9 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 <p class="pr-2">Role : </p>
                                 <select v-if="isEdit && isEditId === user.id" v-model="EditRole"
                                     class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
-                                    <option :value="'admin'">ADMIN</option>
-                                    <option :value="'lecturer'">LECTURER</option>
-                                    <option :value="'student'">STUDENT</option>
+                                    <option :value="'ADMIN'">ADMIN</option>
+                                    <option :value="'LECTURER'">LECTURER</option>
+                                    <option :value="'STUDENT'">STUDENT</option>
                                 </select>
                                 <p v-else class="text-[#535252]">{{ getUser.role }}</p>
                             </div>
@@ -333,6 +336,9 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
                             "Edit"
                             }}</button>
+                        </div>
+                        <div>
+                            <Match :user="user"/>
                         </div>
                     </div>
                 </li>
