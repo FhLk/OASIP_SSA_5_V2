@@ -238,7 +238,7 @@ const SortByPast = async () => {
         const res = await fetch(`${fetchUrl}/bookings/sortByPast`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
             }
         })
         getListBooking.value = await res.json()
@@ -265,7 +265,7 @@ const SortByDate = async (StartDate = sortDay.value) => {
         const res = await fetch(`${fetchUrl}/bookings/sortByDay?date=${StartDate}`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
             }
         })
         getListBooking.value = await res.json()
@@ -291,7 +291,7 @@ const SortByCategory = async (id = 1) => {
         const res = await fetch(`${fetchUrl}/bookings/sortByCategory?category=${id}`, {
             method: 'GET',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
             }
         })
         getListBooking.value = await res.json()

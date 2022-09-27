@@ -1,28 +1,51 @@
 <script setup>
-import { onBeforeMount, onUpdated, ref } from 'vue';
+import { onBeforeMount, onBeforeUpdate, onUpdated, ref } from 'vue';
 import Login from '../components/Login.vue';
-import NavBar from '../components/NavBar.vue';
-const emits=defineEmits(['login'])
-const token=ref("")
-const sentToken=(t)=>{
-   emits('login',t)
+import { useRoute, useRouter } from 'vue-router';
+import { checkToken } from '../Store/local';
+import jwt_decode from "jwt-decode";
+const emits = defineEmits(['login'])
+const isTimeOut = ref(false)
+const sentToken = (t) => {
+  emits('login', t)
 }
+
+const myRouter = useRouter()
+const GoIndex = () => {
+  myRouter.push({ name: 'indexPage' })
+}
+
+onBeforeMount(() => {
+  isTimeOut.value = checkToken()
+  if (isTimeOut.value) {
+    GoIndex()
+  }
+})
+
+// onBeforeUpdate(()=>{
+//   console.log("wow")
+// })
+
+// onUpdated(()=>{
+//   console.log("wow")
+// })
 
 </script>
  
 <template>
-<div class="font">
-    <div class="header mt-32 ">
+  <div class="font">
+    <div class="header mt-24 ">
       Welcome to OASIP
     </div>
-    <Login @login="sentToken"/>
-</div>
+    <Login @login="sentToken" />
+  </div>
 </template>
  
 <style scoped>
 .font {
   font-family: 'Mitr', sans-serif;
 }
+
 .header {
   display: flex;
   justify-content: center;
