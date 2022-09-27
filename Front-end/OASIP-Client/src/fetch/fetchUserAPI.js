@@ -35,23 +35,20 @@ export const Authen = async (log) => {
   return 
 }
 
-export const reAuthen= async (log)=>{
+export const reAuthen= async ()=>{
   const res = await fetch(`${fetchUrl}/token/refresh`, {
-    method: "POST",
+    method: "GET",
     headers: {
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    body: `email=${log.email.trim()}&password=${log.password}`
+      "Authorization": `Bearer ${localStorage.getItem('refresh_token')}`
+    }
   })
   if (res.status === 200) {
-    let token = await res.json()
-    setToken(token)
-    return token.access_token
+    let newtoken = await res.json()
+    setToken(newtoken)
   }
   else {
     alert("Can't Authentication")
   }
-  return 
 }
 
 export const AllUser = async () => {
@@ -64,6 +61,9 @@ export const AllUser = async () => {
   })
   if (res.status === 200) {
       return all = await res.json()
+  }
+  else{
+    return all;
   }
 }
 

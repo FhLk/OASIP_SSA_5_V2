@@ -1,21 +1,34 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from "vue";
-import NavBar from './components/NavBar.vue';
-const token=ref("")
-const isTimeout=ref(false)
-const sentToken=(t)=>{
-    token.value=t
+import NavBar from './views/NavBar.vue';
+import moment from "moment";
+import { checkRole, expiresToken } from "./Store/local";
+const token = ref("")
+const isTimeOut = ref(false)
+const role = ref(-1)
+const sentToken = (data) => {
+    token.value = data.token
+    role.value = data.role
 }
 
-const timeOut=(t)=>{
-    token.value=t
+onBeforeMount(() => {
+    isTimeOut.value = expiresToken()
+    if (isTimeOut.value) {
+        token.value = ''
+    }
+    role.value=checkRole(localStorage.getItem("role"))
+})
+
+const timeOut = (t) => {
+    token.value = t
 }
+
 </script>
  
 <template>
-    <NavBar :token="token" @signOut="token=''" @timeOut="timeOut"/>
-    <router-view @login="sentToken" ></router-view> 
+    <NavBar :token="token" :role="role" @signOut="token=''" @timeOut="timeOut" />
+    <router-view @login="sentToken" @click="token=''"></router-view>
 </template>
 
 

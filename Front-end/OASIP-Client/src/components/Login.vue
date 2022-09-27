@@ -2,6 +2,8 @@
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Match, Authen } from '../fetch/fetchUserAPI.js'
+import jwt_decode from "jwt-decode";
+import { checkRole } from '../Store/local';
 const emits = defineEmits(['login'])
 const errorMessage = ref("")
 const isEmail = ref(false)
@@ -9,6 +11,7 @@ const isPass = ref(false)
 const isLogin = ref(false)
 const isEmailLogin = ref(false)
 const token = ref("")
+const role = ref(-1)
 const isPassLogin = ref(false)
 const login = ref({
   email: "",
@@ -46,8 +49,9 @@ const checkLogin = async (log) => {
         login.value.password = ""
       }
       else {
+        role.value=checkRole(localStorage.getItem("role"))
         alert("Login success")
-        emits('login', token.value)
+        emits('login', {token:token.value,role:role.value})
         GoIndex()
         reset()
       }
@@ -84,7 +88,7 @@ const GoIndex = () => {
  
 <template>
   <div class="font">
-    <div class="login mt-8">
+    <div class="login mt-1">
       <h1 class="login-header bg-red-500">
         LOGIN
       </h1>
@@ -108,6 +112,7 @@ const GoIndex = () => {
         <div v-show="isLogin" class="text-center text-red-500">
           <p v-if="isEmailLogin">Email does not exist</p>
           <p v-else-if="isPassLogin">Your Email or Password incorrect</p>
+          <p v-else>Something is Wrong. Plase Try Again.</p>
         </div>
       </div>
       <div class="flex space-x-2 justify-center mt-4">

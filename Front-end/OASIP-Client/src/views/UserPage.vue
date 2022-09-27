@@ -1,19 +1,14 @@
 <script setup>
 import ListUser from '../components/ListUser.vue';
 import { AllUser } from '../fetch/fetchUserAPI.js'
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, onBeforeUnmount, onBeforeUpdate, ref } from 'vue';
 import {checkToken,expiresToken} from '../Store/local.js';
 
 const getAllUser = ref([])
 const isToken = ref(false)
-const isTimeout =ref(false)
-
-const sentToken=(t=localStorage.getItem("access_token"))=>{
-
-}
+const isExpire = ref(false)
 
 onBeforeMount(async () => {
-    expiresToken()
     isToken.value=checkToken()
     getAllUser.value = await AllUser()
 })
@@ -21,15 +16,16 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <div class="pt-36 font bg pb-56">
+    <div class="pt-28 font bg pb-56">
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../assets/team.png" class="user ml-5 ">
         </h1>
         <ListUser v-if="isToken" :getUsers="getAllUser"/>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
-            <div class="flex justify-center">
-                <p>No Users.</p>
+            <div class="flex justify-center text-2xl">
                 <p>Plase Sign-in for use OASIP.</p>
+            </div>
+            <div class="flex justify-center pt-2">
                 <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
                     <router-link to="/LoginPage">Sign In</router-link>
                 </button>
