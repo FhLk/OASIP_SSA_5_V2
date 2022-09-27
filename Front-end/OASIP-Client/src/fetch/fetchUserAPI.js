@@ -6,6 +6,21 @@ export const Match= async (log)=>{
   const res = await fetch(`${fetchUrl}/match`,{
     method:"POST",
     headers:{
+      "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
+      'content-type':'application/json'
+    },
+    body: JSON.stringify({
+      email: log.email.trim(),
+      password: log.password
+    })
+  })
+  return res.status;
+}
+
+export const checkAuthen= async (log)=>{
+  const res = await fetch(`${fetchUrl}/checkAuthen`,{
+    method:"POST",
+    headers:{
       'content-type':'application/json'
     },
     body: JSON.stringify({
