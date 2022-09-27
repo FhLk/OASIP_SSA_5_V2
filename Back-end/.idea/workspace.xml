@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/filter/CustomAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/filter/CustomAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/Store/local.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/Store/local.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/AddUserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/AddUserPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/LoginPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/LoginPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/indexPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/indexPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/security/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,33 +62,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ampla/Downloads&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2850575&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;show.run.dashboard.notification&quot;: &quot;false&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;41bf188e222cdeb9a738b2943286985e&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/ampla/Downloads",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2850575",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "show.run.dashboard.notification": "false",
+    "spring.configuration.checksum": "5d087328fccf7967d4d6a69079da89a2"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="oasip.jwt" />
@@ -226,6 +215,7 @@
       <workItem from="1663949077157" duration="1573000" />
       <workItem from="1663992238880" duration="1372000" />
       <workItem from="1664110360581" duration="1244000" />
+      <workItem from="1664261637890" duration="106000" />
     </task>
     <servers />
   </component>
