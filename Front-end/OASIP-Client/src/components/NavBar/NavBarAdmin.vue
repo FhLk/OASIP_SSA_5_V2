@@ -1,21 +1,19 @@
 <script setup>
-import { useTimer } from "vue-timer-hook";
-import { computed } from "@vue/reactivity";
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
 import { useRoute, useRouter } from 'vue-router';
-import LoginPage from "../views/LoginPage.vue";
-import { checkToken, expiresToken, expiresAccess } from '../Store/local';
-import { reAuthen } from "../fetch/fetchUserAPI";
-import moment from "moment";
+import { checkToken, expiresToken, expiresAccess } from '../../Store/local';
+import { reAuthen } from "../../fetch/fetchUserAPI";
 const emits = defineEmits(['signOut', 'timeOut'])
 const props = defineProps({
-    token: String
+    token: String,
+    role: Number
 })
 
 const isToken = ref(false)
 
 onBeforeMount(() => {
     isToken.value = checkToken()
+    // isRole.value= checkRole()
 })
 
 onUpdated(() => {
@@ -68,7 +66,7 @@ const checkTimeOut = () => {
                     <router-link to="/">
                         <h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold ">OASIP</h1>
                     </router-link>
-                    <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
+                    <img src="../../assets/schedule.png" class="schedule flex justify-self-start ml-2">
                 </div>
                 <div class="justify-self-end">
                     <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
@@ -80,11 +78,7 @@ const checkTimeOut = () => {
                     <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/UserPage">User</router-link>
                     </button>
-                    <button v-if="isToken===false && token ===''" @click="signIn"
-                        class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/LoginPage">Sign In</router-link>
-                    </button>
-                    <button v-else @click="signOut"
+                    <button @click="signOut"
                         class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign Out</router-link>
                     </button>
