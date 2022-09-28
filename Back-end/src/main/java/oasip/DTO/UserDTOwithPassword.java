@@ -40,9 +40,9 @@ public class UserDTOwithPassword {
     private String password;
 
     public void setRole(String role) {
-        this.role =role.toLowerCase();
+        this.role =role;
         if (role.trim() == ""){
-            this.role = "student";
+            this.role = "STUDENT";
         }
     }
 
