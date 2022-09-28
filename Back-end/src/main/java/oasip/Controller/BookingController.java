@@ -1,6 +1,7 @@
 package oasip.Controller;
 
 import oasip.DTO.BookingDTO;
+import oasip.DTO.UserDTO;
 import oasip.Entity.EventBooking;
 import oasip.Entity.EventCategory;
 import oasip.Service.BookingService;
@@ -32,6 +33,11 @@ public class BookingController {
             @RequestParam(defaultValue = "5") int pageSize,
             @RequestParam(defaultValue = "startTime") String sort){
         return ResponseEntity.ok(service.getBookings(page,pageSize,sort));
+    }
+
+    @GetMapping("/check")
+    public ResponseEntity<List<BookingDTO>> getAllBooking(){
+        return ResponseEntity.ok(service.getAllBooking());
     }
 
     @GetMapping("/{BookingId}")
