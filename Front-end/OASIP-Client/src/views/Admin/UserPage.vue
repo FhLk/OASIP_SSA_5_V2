@@ -26,7 +26,7 @@ onBeforeMount(async () => {
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../../assets/team.png" class="user ml-5 ">
         </h1>
-        <ListUser v-if="isToken" :getUsers="getAllUser" />
+        <ListUser v-if="isToken && role===0" :getUsers="getAllUser" />
         <div v-else-if="role!==0 && isToken">
             <div class="font flex justify-center ">
                 <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>
