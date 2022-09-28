@@ -7,6 +7,7 @@ import { checkToken, expiresAccess, expiresToken } from '../../Store/local.js';
 const getAllUser = ref([])
 const isToken = ref(false)
 const isExpire = ref(false)
+const role = ref(-1)
 
 onBeforeMount(async () => {
     isToken.value = checkToken()
@@ -14,6 +15,7 @@ onBeforeMount(async () => {
     if (isExpire.value) {
         await reAuthen()
     }
+    role.value = checkRole(localStorage.getItem("role"))
     getAllUser.value = await AllUser()
 })
 
@@ -25,6 +27,16 @@ onBeforeMount(async () => {
             <img src="../../assets/team.png" class="user ml-5 ">
         </h1>
         <ListUser v-if="isToken" :getUsers="getAllUser" />
+        <div v-else-if="role!==0 && isToken">
+            <div class="font flex justify-center ">
+                <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>
+            </div>
+            <div class="font flex justify-center mt-2">
+                <button class="mx-10 px-4 py-2 btt cf hover:bg-[#A53D59] rounded-md">
+                    <router-link to="/">Back</router-link>
+                </button>
+            </div>
+        </div>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
             <div class="flex justify-center text-2xl">
                 <p>Plase Sign-in for use OASIP.</p>
