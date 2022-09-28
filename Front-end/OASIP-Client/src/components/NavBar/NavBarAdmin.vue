@@ -49,7 +49,7 @@ const checkTimeOut = () => {
         emits('timeOut', "")
         GoSignIn()
     }
-    else if (expiresAccess()) {
+    else if(expiresAccess()) {
         reAuthen()
     }
 }

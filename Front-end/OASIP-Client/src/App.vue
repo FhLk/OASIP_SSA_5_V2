@@ -18,6 +18,11 @@ onBeforeMount(() => {
     if (isTimeOut.value) {
         token.value = ''
     }
+    else{
+        if(expiresAccess()){
+            reAuthen()
+        }
+    }
     role.value=checkRole(localStorage.getItem("role"))
 })
 
