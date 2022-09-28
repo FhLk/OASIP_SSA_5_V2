@@ -2,7 +2,7 @@
 import ListUser from '../../components/ListUser.vue';
 import { AllUser, reAuthen } from '../../fetch/fetchUserAPI.js'
 import { computed, onBeforeMount, onBeforeUnmount, onBeforeUpdate, ref } from 'vue';
-import { checkToken, expiresAccess, expiresToken } from '../../Store/local.js';
+import { checkToken, expiresAccess, expiresToken,checkRole } from '../../Store/local.js';
 
 const getAllUser = ref([])
 const isToken = ref(false)
