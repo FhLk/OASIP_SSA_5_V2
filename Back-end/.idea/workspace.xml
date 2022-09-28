@@ -8,11 +8,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTOwithPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDTOwithPassword.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Entity/EventUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Utils/EnumRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Utils/EnumRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/security/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
