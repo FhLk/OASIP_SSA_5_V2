@@ -116,7 +116,7 @@ const isUserOld = computed(() => {
 });
 const checkInfor = async (user) => {
     let isCheck = true;
-    let getRole = ["student", "lecturer", "admin"]
+    let getRole = ["STUDENT", "LECTURER", "ADMIN"]
     if (EditName.value === "") {
         isCheck = false
         isNameEmpty.value = true
@@ -177,11 +177,11 @@ const checkInfor = async (user) => {
         isEmailNotFormat.value = false
         isEmailEmpty.value = false
     }
-    if (!getRole.includes(EditRole.value.toLowerCase().trim())) {
+    if (!getRole.includes(EditRole.value.trim())) {
         isCheck = false
         isHaveRole.value = false
         alert("Not Have this role.")
-        EditRole.value = "student"
+        EditRole.value = "STUDENT"
     }
     if (isCheck) {
         isEmailEmpty.value = false

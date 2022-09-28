@@ -62,7 +62,7 @@ public class UserService  {
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(8,32,1,65536,10);
         newUser.setName(newUser.getName().trim());
         newUser.setEmail(newUser.getEmail().trim());
-        newUser.setRole(newUser.getRole().trim().toLowerCase());
+        newUser.setRole(newUser.getRole().trim());
         newUser.setPassword(encoder.encode(newUser.getPassword()).trim());
         EventUser user = modelMapper.map(newUser, EventUser.class);
         List<EventUser> duplicateName = repository.findByName(user.getName());

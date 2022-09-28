@@ -23,7 +23,7 @@ public class EventUser {
 
     @Lob
     @Column(name = "role", nullable = false)
-    private String role = "student";
+    private String role = "STUDENT";
 
     @Column(name = "created_on", nullable = false,insertable = false,updatable = false)
     @CreationTimestamp

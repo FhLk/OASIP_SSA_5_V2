@@ -33,7 +33,7 @@ public class UserDTO {
     public void setRole(String role) {
         this.role =role;
         if (role.trim() == ""){
-            this.role = "student";
+            this.role = "STUDENT";
         }
     }
 
