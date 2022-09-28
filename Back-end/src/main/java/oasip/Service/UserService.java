@@ -68,7 +68,9 @@ public class UserService  {
         List<EventUser> duplicateName = repository.findByName(user.getName());
         EventUser duplicateEmail = repository.findByEmail(user.getEmail());
         List<String> errors = new ArrayList<>();
-        if (!duplicateName.isEmpty() && duplicateEmail == null) {
+        System.out.println(duplicateEmail);
+        System.out.println(duplicateName);
+        if (!duplicateName.isEmpty() && duplicateEmail != null) {
             errors.add("This Username and Email are already use!!!");
             throw new UserException(errors.toString());
         }
@@ -77,11 +79,12 @@ public class UserService  {
 
             throw new UserException(errors.toString());
         }
-        if (duplicateEmail == null) {
+        if (duplicateEmail != null) {
             errors.add("This Email is already use!!!");
             throw new UserException(errors.toString());
         }
         return repository.saveAndFlush(user);
+//        return null;
     }
 
     public EventUser UpdateUser(Integer id, @Valid UserDTO updateUser) throws BookingException {

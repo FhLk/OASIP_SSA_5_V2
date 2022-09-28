@@ -42,7 +42,7 @@ public class UserDetailDTO {
     }
 
     public void setRole(String role) {
-        this.role =role.toLowerCase();
+        this.role =role;
         if (role.trim() == ""){
             this.role = "student";
         }

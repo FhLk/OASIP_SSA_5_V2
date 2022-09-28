@@ -1,8 +1,10 @@
 package oasip.Service;
 
 import oasip.DTO.BookingDTO;
+import oasip.DTO.UserDTO;
 import oasip.Entity.EventBooking;
 import oasip.Entity.EventCategory;
+import oasip.Entity.EventUser;
 import oasip.Repository.BookingRepository;
 import oasip.Utils.ListMapper;
 import oasip.exeption.BookingException;
@@ -28,6 +30,11 @@ public class BookingService {
 
     public List<BookingDTO> getBookings(int page, int pageSize, String sort){
         List<EventBooking> bookingList = repository.findAll(PageRequest.of(page,pageSize, Sort.by(Sort.Direction.DESC,sort))).getContent();
+        return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
+    }
+
+    public List<BookingDTO> getAllBooking(){
+        List<EventBooking> bookingList =repository.findAll();
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
 
