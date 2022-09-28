@@ -207,7 +207,7 @@ const deleteBooking = async (booking) => {
         const res = await fetch(`${fetchUrl}/bookings/${booking.id}`, {
             method: 'DELETE',
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
             }
         })
         if (res.status === 200) {

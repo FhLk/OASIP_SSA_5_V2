@@ -1,16 +1,19 @@
 <script setup>
 import ListUser from '../../components/ListUser.vue';
-import { AllUser } from '../../fetch/fetchUserAPI.js'
+import { AllUser, reAuthen } from '../../fetch/fetchUserAPI.js'
 import { computed, onBeforeMount, onBeforeUnmount, onBeforeUpdate, ref } from 'vue';
-import {checkToken,expiresToken} from '../../Store/local.js';
-import Match from '../../components/Match.vue';
+import { checkToken, expiresAccess, expiresToken } from '../../Store/local.js';
 
 const getAllUser = ref([])
 const isToken = ref(false)
 const isExpire = ref(false)
 
 onBeforeMount(async () => {
-    isToken.value=checkToken()
+    isToken.value = checkToken()
+    isExpire.value = expiresAccess()
+    if (isExpire.value) {
+        await reAuthen()
+    }
     getAllUser.value = await AllUser()
 })
 
@@ -21,7 +24,7 @@ onBeforeMount(async () => {
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../../assets/team.png" class="user ml-5 ">
         </h1>
-        <ListUser v-if="isToken" :getUsers="getAllUser"/>
+        <ListUser v-if="isToken" :getUsers="getAllUser" />
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
             <div class="flex justify-center text-2xl">
                 <p>Plase Sign-in for use OASIP.</p>
@@ -45,9 +48,11 @@ onBeforeMount(async () => {
 .cf {
     color: rgb(251, 251, 249);
 }
+
 .bgl {
     background-color: rgb(92, 179, 255);
 }
+
 .font {
     font-family: 'Mitr', sans-serif;
 }

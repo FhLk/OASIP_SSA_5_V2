@@ -24,7 +24,7 @@ const newUser = ref({
     email: "",
     password: "",
     confirm: "",
-    role: "student"
+    role: "STUDENT"
 })
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -48,7 +48,7 @@ const checkInfor = async (user) => {
     let isCheck = true;
     let getUserName = []
     let getUserEmail = []
-    let getRole = ["student", "lecturer", "admin"]
+    let getRole = ["STUDENT", "LECTURER", "ADMIN"]
     props.getUsers.forEach((user) => {
         getUserName.push(user.name.toLowerCase())
         getUserEmail.push(user.email.toLowerCase())
@@ -127,11 +127,11 @@ const checkInfor = async (user) => {
         isCheck = false
         isConfirmEmpty.value = true
     }
-    if (!getRole.includes(user.role.toLowerCase().trim())) {
+    if (!getRole.includes(user.role.trim())) {
         isCheck = false
         isHaveRole.value = false
         alert("Not Have this role.")
-        newUser.value.role = "student"
+        newUser.value.role = "STUDENT"
     }
     if (isCheck) {
         isEmailEmpty.value = false
@@ -170,7 +170,7 @@ const reset = () => {
         email: "",
         password: "",
         confirm: "",
-        role: "student"
+        role: "STUDENT"
     }
     isEmailEmpty.value = false
     isEmailNotFormat.value = false
@@ -246,9 +246,9 @@ const countEmail = computed(() => {
                 <div class="mr-2 mt-1">
                     <p>Role:
                         <select v-model="newUser.role" class="ring-2 ring-offset-2 ring-black ml-2 mt-2 rounded-md">
-                            <option :value="'admin'">ADMIN</option>
-                            <option :value="'lecturer'">LECTURER</option>
-                            <option :value="'student'">STUDENT</option>
+                            <option :value="'ADMIN'">ADMIN</option>
+                            <option :value="'LECTURER'">LECTURER</option>
+                            <option :value="'STUDENT'">STUDENT</option>
                         </select>
                     </p>
                 </div>
