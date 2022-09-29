@@ -1,0 +1,437 @@
+{
+	"info": {
+		"_postman_id": "5fe62448-c6a3-4d46-bf76-4df58b1c36c1",
+		"name": "Oasip API TEST Authorized (Admin)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvYXNpcC5hZG1pbkBrbXV0dC5hYy50aCIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9iYWNrRW5kL2FwaS9sb2dpbiIsImV4cCI6MTY2NDM1MTYxNH0.Q0jYXOhiNUvNlUZbKJyzfcAM_OmkuF7twVE8NeLUvTQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users?page=0",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/bookings",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/category",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvYXNpcC5hZG1pbkBrbXV0dC5hYy50aCIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9iYWNrRW5kL2FwaS9sb2dpbiIsImV4cCI6MTY2NDM1MTYxNH0.Q0jYXOhiNUvNlUZbKJyzfcAM_OmkuF7twVE8NeLUvTQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Post User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvYXNpcC5hZG1pbkBrbXV0dC5hYy50aCIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2NjQzNTM1OTJ9.9-PowAolkLNR2Su2hQxkV62BtSBf4tUhEyySe0OoeLo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Komkrid Rakdee\",\r\n        \"email\": \"komkrid.rak@mail.kmutt.ac.th\",\r\n        \"role\": \"student\",\r\n        \"password\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Put User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Event",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Put Category",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Put User",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Put Event",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Put Category",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "oasip.admin@kmutt.ac.th",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "oasipadmin",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/login",
+					"protocol": "https",
+					"host": [
+						"intproj21",
+						"sit",
+						"kmutt",
+						"ac",
+						"th"
+					],
+					"path": [
+						"ssa5",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvYXNpcC5hZG1pbkBrbXV0dC5hYy50aCIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9iYWNrRW5kL2FwaS9sb2dpbiIsImV4cCI6MTY2NDM1MTYxNH0.Q0jYXOhiNUvNlUZbKJyzfcAM_OmkuF7twVE8NeLUvTQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users/check",
+					"protocol": "https",
+					"host": [
+						"intproj21",
+						"sit",
+						"kmutt",
+						"ac",
+						"th"
+					],
+					"path": [
+						"ssa5",
+						"api",
+						"users",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvYXNpcC5hZG1pbkBrbXV0dC5hYy50aCIsImlzcyI6Imh0dHA6Ly9iYWNrRW5kL2FwaS9sb2dpbiIsImV4cCI6MTY2NDQ3MTM2MH0.6wiNv5KVMDHc9-xLauUTi1LpKdq7yY1anx6V4eZB2J0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "oasip.admin@kmutt.ac.th",
+							"type": "default",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "oasipadmin",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/token/refresh",
+					"protocol": "https",
+					"host": [
+						"intproj21",
+						"sit",
+						"kmutt",
+						"ac",
+						"th"
+					],
+					"path": [
+						"ssa5",
+						"api",
+						"token",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
