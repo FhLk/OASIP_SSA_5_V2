@@ -27,7 +27,7 @@ onUpdated(() => {
  
 <template>
     <div>
-        <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" @time-out="token=''" />
+        <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" @time-out="token='',isToken=false" />
         <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
         <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
         <NavBarSignin v-else />
