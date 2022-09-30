@@ -23,11 +23,14 @@ onUpdated(() => {
     isToken.value = checkToken()
 })
 
+const Test=()=>{
+    isToken.value=false
+}
 </script>
  
 <template>
     <div>
-        <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" @time-out="token='',isToken=false" />
+        <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" @time-out="Test" />
         <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
         <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
         <NavBarSignin v-else />
