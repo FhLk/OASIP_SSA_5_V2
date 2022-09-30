@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
-// import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { checkToken, expiresToken, expiresAccess } from '../Store/local';
 // import { reAuthen } from "../fetch/fetchUserAPI";
 import NavBarAdmin from "../components/NavBar/NavBarAdmin.vue";
@@ -19,8 +19,17 @@ onBeforeMount(() => {
     isToken.value = checkToken()
 })
 
+const myRouter = useRouter()
+const GoSignIn = () => {
+    myRouter.push({ name: 'LoginPage' })
+}
+
 onUpdated(() => {
     isToken.value = checkToken()
+    if(expiresToken()){
+        alert("Time Out.")
+        GoSignIn()
+    }
 })
 
 const Test=()=>{
