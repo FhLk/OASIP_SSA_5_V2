@@ -11,7 +11,8 @@ const props = defineProps({
     getUsers: {
         type: Array,
         require: true
-    }
+    },
+    role: Number
 })
 
 const isTimeOut=ref(false)
@@ -235,7 +236,9 @@ const reset = () => {
 }
 
 onBeforeMount(async () => {
-    getAllUser.value= await getUsers()
+    if(props.role===0){
+        getAllUser.value= await getUsers()
+    }
 })
 
 const countName = computed(() => {

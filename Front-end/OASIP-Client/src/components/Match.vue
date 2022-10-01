@@ -23,7 +23,7 @@ const checkMatch = async (user,pass) => {
   if (isCheck) {
     const resLogin = await Match({email:user.email,password:pass})
     if (resLogin === 200) {
-        alert("The pass word is match.")
+        alert("The password is match.")
         reset()
     }
     else if (resLogin === 401) {
