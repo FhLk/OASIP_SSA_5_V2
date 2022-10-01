@@ -13,6 +13,25 @@ const props = defineProps({
     role: Number
 })
 
+const time = ref(new Date())
+const timeFormat1=ref(`
+        ${time.value.toLocaleString('default', {weekday: 'short'})}
+        ${time.value.getDate()}
+        ${time.value.toLocaleString('default', {month: 'short'})}
+        ${time.value.getFullYear()}
+        ${time.value.getHours()}:${time.value.getMinutes()}:${time.value.getSeconds()}
+        `)
+setInterval(() => {
+    time.value = new Date()
+    timeFormat1.value=`
+        ${time.value.toLocaleString('default', {weekday: 'short'})}
+        ${time.value.getDate()}
+        ${time.value.toLocaleString('default', {month: 'short'})}
+        ${time.value.getFullYear()}
+        ${time.value.getHours()}:${time.value.getMinutes()}:${time.value.getSeconds()}
+        `
+}, 1000)
+
 const isToken = ref(false)
 
 onBeforeMount(() => {
@@ -27,51 +46,21 @@ onUpdated(() => {
  
 <template>
     <div>
-        <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" />
-        <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
-        <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
-        <NavBarSignin v-else />
-    </div>
-    <!-- <div>
         <nav class="scd border-gray-200 px-2 sm:px-4 py-1.5 font fixed top-0 left-0 right-0">
-            <div class="flex justify-between">
-                <div class="flex">
-                    <router-link to="/">
-                        <h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold ">OASIP</h1>
-                    </router-link>
-                    <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
-                </div>
-                <div class="justify-self-end">
-                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/EventPage">Show Schedule </router-link>
-                    </button>
-                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/AddEventPage">Add New Schedule</router-link>
-                    </button>
-                    <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/UserPage">User</router-link>
-                    </button>
-                    <button v-if="isToken===false && token ===''" @click="signIn"
-                        class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/LoginPage">Sign In</router-link>
-                    </button>
-                    <button v-else @click="signOut"
-                        class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/LoginPage">Sign Out</router-link>
-                    </button>
-                    <button @click="checkTimeOut" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/AddUserPage">Create New Account</router-link>
-                    </button>
-                </div>
+            <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" />
+            <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
+            <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
+            <NavBarSignin v-else />
+            <div>
+                <h1>{{timeFormat1}}</h1>
+            </div>
+            <div class="navbar pt-0.5 pb-0.5 flex justify-end">
+                <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font">
+                    <router-link to="/AboutPage">About Us</router-link>
+                </button>
             </div>
         </nav>
-
-        <div class="navbar pt-0.5 pb-0.5 flex justify-end">
-            <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font">
-                <router-link to="/AboutPage">About Us</router-link>
-            </button>
-        </div>
-    </div> -->
+    </div>
 
 </template>
  

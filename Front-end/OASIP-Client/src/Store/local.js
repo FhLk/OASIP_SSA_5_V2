@@ -56,7 +56,7 @@ export const setToken = (token) => {
     deCodeJWT(token)
     let expire_refresh=localStorage.getItem("expire_refresh")
     let expires = new Date()
-    expires.setMinutes(expires.getMinutes() + 1)
+    expires.setMinutes(expires.getMinutes() + 30)
     localStorage.setItem("access_token", token.access_token)
     localStorage.setItem("expire_access",expires)
     expires =new Date()
