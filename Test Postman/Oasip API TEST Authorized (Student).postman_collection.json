@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "a225fb54-cda1-4997-941b-59f60ca9146d",
+		"name": "Oasip API TEST Authorized (Student)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/bookings",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/category",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Put User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Put User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/users",
+							"protocol": "https",
+							"host": [
+								"intproj21",
+								"sit",
+								"kmutt",
+								"ac",
+								"th"
+							],
+							"path": [
+								"ssa5",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Event",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Put Category",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Put User",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Put Event",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Put Category",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "komkrid.rak@mail.kmutt.ac.th",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "komkridrak",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://intproj21.sit.kmutt.ac.th/ssa5/api/login",
+					"protocol": "https",
+					"host": [
+						"intproj21",
+						"sit",
+						"kmutt",
+						"ac",
+						"th"
+					],
+					"path": [
+						"ssa5",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
