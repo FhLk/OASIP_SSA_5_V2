@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Repository/BookingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Repository/BookingRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/exeption/ApplicationExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/exeption/ApplicationExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarLecturer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarLecturer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarSignin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarSignin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarStudent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarStudent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UserStatus.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UserStatus.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/NavBar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +31,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.7.2/spring-security-core-5.7.2-sources.jar!/org/springframework/security/core/userdetails/UserDetailsService.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.7.2/spring-security-core-5.7.2.jar!/org/springframework/security/core/userdetails/UserDetailsService.class" root0="FORCE_HIGHLIGHTING" />
-    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.7.2/spring-security-web-5.7.2-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">

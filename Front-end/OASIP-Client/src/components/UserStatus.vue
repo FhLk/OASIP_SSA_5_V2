@@ -1,24 +1,20 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
-const pic=ref("src/assets/user.png")
-const name=ref("")
-const role=ref("")
-onBeforeMount(()=>{
-    // role.value=props.user.role
-    // name.value=props.user.name
-    // if(role.value==="" || name.value===""){
-        role.value=localStorage.getItem("role")
-        name.value=localStorage.getItem("name")
-    // }
+const pic = ref("src/assets/user.png")
+const name = ref("")
+const role = ref("")
+onBeforeMount(() => {
+    role.value = localStorage.getItem("role")
+    name.value = localStorage.getItem("name")
 })
 </script>
  
 <template>
-    <div class="bgUser hover:bg-[#14D3FF] flex p-1 rounded-lg">
+    <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg">
         <img :src="pic" class="imgid shadow-gray-600 shadow-md">
-        <div class="ml-1">
+        <div class="ml-1 text-center">
             <p>{{name}}</p>
-            <p>{{role}}</p>
+            <p class="">{{role}}</p>
         </div>
     </div>
 </template>
@@ -29,7 +25,9 @@ onBeforeMount(()=>{
     height: 50px;
     border-radius: 50%;
 }
-.bgUser{
+
+.bgUser {
     background-color: rgb(0, 191, 255);
+    height: 85%;
 }
 </style>

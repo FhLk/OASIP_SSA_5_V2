@@ -67,34 +67,23 @@ const Toggle = (condition) => {
  
 <template>
     <div>
-        <div class="flex justify-between">
-            <div class="flex">
-                <router-link to="/">
-                    <h1 class="text-6xl cf px-2 ml-8 rounded-md hover:ring ring-[#000000] hover:shadow-lg">OASIP</h1>
-                </router-link>
-                <img src="../../assets/schedule.png" class="schedule flex justify-self-start ml-2">
-            </div>
-            <div class="flex">
-                <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    <router-link to="/EventPage">Show Schedule </router-link>
+        <div class="flex">
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                <router-link to="/EventPage">Show Schedule </router-link>
+            </button>
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                <router-link to="/AddEventPage">Add New Schedule</router-link>
+            </button>
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                <router-link to="/UserPage">User</router-link>
+            </button>
+            <div>
+                <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <router-link to="/LoginPage">Sign Out</router-link>
                 </button>
-                <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    <router-link to="/AddEventPage">Add New Schedule</router-link>
+                <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <router-link to="/AddUserPage">Create New Account</router-link>
                 </button>
-                <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    <router-link to="/UserPage">User</router-link>
-                </button>
-                <div>
-                    <UserStatus/>
-                </div>
-                <div>
-                    <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/LoginPage">Sign Out</router-link>
-                    </button>
-                    <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                        <router-link to="/AddUserPage">Create New Account</router-link>
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -103,43 +92,17 @@ const Toggle = (condition) => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
-.imgid {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.font {
-    font-family: 'Mitr', sans-serif;
-}
-
-.scd {
-    background-color: rgb(86, 165, 236);
-}
 
 .cf {
-    color: rgb(0,0,0);
+    color: rgb(0, 0, 0);
 }
 
-.btAddNew {
-    background-color: rgb(125, 211, 252);
-}
 
 .btLogIn {
     background-color: rgb(251 113 133);
 }
 
-.hoa {
-    background-color: rgb(101, 129, 206);
-}
 
-.navbar {
-    background-color: rgb(189, 237, 255);
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
 
 .schedule {
     width: 3.5rem;
