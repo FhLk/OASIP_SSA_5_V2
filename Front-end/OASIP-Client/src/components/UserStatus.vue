@@ -14,10 +14,12 @@ onBeforeMount(()=>{
 </script>
  
 <template>
-    <div class="bg-teal-600 hover:bg-[#A53D59]">
+    <div class="bgUser hover:bg-[#14D3FF] flex p-1 rounded-lg">
         <img :src="pic" class="imgid shadow-gray-600 shadow-md">
-        <p>{{name}}</p>
-        <p>{{role}}</p>
+        <div class="ml-1">
+            <p>{{name}}</p>
+            <p>{{role}}</p>
+        </div>
     </div>
 </template>
  
@@ -26,5 +28,8 @@ onBeforeMount(()=>{
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+.bgUser{
+    background-color: rgb(0, 191, 255);
 }
 </style>

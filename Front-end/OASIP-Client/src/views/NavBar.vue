@@ -19,25 +19,6 @@ const Test=()=>{
     console.log(props.user)
 }
 
-const time = ref(new Date())
-const timeFormat1=ref(`
-        ${time.value.toLocaleString('default', {weekday: 'short'})}
-        ${time.value.getDate()}
-        ${time.value.toLocaleString('default', {month: 'short'})}
-        ${time.value.getFullYear()}
-        ${time.value.getHours()}:${time.value.getMinutes()}:${time.value.getSeconds()}
-        `)
-setInterval(() => {
-    time.value = new Date()
-    timeFormat1.value=`
-        ${time.value.toLocaleString('default', {weekday: 'short'})}
-        ${time.value.getDate()}
-        ${time.value.toLocaleString('default', {month: 'short'})}
-        ${time.value.getFullYear()}
-        ${time.value.getHours()}:${time.value.getMinutes().toString().length!==2 ? 0:""}${time.value.getMinutes()}:${time.value.getSeconds().toString().length!==2 ? 0:""}${time.value.getSeconds()}
-        `
-}, 1000)
-
 const isToken = ref(false)
 
 onBeforeMount(() => {
@@ -53,21 +34,17 @@ onUpdated(() => {
  
 <template>
     <div>
-        <nav class="scd border-gray-200 px-2 sm:px-4 py-1.5 font fixed top-0 left-0 right-0">
-            <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" />
-            <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
-            <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
-            <UserStatus v-if="role!== -1 && isToken"/>
-            <NavBarSignin v-else/>
-            <div>
-                <h1>{{timeFormat1}}</h1>
-            </div>
-            <div class="navbar pt-0.5 pb-0.5 flex justify-end">
-                <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font">
-                    <router-link to="/AboutPage">About Us</router-link>
-                </button>
-            </div>
+        <nav class="bgNav border-b-4 borderColor px-2 sm:px-4 py-1.5 font fixed top-0 left-0 right-0">
+                <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" />
+                <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
+                <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
+                <NavBarSignin v-else/>
         </nav>
+        <div class="navbar pt-0.5 pb-0.5 flex justify-end">
+            <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font">
+                <router-link to="/AboutPage">About Us</router-link>
+            </button>
+        </div>
     </div>
 
 </template>
@@ -79,8 +56,11 @@ onUpdated(() => {
     font-family: 'Mitr', sans-serif;
 }
 
-.scd {
-    background-color: rgb(86, 165, 236);
+.bgNav {
+    background-color: rgb(255, 255, 255);
+}
+.borderColor {
+    border-color: rgb(86, 165, 236);
 }
 
 .cf {

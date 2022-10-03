@@ -3,6 +3,7 @@ import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { checkToken, expiresToken, expiresAccess } from '../../Store/local';
 import { reAuthen } from "../../fetch/fetchUserAPI";
+import UserStatus from "../UserStatus.vue";
 const emits = defineEmits(['signOut', 'timeOut'])
 const props = defineProps({
     token: String,
@@ -69,25 +70,28 @@ const Toggle = (condition) => {
         <div class="flex justify-between">
             <div class="flex">
                 <router-link to="/">
-                    <h1 class="text-7xl cf px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold ">OASIP</h1>
+                    <h1 class="text-6xl cf px-2 ml-8 rounded-md hover:ring ring-[#000000] hover:shadow-lg">OASIP</h1>
                 </router-link>
                 <img src="../../assets/schedule.png" class="schedule flex justify-self-start ml-2">
             </div>
-            <div class="justify-self-end">
-                <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+            <div class="flex">
+                <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                     <router-link to="/EventPage">Show Schedule </router-link>
                 </button>
-                <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                     <router-link to="/AddEventPage">Add New Schedule</router-link>
                 </button>
-                <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+                <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                     <router-link to="/UserPage">User</router-link>
                 </button>
                 <div>
-                    <button @click="signOut" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <UserStatus/>
+                </div>
+                <div>
+                    <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign Out</router-link>
                     </button>
-                    <button @click="checkTimeOut" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/AddUserPage">Create New Account</router-link>
                     </button>
                 </div>
@@ -114,15 +118,15 @@ const Toggle = (condition) => {
 }
 
 .cf {
-    color: rgb(251, 251, 249);
+    color: rgb(0,0,0);
 }
 
 .btAddNew {
-    background-color: rgb(21, 49, 126);
+    background-color: rgb(125, 211, 252);
 }
 
 .btLogIn {
-    background-color: rgb(105, 1, 29);
+    background-color: rgb(251 113 133);
 }
 
 .hoa {
@@ -138,8 +142,8 @@ const Toggle = (condition) => {
 }
 
 .schedule {
-    width: 4rem;
-    height: 4rem;
-    margin-top: 0.4rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: 0.35rem;
 }
 </style>
