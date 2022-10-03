@@ -15,10 +15,6 @@ const props = defineProps({
     user: Object
 })
 
-const Test=()=>{
-    console.log(props.user)
-}
-
 const isToken = ref(false)
 
 onBeforeMount(() => {
@@ -35,9 +31,6 @@ onUpdated(() => {
     // console.log(props.user)
 })
 
-const Test=()=>{
-    isToken.value=false
-}
 </script>
  
 <template>
