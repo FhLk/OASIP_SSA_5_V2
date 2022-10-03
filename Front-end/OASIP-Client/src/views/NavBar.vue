@@ -7,11 +7,17 @@ import NavBarAdmin from "../components/NavBar/NavBarAdmin.vue";
 import NavBarSignin from '../components/NavBar/NavBarSignin.vue';
 import NavBarStudent from "../components/NavBar/NavBarStudent.vue";
 import NavBarLecturer from "../components/NavBar/NavBarLecturer.vue";
+import UserStatus from "../components/UserStatus.vue";
 const emits = defineEmits(['signOut', 'timeOut'])
 const props = defineProps({
     token: String,
-    role: Number
+    role: Number,
+    user: Object
 })
+
+const Test=()=>{
+    console.log(props.user)
+}
 
 const time = ref(new Date())
 const timeFormat1=ref(`
@@ -28,7 +34,7 @@ setInterval(() => {
         ${time.value.getDate()}
         ${time.value.toLocaleString('default', {month: 'short'})}
         ${time.value.getFullYear()}
-        ${time.value.getHours()}:${time.value.getMinutes()}:${time.value.getSeconds()}
+        ${time.value.getHours()}:${time.value.getMinutes().toString().length!==2 ? 0:""}${time.value.getMinutes()}:${time.value.getSeconds().toString().length!==2 ? 0:""}${time.value.getSeconds()}
         `
 }, 1000)
 
@@ -40,6 +46,7 @@ onBeforeMount(() => {
 
 onUpdated(() => {
     isToken.value = checkToken()
+    // console.log(props.user)
 })
 
 </script>
@@ -50,7 +57,8 @@ onUpdated(() => {
             <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token=''" />
             <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token=''" />
             <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token=''" />
-            <NavBarSignin v-else />
+            <UserStatus v-if="role!== -1 && isToken"/>
+            <NavBarSignin v-else/>
             <div>
                 <h1>{{timeFormat1}}</h1>
             </div>

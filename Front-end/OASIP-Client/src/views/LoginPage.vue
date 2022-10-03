@@ -3,7 +3,6 @@ import { onBeforeMount, onBeforeUpdate, onUpdated, ref } from 'vue';
 import Login from '../components/Login.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { checkToken } from '../Store/local';
-import jwt_decode from "jwt-decode";
 const emits = defineEmits(['login'])
 const isTimeOut = ref(false)
 const sentToken = (t) => {

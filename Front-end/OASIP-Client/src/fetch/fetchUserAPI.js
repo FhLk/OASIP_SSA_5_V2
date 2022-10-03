@@ -42,12 +42,13 @@ export const Authen = async (log) => {
   if (res.status === 200) {
     let token = await res.json()
     setToken(token)
+    await reAuthen()
     return token.access_token
   }
   else {
     alert("Can't Authentication")
   }
-  return 
+  return ""
 }
 
 export const reAuthen= async ()=>{

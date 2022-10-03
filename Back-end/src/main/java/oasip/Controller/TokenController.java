@@ -5,11 +5,13 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import oasip.DTO.UserDetailDTO;
 import oasip.Entity.EventUser;
 import oasip.Repository.UserRepository;
 import oasip.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -60,6 +62,10 @@ public class TokenController {
                             .withClaim("roles", authorities)
                             .sign(algorithm);
                     Map<String,String> tokens = new HashMap<>();
+                    tokens.put("id", String.valueOf(user.getId()));
+                    tokens.put("name",user.getName());
+                    tokens.put("email",user.getEmail());
+                    tokens.put("role",user.getRole());
                     tokens.put("access_token",access_token);
                     tokens.put("refresh_token",refresh_token);
                     response.setContentType(APPLICATION_JSON_VALUE);

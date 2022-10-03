@@ -9,12 +9,6 @@ const props = defineProps({
     role: Number
 })
 
-const userStatus = ref({
-    pic: "src/assets/user.png",
-    name: "OASIP ADMIN",
-    role: "ADMIN"
-})
-
 const isToken = ref(false)
 
 onBeforeMount(() => {
@@ -89,12 +83,7 @@ const Toggle = (condition) => {
                 <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
                     <router-link to="/UserPage">User</router-link>
                 </button>
-                <div class="bg-teal-600 hover:bg-[#A53D59]" @click="Test">
-                    <img :src="userStatus.pic" class="imgid shadow-gray-600 shadow-md">
-                    <p>{{userStatus.name}}</p>
-                    <p>{{userStatus.role}}</p>
-                </div>
-                <div :class="Toggle(false)">
+                <div>
                     <button @click="signOut" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
                         <router-link to="/LoginPage">Sign Out</router-link>
                     </button>

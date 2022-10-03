@@ -128,7 +128,6 @@ public class BookingService {
                     throw new RuntimeException(userException);
                 }
             }
-            return repository.saveAndFlush(booking);
         }
         return repository.saveAndFlush(booking);
     }
@@ -161,7 +160,6 @@ public class BookingService {
                     throw new RuntimeException(forbiddenEx);
                 }
             }
-            return repository.saveAndFlush(booking);
         }
         return repository.saveAndFlush(booking);
     }
@@ -184,7 +182,6 @@ public class BookingService {
                     throw new RuntimeException(forbiddenEx);
                 }
             }
-            repository.deleteById(BookingId);
         }
         repository.deleteById(BookingId);
     }
