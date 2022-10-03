@@ -5,6 +5,7 @@ import oasip.Entity.EventBooking;
 import oasip.Entity.EventCategory;
 import oasip.Service.BookingService;
 import oasip.exeption.BookingException;
+import oasip.exeption.ForbiddenEx;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class BookingController {
     }
 
     @GetMapping("/{BookingId}")
-    public ResponseEntity<BookingDTO> getBooking(@PathVariable Integer BookingId){
+    public ResponseEntity<BookingDTO> getBooking(@Valid @PathVariable Integer BookingId){
         return ResponseEntity.ok(service.getBookingId(BookingId));
     }
 
@@ -75,7 +76,7 @@ public class BookingController {
     }
 
     @PutMapping("/{BookingId}")
-    public ResponseEntity<BookingDTO> update(@PathVariable Integer BookingId,@Valid @RequestBody BookingDTO updateBooking) throws BookingException {
+    public ResponseEntity<BookingDTO> update(@PathVariable Integer BookingId,@Valid @RequestBody BookingDTO updateBooking) throws BookingException{
         service.UpdateBooking(BookingId,updateBooking);
         return new ResponseEntity<>(updateBooking,HttpStatus.OK);
     }

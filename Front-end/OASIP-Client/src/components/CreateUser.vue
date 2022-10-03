@@ -6,18 +6,9 @@ const props = defineProps({
     getUsers: {
         type: Array,
         require: true
-    }
+    },
+    role: Number
 })
-
-const isToken=ref(false)
-const checkToken = () => {
-  if (localStorage.getItem("token") === null) {
-    isToken.value = false;
-  } else {
-    isToken.value = true;
-  }
-};
-checkToken()
 
 const newUser = ref({
     name: "",

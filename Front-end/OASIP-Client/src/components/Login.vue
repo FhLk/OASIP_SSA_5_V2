@@ -18,6 +18,8 @@ const login = ref({
   password: ""
 })
 
+const user=ref({})
+
 const checkLogin = async (log) => {
   let isCheck = true
   if (log.email === "" && log.password === "") {
@@ -44,11 +46,12 @@ const checkLogin = async (log) => {
     const resLogin = await checkAuthen(log)
     if (resLogin === 200) {
       token.value = await Authen(log)
-      if (token.value.access_token === "") {
+      if (token.value === "") {
         alert("Login unsuccss")
         login.value.password = ""
       }
       else {
+        user.value=getUserLocal()
         role.value=checkRole(localStorage.getItem("role"))
         alert("Login success")
         emits('login', {token:token.value,role:role.value})
@@ -67,6 +70,14 @@ const checkLogin = async (log) => {
       login.value.password = ""
     }
   }
+}
+
+const getUserLocal=()=>{
+  let id=Number(localStorage.getItem("id"))
+  let name=localStorage.getItem("name")
+  let email=localStorage.getItem("email")
+  let role = localStorage.getItem("role")
+  return {id:id,name:name,email:email,role:role}
 }
 
 const reset = () => {

@@ -21,7 +21,9 @@ onBeforeMount(async () => {
     }
   }
   role.value = checkRole(localStorage.getItem("role"))
-  getAllUser.value = await AllUser()
+  if(role.value===0){
+    getAllUser.value = await AllUser()
+  }
 })
 </script>
  

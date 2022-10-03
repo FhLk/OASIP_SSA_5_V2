@@ -1,8 +1,8 @@
 <script setup>
 import ListUser from '../../components/ListUser.vue';
-import { AllUser, reAuthen } from '../../fetch/fetchUserAPI.js'
+import { AllUser, reAuthen } from '../../fetch/fetchUserAPI.js';
 import { computed, onBeforeMount, onBeforeUnmount, onBeforeUpdate, ref } from 'vue';
-import { checkToken, expiresAccess, expiresToken,checkRole } from '../../Store/local.js';
+import { checkRole, checkToken, expiresAccess, expiresToken } from '../../Store/local.js';
 
 const getAllUser = ref([])
 const isToken = ref(false)
@@ -10,13 +10,15 @@ const isExpire = ref(false)
 const role = ref(-1)
 
 onBeforeMount(async () => {
+    role.value = checkRole(localStorage.getItem("role"))
     isToken.value = checkToken()
     isExpire.value = expiresAccess()
     if (isExpire.value) {
-        await reAuthen()
+      await reAuthen()
     }
-    role.value = checkRole(localStorage.getItem("role"))
-    getAllUser.value = await AllUser()
+    if (role.value === 0) {
+        getAllUser.value = await AllUser()
+    }
 })
 
 </script>
@@ -26,7 +28,7 @@ onBeforeMount(async () => {
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../../assets/team.png" class="user ml-5 ">
         </h1>
-        <ListUser v-if="isToken && role===0" :getUsers="getAllUser" />
+        <ListUser v-if="isToken && role===0" :getUsers="getAllUser" :role="role" />
         <div v-else-if="role!==0 && isToken">
             <div class="font flex justify-center ">
                 <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>

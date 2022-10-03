@@ -91,4 +91,16 @@ public class ApplicationExceptionHandler {
         errors.setMessage(errorMap);
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(ForbiddenEx.class)
+    public ShowException handleBusinessException(ForbiddenEx fe) {
+        ShowException errors=new ShowException();
+        errors.setStatusCode(403);
+        errors.setStatus("FORBIDDEN");
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Message", fe.getMessage());
+        errors.setMessage(errorMap);
+        return errors;
+    }
 }

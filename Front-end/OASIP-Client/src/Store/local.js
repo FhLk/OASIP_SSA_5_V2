@@ -53,10 +53,10 @@ export const expiresAccess=()=>{
 }
 
 export const setToken = (token) => {
-    deCodeJWT(token)
+    setUserLogin(token)
     let expire_refresh=localStorage.getItem("expire_refresh")
     let expires = new Date()
-    expires.setMinutes(expires.getMinutes() + 1)
+    expires.setMinutes(expires.getMinutes() + 30)
     localStorage.setItem("access_token", token.access_token)
     localStorage.setItem("expire_access",expires)
     expires =new Date()
@@ -67,8 +67,13 @@ export const setToken = (token) => {
     }
 }
 
-const deCodeJWT=(token)=>{
-    let deCodeToken=jwt_decode(token.access_token)
-    let role=deCodeToken.roles[0]
+const setUserLogin=(token)=>{
+    let role=token.role
+    let id=token.id
+    let name=token.name
+    let email=token.email
     localStorage.setItem("role",role)
+    localStorage.setItem("id",id)
+    localStorage.setItem("name",name)
+    localStorage.setItem("email",email)
 }

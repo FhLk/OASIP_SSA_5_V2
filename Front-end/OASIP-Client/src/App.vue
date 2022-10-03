@@ -8,6 +8,7 @@ import { reAuthen } from "./fetch/fetchUserAPI";
 const token = ref("")
 const isTimeOut = ref(false)
 const role = ref(-1)
+const user = ref({})
 const sentToken = (data) => {
     token.value = data.token
     role.value = data.role
@@ -18,20 +19,20 @@ onBeforeMount(() => {
     if (isTimeOut.value) {
         token.value = ''
     }
-    else{
-        if(expiresAccess()){
+    else {
+        if (expiresAccess()) {
             reAuthen()
         }
     }
-    role.value=checkRole(localStorage.getItem("role"))
+    role.value = checkRole(localStorage.getItem("role"))
 })
 
 const timeOut = (t) => {
     token.value = t
 }
 
-const ReAuthen= async ()=>{
-    if(expiresAccess()){
+const ReAuthen = async () => {
+    if (expiresAccess()) {
         await reAuthen()
     }
 }
@@ -39,7 +40,7 @@ const ReAuthen= async ()=>{
 </script>
  
 <template>
-    <NavBar :token="token" :role="role" @signOut="token=''" @timeOut="timeOut" />
+    <NavBar :token="token" :role="role" :user="user" @signOut="token=''" @timeOut="timeOut" />
     <router-view @login="sentToken" @click="token='',ReAuthen()"></router-view>
 </template>
 
