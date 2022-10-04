@@ -56,10 +56,10 @@ const checkTimeOut = () => {
 <template>
     <div>
         <div class="justify-self-end">
-            <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                 <router-link to="/EventPage">Show Schedule </router-link>
             </button>
-            <button @click="checkTimeOut" class="btAddNew hover:bg-[#294592] rounded-md px-1 mt-4 h-8 cf mx-2">
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                 <router-link to="/AddEventPage">Add New Schedule</router-link>
             </button>
             <button @click="signOut" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
@@ -76,38 +76,11 @@ const checkTimeOut = () => {
 .font {
     font-family: 'Mitr', sans-serif;
 }
-
-.scd {
-    background-color: rgb(86, 165, 236);
-}
-
 .cf {
-    color: rgb(251, 251, 249);
+    color: rgb(0,0,0);
 }
-
-.btAddNew {
-    background-color: rgb(21, 49, 126);
-}
-
 .btLogIn {
-    background-color: rgb(105, 1, 29);
+    background-color: rgb(251 113 133);
 }
 
-.hoa {
-    background-color: rgb(101, 129, 206);
-}
-
-.navbar {
-    background-color: rgb(189, 237, 255);
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-.schedule {
-    width: 4rem;
-    height: 4rem;
-    margin-top: 0.4rem;
-}
 </style>

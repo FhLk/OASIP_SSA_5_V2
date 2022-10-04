@@ -101,7 +101,7 @@ const GoIndex = () => {
   <div class="font">
     <div class="login mt-1">
       <h1 class="login-header bg-red-500">
-        LOGIN
+        OASIP 
       </h1>
       <div class="login-body">
         <div class="login-input mt-14">
@@ -128,7 +128,7 @@ const GoIndex = () => {
       </div>
       <div class="flex space-x-2 justify-center mt-4">
         <button class="login-button hover:bg-[#99C0D0] hover:shadow-lg px-4"
-          @click="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false">submit</button>
+          @click="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false">sign in</button>
       </div>
     </div>
   </div>
