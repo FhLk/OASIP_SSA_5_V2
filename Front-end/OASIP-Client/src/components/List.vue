@@ -68,7 +68,6 @@ const Page = async (page = 0) => {
             getListBooking.value = []
         }
         else {
-            alert("Try again.")
             getListBooking.value = []
         }
     }
