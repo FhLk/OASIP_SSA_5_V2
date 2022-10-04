@@ -2,6 +2,7 @@
 import moment from 'moment';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { checkRole, checkToken } from '../Store/local';
 const isBooking = ref(false)
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -185,6 +186,15 @@ const countEmail = computed(() => {
     return 100 - newbooking.value.bookingEmail.length
 })
 
+const isLogin = ref(false)
+onBeforeMount(() => {
+    if (checkRole(localStorage.getItem("role")) === 2) {
+        isLogin.value = true
+        newbooking.value.bookingName = localStorage.getItem("name")
+        newbooking.value.bookingEmail = localStorage.getItem("email")
+    }
+})
+
 </script>
  
 <template>
@@ -194,14 +204,15 @@ const countEmail = computed(() => {
                 <div class="bgc px-10 py-3 my-4 rounded-lg">
                     <div class="mr-2 mt-2">
                         <p>Full Name: <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
-                                maxlength="100" class="px-1 rounded-sm"></p>
+                                maxlength="100" class="px-1 rounded-sm" :disabled="isLogin"></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                         <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">Plase Input your name
                         </p>
                     </div>
                     <div class="mr-2 mt-1">
                         <p>E-mail: <input type="email" placeholder="example@example.com"
-                                v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"></p>
+                                v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"
+                                :disabled="isLogin"></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                         <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input your
                             e-mail
