@@ -51,18 +51,6 @@ const checkTimeOut = () => {
     }
 }
 
-const Test = () => {
-    Toggle(false)
-    console.log("Wow")
-}
-
-const Toggle = (condition) => {
-    if (condition) {
-        return ""
-    }
-    return "hidden"
-}
-
 </script>
  
 <template>

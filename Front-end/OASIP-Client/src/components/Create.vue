@@ -204,7 +204,7 @@ onBeforeMount(() => {
                 <div class="bgc px-10 py-3 my-4 rounded-lg">
                     <div class="mr-2 mt-2">
                         <p>Full Name: <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
-                                maxlength="100" class="px-1 rounded-sm" :disabled="isLogin"></p>
+                                maxlength="100" class="px-1 rounded-sm"></p>
                         <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                         <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">Plase Input your name
                         </p>

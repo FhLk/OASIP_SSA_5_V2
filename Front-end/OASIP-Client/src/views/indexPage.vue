@@ -9,14 +9,20 @@ import ShowPage from './EventPage.vue';
         <div class="bg h-screen h-full pt-36 font text-5xl flex justify-center">
             <h2> Online Appointment Scheduling </h2>
         </div>
-        <!-- <div class="bg h-screen h-full flex justify-center font">
+        <div class="bg h-screen h-full flex justify-center font">
+            <!-- <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+                <router-link to="/EventPage"> Sign In</router-link>
+            </button> -->
+            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+                <router-link to="/AddEventPage">Add New Schedule</router-link>
+            </button>
             <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
                 <router-link to="/EventPage"> Show Schedule </router-link>
             </button>
             <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                <router-link to="/AddEventPage">Add New Schedule</router-link>
+                <router-link to="/AddEventPage">Category</router-link>
             </button>
-        </div> -->
+        </div>
         <div class="flex justify-center pb-10 pl-5 pt-14 bg h-full h-screen">
             <router-link to="/EventPage"> <img src="../assets/meet.png" class="imgid"> </router-link>
         </div>
