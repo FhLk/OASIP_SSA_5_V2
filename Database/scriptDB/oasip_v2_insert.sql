@@ -5,8 +5,7 @@ insert into `eventcategory` (`category_id`,`category_name`,`description`,`durati
 (4,'Client-side Clinic','ตารางนัดหมายนี้ใช้สำหรับนัดหมาย client-side clinic ในวิชา INT221 integrated project',30),
 (5,'Server-side Clinic',' ',30);
 
-select * from user;
-delete from eventcategory_owner;
+
 insert into user values 
 	("1","OASIP ADMIN","oasip.admin@kmutt.ac.th",1,'2022-08-01 00:00:00','2022-08-01 00:00:00','$argon2id$v=19$m=4096,t=3,p=1$sYXzbUOqBoHY1NfhJ8cjnw$H6+adWySiFPgcUogJK3hEhcF6Y4fusy7tcXYEL+f0cQ'),
     ("2","Olarn Rojanapornpun","olarn.roj@kmutt.ac.th",2,'2022-08-08 15:00:00','2022-08-08 15:00:00','$argon2id$v=19$m=4096,t=3,p=1$Sx7y2jxKZSjpWUV4srd8eg$AMH09iFiPQgAZ00cAdN3Gucqfhx2kRo3tQbHeLSR0RE'),
@@ -18,10 +17,12 @@ insert into user values
     ("8","Komkrid Rakdee","komkrid.rak@mail.kmutt.ac.th",3,'2022-08-08 16:00:00','2022-08-08 16:00:00','$argon2id$v=19$m=4096,t=3,p=1$8W61ZOC5RU7sJP5kKRbSqg$OLwZNPeMqxp+g0Vbn+odcA47XMClFN+IswTueVah7F0'),
     ("9","สมเกียรติ ขยันเรียน","somkiat.kay@kmutt.ac.th",3,'2022-08-16 09:00:00','2022-08-16 09:00:00','$argon2id$v=19$m=4096,t=3,p=1$gBqgjspF45FcIKQEw8GmaQ$alrOCZ0YrDqOu8/aZiLDMGZo4vFkSEAXA0YoHhY0BDQ');
 
+delete from ev
 insert into `eventbooking` (`booking_id`,`booking_name`,`booking_email`,`start_time`,`booking_duration`,`event_note`,`category`,`user_id`) values 
 (1,'Somchai Jaidee (OR-7)','somchai.jai@mail.kmutt.ac.th','2022-05-23 13:00',30,' ',2,7),
 (2,'Somsri Rakdee (SJ-3)','somsri.rak@mail.kmutt.ac.th','2022-04-27 09:30',30,' ขอปรึกษาเรื่องเพื่อนไม่ช่วยงาน ',1,null),
 (3,'สมเกียรติ ขยันเรียน กลุ่ม TT-4','somkiat.kay@kmutt.ac.th','2022-05-23 16:30',15,' ',3,9);
 
+delete from eventcategory_owner;
 insert into `eventcategory_owner` (`eventcategory_category_id`,`user_id_lecturer`) values (1,2),(2,2),(2,5),(3,6),(4,4),(5,3),(5,2);
 
