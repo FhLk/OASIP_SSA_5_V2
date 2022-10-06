@@ -104,15 +104,17 @@ const close = () => {
     reset()
 }
 
+const clinicImg = ref(["./clinic1.png","./clinic2.png","./clinic3.png","./clinic4.png","./clinic5.png"])
+
 </script>
  
 <template>
     <div class="mt-32">
-        <h1>Category</h1>
+        <h1 class="font text-5xl flex justify-center mb-5">Category</h1>
         <div class="font ccf bgcat mx-7 py-5 rounded-lg">
             <h2 class="ml-10 text-xl">Definition</h2>
             <div v-for="(category, index) in categories" :key="index" class="flex">
-                <img src="../assets/logo.png" @click="categoryDetail(category.id)" />
+                <img :src="clinicImg[index]" @click="categoryDetail(category.id)" class="cliImg" />
                 <div v-if="isDetail===category.id">
                     <button class="test" @click="close">&times;</button>
                     <p>Name:
@@ -200,5 +202,10 @@ const close = () => {
 
 .edit {
     background-color: rgb(21, 49, 126);
+}
+.cliImg {
+    width: 4rem;
+    height: 4rem;
+    margin-top: 0.4rem;
 }
 </style>
