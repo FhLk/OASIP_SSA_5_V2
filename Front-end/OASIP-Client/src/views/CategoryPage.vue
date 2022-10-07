@@ -16,7 +16,7 @@ const getList = async () => {
  
 <template>
     <Category v-if="isToken" :categories="listCategories" @save="getList" />
-    <div v-else class="font bgl2 rounded-xl px-10 mx-10 pt-5 pb-11">
+    <div v-else class="font bgl2 rounded-xl px-10 mx-10 pt-5 pb-11 mt-32">
         <div class="flex justify-center text-2xl">
             <p>No Category.</p>
         </div>
