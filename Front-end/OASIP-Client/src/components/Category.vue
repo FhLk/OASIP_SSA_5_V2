@@ -154,7 +154,7 @@ const close = () => {
                         </p>
                     </span>
                     <span v-else>
-                        {{ getCategoryDetail.categoryName }}
+                        {{ category.categoryName }}
                     </span>
                 </p>
                 <div v-if="isDetail===category.id">
