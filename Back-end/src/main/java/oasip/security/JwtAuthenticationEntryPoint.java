@@ -1,5 +1,7 @@
 package oasip.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import oasip.exeption.ApiResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 
 @Component
@@ -17,6 +20,14 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+
+        ApiResponse apiresponse = new ApiResponse(401, "Unauthorised");
+        apiresponse.setMessage("Unauthorised");
+        OutputStream out = response.getOutputStream();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(out, apiresponse);
+        out.flush();
+
     }
 }
