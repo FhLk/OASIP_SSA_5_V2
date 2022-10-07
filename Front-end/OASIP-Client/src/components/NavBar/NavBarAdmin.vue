@@ -51,18 +51,6 @@ const checkTimeOut = () => {
     }
 }
 
-const Test = () => {
-    Toggle(false)
-    console.log("Wow")
-}
-
-const Toggle = (condition) => {
-    if (condition) {
-        return ""
-    }
-    return "hidden"
-}
-
 </script>
  
 <template>
@@ -72,17 +60,20 @@ const Toggle = (condition) => {
                 <router-link to="/EventPage">Show Schedule </router-link>
             </button>
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                <router-link to="/CategoryPage">Category </router-link>
+            </button>
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                 <router-link to="/AddEventPage">Add New Schedule</router-link>
             </button>
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                 <router-link to="/UserPage">User</router-link>
             </button>
             <div>
-                <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                    <router-link to="/LoginPage">Sign Out</router-link>
-                </button>
                 <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                     <router-link to="/AddUserPage">Create New Account</router-link>
+                </button>
+                <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
+                    <router-link to="/LoginPage">Sign Out</router-link>
                 </button>
             </div>
         </div>
@@ -100,13 +91,5 @@ const Toggle = (condition) => {
 
 .btLogIn {
     background-color: rgb(251 113 133);
-}
-
-
-
-.schedule {
-    width: 3.5rem;
-    height: 3.5rem;
-    margin-top: 0.35rem;
 }
 </style>
