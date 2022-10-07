@@ -6,63 +6,91 @@ const emits = defineEmits(['save'])
 const props = defineProps({
     categories: Array
 })
+const clinicImg = ref(["./clinic1.png", "./clinic2.png", "./clinic3.png", "./clinic4.png", "./clinic5.png"])
 const isDetail = ref(-1)
-const getCategoryDetail = ref({})
 const isEdit = ref(false)
 const isEditId = ref(0)
-const EditDescription = ref("")
-const EditName = ref("")
-const EditDuration = ref(0)
+const isNameEmpty = ref(false)
+const isDuration = ref(false)
+const Edit = ref({
+    name: "",
+    description: "",
+    duration: 0
+})
+const getCategoryDetail = ref({})
 
-const EditCategoryOpen = (category) => {
-    isEdit.value = true
-    isEditId.value = category.id
-    EditName.value = category.categoryName;
-    EditDescription.value = category.description
-    EditDuration.value = category.duration
-}
+const EditCategory = (category) => {
+    isEdit.value = isEdit.value ? false : true
+    if (isEdit.value) {
+        isEditId.value = category.id
+        Edit.value.name = category.categoryName
+        Edit.value.description = category.description
+        Edit.value.duration = category.duration
+    }
+    else {
+        isEdit.value = false
+        isEditId.value = 0
+        Edit.value.name = getCategoryDetail.value.categoryName
+        Edit.value.description = getCategoryDetail.value.description
+        Edit.value.duration = getCategoryDetail.value.duration
+        isNameEmpty.value = false
+        isDuration.value = false
+    }
 
-const EditCategoryClose = () => {
-    isDuration.value = false
-    isNameEmpty.value = false
-    isEditId.value = 0
-    isEdit.value = false
 }
+// const EditDescription = ref("")
+// const EditName = ref("")
+// const EditDuration = ref(0)
+
+// const EditCategoryOpen = (category) => {
+//     isEdit.value = true
+//     isEditId.value = category.id
+//     Edit.value.name = category.categoryName;
+//     Edit.value.description = category.description
+//     Edit.value.duration = category.duration
+// }
+
+// const EditCategoryClose = () => {
+//     isDuration.value = false
+//     isNameEmpty.value = false
+//     isEditId.value = 0
+//     isEdit.value = false
+// }
 
 const reset = () => {
     isEdit.value = false
     isEditId.value = 0
-    EditName.value = ""
-    EditDescription.value = ""
-    EditDuration.value = 0
+    Edit.value.name = ""
+    Edit.value.description = ""
+    Edit.value.duration = 0
 }
 
-const isNameEmpty = ref(false)
-const isDuration = ref(false)
+const check = computed(() => {
+    return Edit.value.name !== getCategoryDetail.value.categoryName
+        || Edit.value.description !== getCategoryDetail.value.description
+        || Edit.value.duration !== getCategoryDetail.value.duration
+        ? false : true
+});
 const CheckInput = async (updateCategory) => {
-    // EditDescription.value = updateCategory.description
-    // console.log(updateCategory)
-    // console.log(EditDescription.value);
-    // console.log(updateCategory)
     let isCheck = true
-    if (EditName.value === '') {
+    if (Edit.value.name === '') {
         isCheck = false
         isNameEmpty.value = true
     }
-    if (EditDuration.value < 1 || EditDuration.value > 480) {
+    if (Edit.value.duration < 1 || Edit.value.duration > 480) {
         isCheck = false
         isDuration.value = true
     }
-    else if (EditDuration.value >= 1 && EditDuration.value <= 480) {
+    else if (Edit.value.duration >= 1 && Edit.value.duration <= 480) {
         isDuration.value = false
     }
     if (isCheck) {
-        updateCategory.description = EditDescription.value
-        updateCategory.duration = EditDuration.value
-        updateCategory.categoryName = EditName.value
-        isDuration.value = false
-        isNameEmpty.value = false
         if (confirm("Are you sure")) {
+            updateCategory.description = Edit.value.description
+            updateCategory.duration = Edit.value.duration
+            updateCategory.categoryName = Edit.value.name
+            isDuration.value = false
+            isNameEmpty.value = false
             await save(updateCategory)
             reset()
         }
@@ -79,11 +107,11 @@ const ced = " edit rounded-full px-2 text-white hover:bg-[#AECBFF]";
 const ccl = " bg-red-600 rounded-full px-2 text-white hover:bg-[#F87171]";
 
 const countDescription = computed(() => {
-    return 500 - EditDescription.value.length
+    return 500 - Edit.value.description.length
 })
 
 const countName = computed(() => {
-    return 100 - EditName.value.length
+    return 100 - Edit.value.name.length
 })
 
 let count = 0
@@ -103,64 +131,73 @@ const close = () => {
     isEditId.value = -1
     reset()
 }
-
-const clinicImg = ref(["./clinic1.png","./clinic2.png","./clinic3.png","./clinic4.png","./clinic5.png"])
-
 </script>
  
 <template>
     <div class="mt-32">
-        <h1 class="font text-5xl flex justify-center mb-5">Category</h1>
+        <div class="font">
+            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+                <router-link to="/">{{`<< Back`}}</router-link>
+            </button>
+            <h1 class="text-5xl flex justify-center mb-5">Category</h1>
+        </div>
         <div class="font ccf bgcat mx-7 py-5 rounded-lg">
             <h2 class="ml-10 text-xl">Definition</h2>
             <div v-for="(category, index) in categories" :key="index" class="flex">
                 <img :src="clinicImg[index]" @click="categoryDetail(category.id)" class="cliImg" />
+                <p>
+                    <span v-if="isEdit && isEditId===category.id">
+                        <input type="text" v-model="Edit.name" maxlength="100" class="rounded-sm px-1" />
+                        <p class="text-sm text-stone-500">(Number of Character : {{countName}})</p>
+                        <p v-if="isNameEmpty && countName===100" class="text-xs text-red-600">Plase Input Category
+                            Name.
+                        </p>
+                    </span>
+                    <span v-else>
+                        {{ getCategoryDetail.categoryName }}
+                    </span>
+                </p>
                 <div v-if="isDetail===category.id">
                     <button class="test" @click="close">&times;</button>
-                    <p>Name:
-                        <span v-if="isEdit && isEditId===category.id">
-                            <input type="text" v-model="EditName" maxlength="100" class="rounded-sm px-1" />
-                            <p class="text-sm text-stone-500">(Number of Character : {{countName}})</p>
-                            <p v-if="isNameEmpty && countName===100" class="text-xs text-red-600">Plase Input Category
-                                Name.
-                            </p>
-                        </span>
-                        <span v-else>
-                            {{ category.categoryName }}
-                        </span>
-                    </p>
                     <p>Description:
                         <span v-if="isEdit && isEditId===category.id">
-                            <textarea rows="5" cols="50" v-model="EditDescription" maxlength="500"
+                            <textarea rows="5" cols="50" v-model="Edit.description" maxlength="500"
                                 class="rounded-sm px-1"></textarea>
                             <p class="text-sm text-stone-500">(Number of Character : {{countDescription}})</p>
                         </span>
                         <span v-else>
                             <div class="description">
-                                {{  category.description }}
+                                {{ getCategoryDetail.description }}
                             </div>
                         </span>
                     </p>
                     <p>Duration:
                         <span v-if="isEdit && isEditId===category.id">
-                            <input type="number" v-model="EditDuration" min="1" max="480" class="rounded-sm pl-1" />
+                            <input type="number" v-model="Edit.duration" min="1" max="480" class="rounded-sm pl-1"
+                                @click="isDuration=false" />
                             : <span class="text-sm text-stone-500">(1 to 480 mins)</span>
                             <p v-if="isDuration" class="text-xs text-red-600">Duration have time less/more than range
                             </p>
                         </span>
                         <span v-else>
-                            {{  category.duration }} (mins.)
+                            {{ getCategoryDetail.duration }} (mins.)
                         </span>
                     </p>
                     <div>
-                        <button v-if="isEditId!==category.id" @click="EditCategoryOpen(category)"
-                            :class="ced ">Edit</button>
-                        <div v-if="isEdit && isEditId===category.id" class="mt-2">
-                            <button @click="CheckInput(category)"
-                                class="bg-green-600 rounded-full px-2 mx-2 text-white hover:bg-[#4ADE80]">Save</button>
-                            <button @click="EditCategoryClose" :class="ccl">Cancel</button>
-                        </div>
+                        <button v-if="isEdit" @click="CheckInput(category)"
+                            class="bg-green-600 rounded-full px-2 mx-2 text-white hover:bg-[#4ADE80] disabled:bg-[#8F9892]"
+                            :disabled="check">
+                            Save
+                        </button>
+                        <button @click="EditCategory(category)" :class="isEdit ? ccl : ced">
+                            {{ isEdit ? "Cancel":"Edit"}}
+                        </button>
                     </div>
+                </div>
+                <div>
+                    <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+                        <router-link to="/AddEventPage">{{`Add Booking`}}</router-link>
+                    </button>
                 </div>
             </div>
         </div>
@@ -169,6 +206,18 @@ const clinicImg = ref(["./clinic1.png","./clinic2.png","./clinic3.png","./clinic
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
+
+.btnindex {
+    background-color: rgb(0, 191, 255);
+}
+
+.cf {
+    color: rgb(248 250 252);
+}
+
+.font {
+    font-family: 'Mitr', sans-serif;
+}
 
 .test {
     cursor: pointer;
@@ -203,6 +252,7 @@ const clinicImg = ref(["./clinic1.png","./clinic2.png","./clinic3.png","./clinic
 .edit {
     background-color: rgb(21, 49, 126);
 }
+
 .cliImg {
     width: 4rem;
     height: 4rem;

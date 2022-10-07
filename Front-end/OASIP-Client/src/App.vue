@@ -41,7 +41,7 @@ const ReAuthen = async () => {
  
 <template>
     <NavBar :token="token" :role="role" :user="user" @signOut="token=''" @timeOut="timeOut" />
-    <router-view @login="sentToken" @click="token='',ReAuthen()"></router-view>
+    <router-view @login="sentToken" @click="ReAuthen,token=''"></router-view>
 </template>
 
 
