@@ -9,7 +9,7 @@ const getCategories = async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
         method: 'GET',
         headers: {
-            // "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
         }
     })
     getListCategories.value = await res.json()
