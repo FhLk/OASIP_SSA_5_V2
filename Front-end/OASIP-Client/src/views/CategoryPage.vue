@@ -2,6 +2,7 @@
 import { onBeforeMount, ref } from 'vue';
 import Category from '../components/Category.vue';
 import { getCategories } from '../fetch/fetchCategory.js'
+import { checkToken } from '../Store/local.js';
 const listCategories = ref([])
 const isToken = ref(false)
 onBeforeMount(async () => {
