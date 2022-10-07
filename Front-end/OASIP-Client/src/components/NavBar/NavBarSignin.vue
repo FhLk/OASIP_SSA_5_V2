@@ -16,9 +16,6 @@ const signIn = () => {
     <div>
         <div class="flex justify-between">
             <div class="justify-self-end">
-                <button class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx-1">
-                    <router-link to="/CategoryPage">Category </router-link>
-                </button>
                 <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
                     <router-link to="/LoginPage">Sign In</router-link>
                 </button>
@@ -33,10 +30,6 @@ const signIn = () => {
 
 .cf {
     color: rgb(251, 251, 249);
-}
-
-.cf1 {
-    color: rgb(0, 0, 0);
 }
 
 

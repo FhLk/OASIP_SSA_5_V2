@@ -1,7 +1,6 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import moment from "moment"
-import { EventPast, EventCategory, EventDay, EventDelete, EventDetail, EventSave, Events } from '../fetch/fetchEventAPI';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 
@@ -21,25 +20,55 @@ const Page = async (page = 0) => {
     let res
     if (page >= 0) {
         if (isSortByPast.value) {
-            getListBooking.value = await EventPast(page)
+            res = await fetch(`${fetchUrl}/bookings/sortByPast?page=${page}`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
         }
         else if (isSortByCategory.value) {
-            getListBooking.value = await EventCategory(categoryID.value, page)
+            res = await fetch(`${fetchUrl}/bookings/sortByCategory?page=${page}&category=${categoryID.value}`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
         }
         else if (isSortByDate.value) {
-            getListBooking.value = await EventDay(sortDay.value, page)
+            res = await fetch(`${fetchUrl}/bookings/sortByDay?page=${page}&date=${sortDay.value}`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
         }
         else {
-            getListBooking.value = await Events(page)
+            res = await fetch(`${fetchUrl}/bookings?page=${page}`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+                }
+            })
         }
-        getListBooking.value.forEach((data) => {
-            data.startTime = ShowDateTime(data.startTime)
-        })
-        if (isSortByDate.value) {
-            getListBooking.value = SortByDateTimeASC(getListBooking.value)
+        if (res.status === 200) {
+            getListBooking.value = await res.json()
+            getListBooking.value.forEach((data) => {
+                data.startTime = ShowDateTime(data.startTime)
+            })
+            if (isSortByDate.value) {
+                getListBooking.value = SortByDateTimeASC(getListBooking.value)
+            }
+            else {
+                getListBooking.value = SortByDateTimeDESC(getListBooking.value)
+            }
+        }
+        else if (res.status === 401) {
+            alert("Plase Login.")
+            getListBooking.value = []
         }
         else {
-            getListBooking.value = SortByDateTimeDESC(getListBooking.value)
+            getListBooking.value = []
         }
     }
 }
@@ -79,13 +108,18 @@ const SortByDateTimeASC = (list) => {
 
 onBeforeMount(async () => {
     await Page()
-
 })
 
 let count = 0
 const showDetail = async (id) => {
     if (id !== count) {
-        getBooking.value = await EventDetail(id)
+        const res = await fetch(`${fetchUrl}/bookings/${id}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        getBooking.value = await res.json()
         getBooking.value.startTime = ShowDateTime(getBooking.value.startTime)
         count = id
     }
@@ -128,16 +162,34 @@ const reset = () => {
 }
 
 const savebooking = async (updateBooking) => {
+    updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
+    updateBooking.eventNote = EditNote.value
     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
         alert("You can't change Booking in past")
         await Page(page.value)
         reset()
     }
     else if (confirm("You sure change this Booking ?")) {
-        updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
-        updateBooking.eventNote = EditNote.value
-        const res = await EventSave(updateBooking)
-        if (res === 200) {
+        const res = await fetch(`${fetchUrl}/bookings/${updateBooking.id}`, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: updateBooking.id,
+                bookingName: updateBooking.bookingName.trim(),
+                bookingEmail: updateBooking.bookingEmail.trim(),
+                category: {
+                    id: updateBooking.category.id,
+                    categoryName: updateBooking.category.categoryName
+                },
+                startTime: updateBooking.startTime,
+                bookingDuration: updateBooking.bookingDuration,
+                eventNote: updateBooking.eventNote.trim()
+            })
+        })
+        if (res.status === 200) {
             alert("You have a change Booking.")
             await Page(page.value)
             reset()
@@ -149,10 +201,15 @@ const savebooking = async (updateBooking) => {
     }
 }
 
-const deleteBooking = async (id) => {
+const deleteBooking = async (booking) => {
     if (confirm("Do you want delete this Booking ?")) {
-        const res = await EventDelete(id)
-        if (res === 200) {
+        const res = await fetch(`${fetchUrl}/bookings/${booking.id}`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        if (res.status === 200) {
             await Page(page.value)
             reset()
         }
@@ -177,7 +234,13 @@ const SortByPast = async () => {
     categoryID.value = 1
     if (isSortByPast.value === false) {
         isSortByPast.value = true
-        getListBooking.value = await EventPast()
+        const res = await fetch(`${fetchUrl}/bookings/sortByPast`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
             data.startTime = ShowDateTime(data.startTime)
         })
@@ -198,7 +261,13 @@ const isSortDate = () => {
 const SortByDate = async (StartDate = sortDay.value) => {
     page.value = 0
     if (isSortByDate.value) {
-        getListBooking.value = await EventDay(StartDate)
+        const res = await fetch(`${fetchUrl}/bookings/sortByDay?date=${StartDate}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
             data.startTime = ShowDateTime(data.startTime)
         })
@@ -218,7 +287,13 @@ const isSortCategory = () => {
 const SortByCategory = async (id = 1) => {
     page.value = 0
     if (isSortByCategory.value) {
-        getListBooking.value = await EventCategory(id)
+        const res = await fetch(`${fetchUrl}/bookings/sortByCategory?category=${id}`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        getListBooking.value = await res.json()
         getListBooking.value.forEach((data) => {
             data.startTime = ShowDateTime(data.startTime)
         })
@@ -279,7 +354,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
                             </div>
                             <div>
-                                <img @click="deleteBooking(data.id)" src="../assets/trash.png"
+                                <img @click="deleteBooking(data)" src="../assets/trash.png"
                                     class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                             </div>
                         </div>

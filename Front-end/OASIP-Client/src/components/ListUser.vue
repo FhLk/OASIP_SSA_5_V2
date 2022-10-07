@@ -90,6 +90,7 @@ const EditEmail = ref("")
 const EditRole = ref("")
 const EditEvent = (user) => {
     isEdit.value = isEdit.value ? false : true
+    console.log(user)
     if (isEdit.value) {
         isEditId.value = user.id
         EditName.value = user.name
@@ -334,11 +335,10 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                         <div class="mt-3">
                             <button @click="checkInfor(user)" v-if="isEdit"
                                 class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80] disabled:bg-[#8F9892]"
-                                :disabled="isUserOld">Save
-                            </button>
-                            <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">
-                            {{ isEdit ? "Cancel" :"Edit"}}
-                            </button>
+                                :disabled="isUserOld">Save</button>
+                            <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
+                            "Edit"
+                            }}</button>
                         </div>
                         <div>
                             <Match :user="user"/>

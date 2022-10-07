@@ -39,7 +39,7 @@ onUpdated(() => {
             <div class="flex justify-between">
             <div class="flex">
                 <router-link to="/">
-                    <h1 class="cf text-7xl px-1 ml-8 rounded-md hover:ring-4 ring-[#000000]">OASIP</h1>
+                    <h1 class="text-stone-700 text-7xl px-2 ml-8 rounded-md hover:ring ring-[#FBFBF9] font-bold ">OASIP</h1>
                 </router-link>
                 <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
             </div>
@@ -76,7 +76,7 @@ onUpdated(() => {
 }
 
 .cf {
-    color: rgb(000);
+    color: rgb(251, 251, 249);
 }
 
 .btAddNew {

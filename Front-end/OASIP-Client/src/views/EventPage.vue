@@ -51,8 +51,13 @@ onBeforeMount(() => {
 .font {
     font-family: 'Mitr', sans-serif;
 }
+
+.bg {
+    background-color: rgb(173, 216, 230);
+}
+
 .ccf {
-    color: rgb(0, 0, 0);
+    color: rgb(42, 39, 40);
 }
 
 .cr {

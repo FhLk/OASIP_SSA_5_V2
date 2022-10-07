@@ -6,7 +6,6 @@ import AboutPage from '../views/AboutPage.vue'
 import UserPage from '../views/Admin/UserPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import AddUserPage from '../views/Admin/AddUserPage.vue'
-import CategoryPage from '../views/CategoryPage.vue'
 const history = createWebHistory('ssa5')
 const routes = [
     {path: '/',name: 'indexPage',component: indexPage},
@@ -16,7 +15,6 @@ const routes = [
     {path: '/UserPage',name: 'UserPage',component: UserPage},
     {path: '/LoginPage',name: 'LoginPage',component: LoginPage},
     {path: '/AddUserPage',name: 'AddUserPage',component: AddUserPage},
-    {path: '/CategoryPage', name:'CategoryPage',component: CategoryPage}
 ]
 const router = createRouter({ history, routes })
 export default router
