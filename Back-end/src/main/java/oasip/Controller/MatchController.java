@@ -1,7 +1,6 @@
 package oasip.Controller;
 
 import oasip.DTO.MatchDTO;
-import oasip.Entity.EventUser;
 import oasip.Service.MatchService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

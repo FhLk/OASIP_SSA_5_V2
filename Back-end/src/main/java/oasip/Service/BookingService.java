@@ -1,9 +1,12 @@
 package oasip.Service;
 
 import oasip.DTO.BookingDTO;
-import oasip.Entity.EventBooking;
+import oasip.Entity.Event;
 import oasip.Entity.EventCategory;
 import oasip.Repository.BookingRepository;
+import oasip.Repository.CategoryOwnerRepository;
+import oasip.Repository.CategoryRepository;
+import oasip.Repository.UserRepository;
 import oasip.Utils.EnumRole;
 import oasip.Utils.ListMapper;
 import oasip.exeption.BookingException;
@@ -21,7 +24,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -30,24 +32,34 @@ public class BookingService {
     private BookingRepository repository;
     @Autowired private ModelMapper modelMapper;
     @Autowired private ListMapper listMapper;
+    @Autowired private CategoryOwnerRepository categoryOwnerRepository;
+    @Autowired private CategoryRepository categoryRepository;
+
+    @Autowired private UserService userService;
+    @Autowired private UserRepository userRepository;
     public List<BookingDTO> getBookings(int page, int pageSize, String sort){
-        List<EventBooking> bookingList = repository.findAll(PageRequest.of(page,pageSize, Sort.by(Sort.Direction.DESC,sort))).getContent();
+        List<Event> bookingList = repository.findAll(PageRequest.of(page,pageSize, Sort.by(Sort.Direction.DESC,sort))).getContent();
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
-        List<EventBooking> bookingListSt = repository.findByBookingEmail(userEmail,PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,sort)));
+        List<Event> bookingListSt = repository.findByBookingEmail(userEmail,PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,sort)));
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
+        }
+        Integer categoryId = categoryOwnerRepository.findAllByUserIdLecturer_Email(userEmail).getEventCategoryOwner().getId();
+        List<Event> bookingListLe = repository.findAllByCategory_Id(categoryId,PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,sort)));
+        if(userRoles.contains(EnumRole.LECTURER.name())){
+            return listMapper.mapList(bookingListLe, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
 
     public List<BookingDTO> getAllBooking(){
-        List<EventBooking> bookingList =repository.findAll();
+        List<Event> bookingList =repository.findAll();
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
 
     public BookingDTO getBookingId(Integer bookingId){
-        EventBooking booking = repository.findById(bookingId)
+        Event booking = repository.findById(bookingId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Booking id "+bookingId+" does not exits."));
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
@@ -71,10 +83,10 @@ public class BookingService {
             int page,
             int pageSize,
             EventCategory category){
-        List<EventBooking> bookingList = repository.findAllByCategoryOrderByStartTimeDesc(PageRequest.of(page,pageSize),category);
+        List<Event> bookingList = repository.findAllByCategoryOrderByStartTimeDesc(PageRequest.of(page,pageSize),category);
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
-        List<EventBooking> bookingListSt = repository.findByBookingEmailAndCategoryOrderByStartTimeDesc(PageRequest.of(page,pageSize),userEmail,category);
+        List<Event> bookingListSt = repository.findByBookingEmailAndCategoryOrderByStartTimeDesc(PageRequest.of(page,pageSize),userEmail,category);
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
         }
@@ -82,10 +94,10 @@ public class BookingService {
     }
 
     public List<BookingDTO> getBookingSortPast(int page, int pageSize, LocalDateTime localDateTime){
-        List<EventBooking> bookingList = repository.findAllByStartTimeLessThanOrderByStartTimeDesc(PageRequest.of(page,pageSize),localDateTime);
+        List<Event> bookingList = repository.findAllByStartTimeLessThanOrderByStartTimeDesc(PageRequest.of(page,pageSize),localDateTime);
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
-        List<EventBooking> bookingListSt = repository.findByBookingEmailAndStartTimeLessThanOrderByStartTimeDesc(PageRequest.of(page,pageSize),userEmail,localDateTime);
+        List<Event> bookingListSt = repository.findByBookingEmailAndStartTimeLessThanOrderByStartTimeDesc(PageRequest.of(page,pageSize),userEmail,localDateTime);
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
         }
@@ -97,13 +109,13 @@ public class BookingService {
             int pageSize,
             String startdate,
             String enddate){
-        List<EventBooking> bookingList = repository.findAllByStartTimeBetweenOrderByStartTimeAsc(
+        List<Event> bookingList = repository.findAllByStartTimeBetweenOrderByStartTimeAsc(
                 PageRequest.of(page,pageSize),
                 LocalDateTime.parse(startdate),
                 LocalDateTime.parse(enddate));
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
-        List<EventBooking> bookingListSt = repository.findByBookingEmailAndStartTimeBetweenOrderByStartTimeAsc(PageRequest.of(page,pageSize),userEmail,LocalDateTime.parse(startdate),
+        List<Event> bookingListSt = repository.findByBookingEmailAndStartTimeBetweenOrderByStartTimeAsc(PageRequest.of(page,pageSize),userEmail,LocalDateTime.parse(startdate),
                 LocalDateTime.parse(enddate));
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
@@ -111,11 +123,11 @@ public class BookingService {
         return listMapper.mapList(bookingList, BookingDTO.class,modelMapper);
     }
 
-    public EventBooking CreateBooking(BookingDTO newBooking){
+    public Event CreateBooking(BookingDTO newBooking){
         newBooking.setBookingName(newBooking.getBookingName().trim());
         newBooking.setBookingEmail(newBooking.getBookingEmail().trim());
         newBooking.setEventNote(newBooking.getEventNote().trim());
-        EventBooking booking = modelMapper.map(newBooking,EventBooking.class);
+        Event booking = modelMapper.map(newBooking, Event.class);
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         List<String> errors = new ArrayList<>();
@@ -129,9 +141,17 @@ public class BookingService {
                 }
             }
         }
+        if (userRoles.contains(EnumRole.LECTURER.name())){
+            try {
+                errors.add("Access Denied");
+                throw new ForbiddenEx(errors.toString());
+            }catch (ForbiddenEx forbiddenEx){
+                throw new RuntimeException(forbiddenEx);
+            }
+        }
         return repository.saveAndFlush(booking);
     }
-    public EventBooking UpdateBooking(Integer bookingId,BookingDTO updateBooking) throws BookingException {
+    public Event UpdateBooking(Integer bookingId, BookingDTO updateBooking) throws BookingException {
         BookingDTO oldBooking = getBookingId(bookingId);
         List<String> errors=new ArrayList<>();
         if(!oldBooking.getBookingName().equals(updateBooking.getBookingName())){
@@ -144,10 +164,10 @@ public class BookingService {
         updateBooking.setBookingName(updateBooking.getBookingName().trim());
         updateBooking.setBookingEmail(updateBooking.getBookingEmail().trim());
         updateBooking.setEventNote(updateBooking.getEventNote().trim());
-        EventBooking booking = repository.findById(bookingId).map(b->mapBooking(modelMapper.map(b,BookingDTO.class),updateBooking))
+        Event booking = repository.findById(bookingId).map(b->mapBooking(modelMapper.map(b,BookingDTO.class),updateBooking))
                 .orElseGet(()->{
                     updateBooking.setId(bookingId);
-                    return modelMapper.map(updateBooking,EventBooking.class);
+                    return modelMapper.map(updateBooking, Event.class);
                 });
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
@@ -161,12 +181,20 @@ public class BookingService {
                 }
             }
         }
+        if (userRoles.contains(EnumRole.LECTURER.name())){
+            try {
+                errors.add("Access Denied");
+                throw new ForbiddenEx(errors.toString());
+            }catch (ForbiddenEx forbiddenEx){
+                throw new RuntimeException(forbiddenEx);
+            }
+        }
         return repository.saveAndFlush(booking);
     }
 
-    private EventBooking mapBooking(BookingDTO oldBooking,BookingDTO newBooking){
+    private Event mapBooking(BookingDTO oldBooking, BookingDTO newBooking){
         oldBooking=newBooking;
-        return modelMapper.map(oldBooking,EventBooking.class);
+        return modelMapper.map(oldBooking, Event.class);
     }
 
     public void DeleteBooking(Integer BookingId){
@@ -181,6 +209,14 @@ public class BookingService {
                 }catch (ForbiddenEx forbiddenEx){
                     throw new RuntimeException(forbiddenEx);
                 }
+            }
+        }
+        if (userRoles.contains(EnumRole.LECTURER.name())){
+            try {
+                errors.add("Access Denied");
+                throw new ForbiddenEx(errors.toString());
+            }catch (ForbiddenEx forbiddenEx){
+                throw new RuntimeException(forbiddenEx);
             }
         }
         repository.deleteById(BookingId);

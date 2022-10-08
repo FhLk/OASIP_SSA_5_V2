@@ -1,17 +1,15 @@
 package oasip.Service;
 
 import oasip.DTO.MatchDTO;
-import oasip.Entity.EventUser;
+import oasip.Entity.User;
 import oasip.Repository.UserRepository;
 import oasip.Utils.ListMapper;
 import oasip.exeption.NotfoundEx;
 import oasip.exeption.OkException;
 import oasip.exeption.UnauthorizedEx;
-import oasip.exeption.UserException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,16 +24,16 @@ public class MatchService {
     public MatchDTO Matching(MatchDTO match)throws OkException, UnauthorizedEx, NotfoundEx {
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(8,32,1,65536,10);
         match.setPassword(match.getPassword());
-        List<EventUser> checkPassword = repository.findAll();
-        EventUser duplicateEmail = repository.findByEmail(match.getEmail());
+        List<User> checkPassword = repository.findAll();
+        User duplicateEmail = repository.findByEmail(match.getEmail());
         List<String> errors = new ArrayList<>();
-        for (EventUser eventUser : checkPassword){
-            if (eventUser.getEmail().equals(match.getEmail().trim())){
-                if (encoder.matches(match.getPassword(), eventUser.getPassword())){
+        for (User user : checkPassword){
+            if (user.getEmail().equals(match.getEmail().trim())){
+                if (encoder.matches(match.getPassword(), user.getPassword())){
                     errors.add("Password Matched");
                     throw new OkException(errors.toString());
                 }
-                if (!encoder.matches(match.getPassword(), eventUser.getPassword())){
+                if (!encoder.matches(match.getPassword(), user.getPassword())){
                     errors.add("Password Not Matched");
                     throw new UnauthorizedEx(errors.toString());
                 }
