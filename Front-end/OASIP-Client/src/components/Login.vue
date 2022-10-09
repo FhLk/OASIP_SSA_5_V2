@@ -2,8 +2,8 @@
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Match, Authen, checkAuthen } from '../fetch/fetchUserAPI.js'
-import jwt_decode from "jwt-decode";
 import { checkRole } from '../Store/local';
+import Swal from 'sweetalert2'
 const emits = defineEmits(['login'])
 const errorMessage = ref("")
 const isEmail = ref(false)
@@ -18,7 +18,7 @@ const login = ref({
   password: ""
 })
 
-const user=ref({})
+const user = ref({})
 
 const checkLogin = async (log) => {
   let isCheck = true
@@ -47,14 +47,22 @@ const checkLogin = async (log) => {
     if (resLogin === 200) {
       token.value = await Authen(log)
       if (token.value === "") {
-        alert("Login unsuccss")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
         login.value.password = ""
       }
       else {
-        user.value=getUserLocal()
-        role.value=checkRole(localStorage.getItem("role"))
-        alert("Login success")
-        emits('login', {token:token.value,role:role.value})
+        user.value = getUserLocal()
+        role.value = checkRole(localStorage.getItem("role"))
+        Swal.fire(
+          'Success',
+          'Welcome to OASIP',
+          'success'
+        )
+        emits('login', { token: token.value, role: role.value })
         GoIndex()
         reset()
       }
@@ -72,12 +80,12 @@ const checkLogin = async (log) => {
   }
 }
 
-const getUserLocal=()=>{
-  let id=Number(localStorage.getItem("id"))
-  let name=localStorage.getItem("name")
-  let email=localStorage.getItem("email")
+const getUserLocal = () => {
+  let id = Number(localStorage.getItem("id"))
+  let name = localStorage.getItem("name")
+  let email = localStorage.getItem("email")
   let role = localStorage.getItem("role")
-  return {id:id,name:name,email:email,role:role}
+  return { id: id, name: name, email: email, role: role }
 }
 
 const reset = () => {
@@ -101,7 +109,7 @@ const GoIndex = () => {
   <div class="font">
     <div class="login mt-1">
       <h1 class="login-header bg-red-500">
-        OASIP 
+        OASIP
       </h1>
       <div class="login-body">
         <div class="login-input mt-14">

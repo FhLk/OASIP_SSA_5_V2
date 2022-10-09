@@ -1,36 +1,44 @@
 <script setup>
 import { computed } from '@vue/reactivity';
 import { ref } from 'vue';
-import ShowPage from './EventPage.vue';
 const slideImg = ref([
-    "./pictureProfile/PicFilm.jpg",
-    "./pictureProfile/PicNote.jpg",
-    "./pictureProfile/PicFight.jpg"
+    "./index1.png",
+    "./index2.png",
+    "./index3.png",
+    "./index4.png",
+    "./index5.png",
 ])
+
+const numberSlide=ref(1)
+const imgIndex = ref(0)
 const play = ref(setInterval(() => {
+    numberSlide.value++
     imgIndex.value++
-    if (imgIndex.value > 2) {
+    if (imgIndex.value > 4) {
         imgIndex.value = 0
+        numberSlide.value=1
     }
 }, 3000)
 )
 
-const imgIndex = ref(0)
 const changeSlide = () => {
     clearInterval(play.value)
     if (imgIndex.value < 0) {
-        imgIndex.value = 2
+        numberSlide.value=5
+        imgIndex.value = 4
     }
-    if (imgIndex.value > 2) {
+    if (imgIndex.value > 4) {
+        numberSlide.value=1
         imgIndex.value = 0
     }
-    setTimeout(autoPlay, 5000)
+    setTimeout(autoPlay(), 5000)
 }
 
 const autoPlay = () => {
-    play.value=setInterval(() => {
+    play.value = setInterval(() => {
         imgIndex.value++
         if (imgIndex.value > 2) {
+            numberSlide.value=1
             imgIndex.value = 0
         }
     }, 3000)
@@ -43,9 +51,6 @@ const autoPlay = () => {
             <h2> Online Appointment Scheduling </h2>
         </div>
         <div class="bg h-screen h-full flex justify-center font">
-            <!-- <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                <router-link to="/EventPage"> Sign In</router-link>
-            </button> -->
             <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
                 <router-link to="/AddEventPage">Add New Schedule</router-link>
             </button>
@@ -58,14 +63,15 @@ const autoPlay = () => {
         </div>
         <div class="flex justify-center pb-10 pl-5 pt-14 bg h-full h-screen font">
             <div class="flex">
+                {{numberSlide}}/5
+                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14"
+                    @click="imgIndex--,numberSlide--,changeSlide()">
+                    Back
+                </button>
                 <img :src="slideImg[imgIndex]" class="imgid" />
                 <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14"
-                    @click="imgIndex++,changeSlide()">
+                    @click="imgIndex++,numberSlide++,changeSlide()">
                     Next
-                </button>
-                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14"
-                    @click="imgIndex--,changeSlide()">
-                    Back
                 </button>
             </div>
         </div>

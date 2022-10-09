@@ -4,9 +4,16 @@ import { getCategories, getCategory, saveCategory } from '../fetch/fetchCategory
 
 const emits = defineEmits(['save'])
 const props = defineProps({
-    categories: Array
+    categories: Array,
+    role: Number
 })
-const clinicImg = ref(["./clinic1.png", "./clinic2.png", "./clinic3.png", "./clinic4.png", "./clinic5.png"])
+const clinicImg = ref([
+    "./clinic1.png",
+    "./clinic2.png",
+    "./clinic3.png",
+    "./clinic4.png",
+    "./clinic5.png"
+])
 const isDetail = ref(-1)
 const isEdit = ref(false)
 const isEditId = ref(0)
@@ -38,24 +45,6 @@ const EditCategory = (category) => {
     }
 
 }
-// const EditDescription = ref("")
-// const EditName = ref("")
-// const EditDuration = ref(0)
-
-// const EditCategoryOpen = (category) => {
-//     isEdit.value = true
-//     isEditId.value = category.id
-//     Edit.value.name = category.categoryName;
-//     Edit.value.description = category.description
-//     Edit.value.duration = category.duration
-// }
-
-// const EditCategoryClose = () => {
-//     isDuration.value = false
-//     isNameEmpty.value = false
-//     isEditId.value = 0
-//     isEdit.value = false
-// }
 
 const reset = () => {
     isEdit.value = false
@@ -154,7 +143,7 @@ const close = () => {
                         </p>
                     </span>
                     <span v-else>
-                        {{ getCategoryDetail.categoryName }}
+                        {{ category.categoryName }}
                     </span>
                 </p>
                 <div v-if="isDetail===category.id">
@@ -189,7 +178,7 @@ const close = () => {
                             :disabled="check">
                             Save
                         </button>
-                        <button @click="EditCategory(category)" :class="isEdit ? ccl : ced">
+                        <button v-if="role===1||role===0" @click="EditCategory(category)" :class="isEdit ? ccl : ced">
                             {{ isEdit ? "Cancel":"Edit"}}
                         </button>
                     </div>

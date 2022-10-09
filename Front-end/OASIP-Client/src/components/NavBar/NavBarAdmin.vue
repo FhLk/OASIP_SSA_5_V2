@@ -30,7 +30,7 @@ const signOut = () => {
     localStorage.clear()
     isToken.value = false
     emits('signOut')
-    alert("Sign Out Succes")
+    // alert("Sign Out Succes")
     GoSignIn()
 }
 

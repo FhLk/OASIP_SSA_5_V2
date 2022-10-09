@@ -1,9 +1,9 @@
 <script setup>
 import { computed, onBeforeMount, onBeforeUpdate, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import moment from "moment"
-import { deleteUser, getUsers } from '../fetch/fetchUserAPI';
-import { checkToken } from '../Store/local';
+import Swal from 'sweetalert2';
+import moment from "moment";
+import { deleteUser, getUsers, detail } from '../fetch/fetchUserAPI';
+import { sureAlert } from '../Alert/alert.js';
 import Match from './Match.vue';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -15,7 +15,6 @@ const props = defineProps({
     role: Number
 })
 
-const isTimeOut=ref(false)
 const getAllUser = ref([])
 const isDetail = ref(-1)
 const getUser = ref({})
@@ -26,18 +25,10 @@ const isOpen = ref(false)
 let count = 0
 const detailUser = async (id) => {
     if (count !== id) {
-        const res = await fetch(`${fetchUrl}/users/${id}`, {
-            method: 'GET',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('access_token')}`
-            }
-        })
-        if (res.status === 200) {
-            getUser.value = await res.json();
-            getUser.value.createdOn = showTimeStampe(getUser.value.createdOn)
-            getUser.value.updateOn = showTimeStampe(getUser.value.updateOn)
-            count = id;
-        }
+        getUser.value = await detail(id);
+        getUser.value.createdOn = showTimeStampe(getUser.value.createdOn)
+        getUser.value.updateOn = showTimeStampe(getUser.value.updateOn)
+        count = id;
     }
     isDetail.value = isDetail.value === id ? -1 : id
     isEdit.value = false
@@ -53,7 +44,7 @@ const NextPage = async () => {
         page.value = 0
     }
     reset()
-    getAllUser.value= await getUsers(page.value += 1)
+    getAllUser.value = await getUsers(page.value += 1)
 }
 
 const BackPage = async () => {
@@ -61,13 +52,13 @@ const BackPage = async () => {
         page.value = 0
     }
     reset()
-    getAllUser.value= await getUsers(page.value -= 1)
+    getAllUser.value = await getUsers(page.value -= 1)
 }
 
-const del = async(user)=>{
-    const res= await deleteUser(user)
-    if(res===200){
-        getAllUser.value=await getUsers(page.value)
+const del = async (user) => {
+    const res = await deleteUser(user)
+    if (res === 200) {
+        getAllUser.value = await getUsers(page.value)
         reset()
     }
 }
@@ -180,7 +171,11 @@ const checkInfor = async (user) => {
     if (!getRole.includes(EditRole.value.trim())) {
         isCheck = false
         isHaveRole.value = false
-        alert("Not Have this role.")
+        Swal.fire({
+            icon: 'error',
+            title: 'Role',
+            text: 'Not Have this role.',
+        })
         EditRole.value = "STUDENT"
     }
     if (isCheck) {
@@ -189,7 +184,7 @@ const checkInfor = async (user) => {
         isNameEmpty.value = false
         isDuplicateName.value = false
         isDuplicateEmail.value = false
-        if (confirm("Are You sure ?")) {
+        if (await sureAlert()) {
             user.name = EditName.value
             user.email = EditEmail.value
             user.role = EditRole.value
@@ -213,13 +208,16 @@ const saveUser = async (updateUser) => {
         })
     })
     if (res.status === 200) {
-        alert("You have a change User.")
-        getAllUser.value= await getUsers(page.value)
+        getAllUser.value = await getUsers(page.value)
         reset()
     }
     else {
-        alert("You can't change this Booking")
-        getAllUser.value=await getUsers(page.value)
+        Swal.fire({
+            icon: 'error',
+            title: 'Something wrong.',
+            text: "You can't change this Booking",
+        })
+        getAllUser.value = await getUsers(page.value)
         reset()
     }
 }
@@ -235,8 +233,8 @@ const reset = () => {
 }
 
 onBeforeMount(async () => {
-    if(props.role===0){
-        getAllUser.value= await getUsers()
+    if (props.role === 0) {
+        getAllUser.value = await getUsers()
     }
 })
 
@@ -337,11 +335,11 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 :disabled="isUserOld">Save
                             </button>
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">
-                            {{ isEdit ? "Cancel" :"Edit"}}
+                                {{ isEdit ? "Cancel" :"Edit"}}
                             </button>
                         </div>
                         <div>
-                            <Match :user="user"/>
+                            <Match :user="user" />
                         </div>
                     </div>
                 </li>
