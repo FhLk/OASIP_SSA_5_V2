@@ -8,5 +8,8 @@ import java.util.List;
 
 public interface CategoryOwnerRepository extends JpaRepository<CategoryOwner, CategoryOwnerId> {
 
-    CategoryOwner findAllByUserIdLecturer_Email(String email);
+    List<CategoryOwner> findAllByUserIdLecturer_Id(Integer id);
+
+
+    List<CategoryOwner>  findByUserIdLecturer(User user);
 }

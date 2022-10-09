@@ -1,8 +1,8 @@
 package oasip.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import oasip.DTO.BookingDTO;
-import oasip.Entity.Event;
-import oasip.Entity.EventCategory;
+import oasip.Entity.*;
 import oasip.Repository.BookingRepository;
 import oasip.Repository.CategoryOwnerRepository;
 import oasip.Repository.CategoryRepository;
@@ -23,9 +23,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-@Service
+@Service @Slf4j
 public class BookingService {
 
     @Autowired
@@ -45,27 +47,34 @@ public class BookingService {
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
         }
-        Integer categoryId = categoryOwnerRepository.findAllByUserIdLecturer_Email(userEmail).getEventCategoryOwner().getId();
-        List<Event> bookingListLe = repository.findAllByCategory_Id(categoryId,PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,sort)));
-        if(userRoles.contains(EnumRole.LECTURER.name())){
-            return listMapper.mapList(bookingListLe, BookingDTO.class, modelMapper);
+        if(userRoles.contains(EnumRole.LECTURER.name())) {
+            User user = userRepository.findByEmail(userEmail);
+            List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
+            List<Event> events = new ArrayList<>();
+            categoryOwners.forEach(e -> {
+                List<Event> eventList = repository.findByCategory(e.getEventcategory());
+                events.addAll(eventList);
+            });
+            return listMapper.mapList(events, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
+
 
     public List<BookingDTO> getAllBooking(){
         List<Event> bookingList =repository.findAll();
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
 
-    public BookingDTO getBookingId(Integer bookingId){
-        Event booking = repository.findById(bookingId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Booking id "+bookingId+" does not exits."));
+    public List<BookingDTO> getBookingId(Integer bookingId){
+        List<Event> booking = Collections.singletonList(repository.findById(bookingId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking id " + bookingId + " does not exits.")));
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
+        List<Event> stBooking = Collections.singletonList(repository.findByIdAndBookingEmail(bookingId, userEmail));
         List<String> errors = new ArrayList<>();
             if (userRoles.contains(EnumRole.STUDENT.name())) {
-                if (!userEmail.equals(booking.getBookingEmail())){
+                if (!userEmail.equals(booking.get(0).getBookingEmail())){
                     try {
                         errors.add("This email is not booking this event");
                         throw new ForbiddenEx(errors.toString());
@@ -73,9 +82,34 @@ public class BookingService {
                         throw new RuntimeException(forbiddenEx);
                     }
                 }
-                return modelMapper.map(repository.findByIdAndBookingEmail(bookingId, userEmail), BookingDTO.class);
+                return listMapper.mapList(stBooking, BookingDTO.class,modelMapper);
             }
-        return modelMapper.map(booking, BookingDTO.class);
+            if(userRoles.contains(EnumRole.LECTURER.name())) {
+                User user = userRepository.findByEmail(userEmail);
+                List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
+                List<Event> events = new ArrayList<>();
+                categoryOwners.forEach(e -> {
+                    List<Event> eventList = repository.findByCategory(e.getEventcategory());
+                    events.addAll(eventList);
+                });
+                List<Event> event = new ArrayList<>();
+                events.forEach(f ->{
+                    if (f.getId().equals(bookingId)){
+                        List<Event> eventSpec = repository.findAllById(f.getId());
+                        event.addAll(eventSpec);
+                    }
+                });
+                if (event.isEmpty()){
+                    try {
+                        errors.add("You are not Lecturer of this event");
+                        throw new ForbiddenEx(errors.toString());
+                    }catch (ForbiddenEx forbiddenEx){
+                        throw new RuntimeException(forbiddenEx);
+                    }
+                }
+                return listMapper.mapList(event, BookingDTO.class,modelMapper);
+            }
+        return listMapper.mapList(booking, BookingDTO.class,modelMapper);
     }
 
 
@@ -90,6 +124,21 @@ public class BookingService {
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
         }
+        if(userRoles.contains(EnumRole.LECTURER.name())) {
+            User user = userRepository.findByEmail(userEmail);
+            List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
+            List<Event> events = new ArrayList<>();
+            categoryOwners.forEach(e -> {
+                List<Event> eventList = repository.findByCategory(e.getEventcategory());
+                events.addAll(eventList);
+            });
+            List<Event> event = new ArrayList<>();
+            events.forEach(f ->{
+                List<Event> eventSort = repository.findAllByCategoryOrderByStartTimeDesc(PageRequest.of(page,pageSize),category);
+                event.addAll(eventSort);
+            });
+            return listMapper.mapList(event, BookingDTO.class, modelMapper);
+        }
         return listMapper.mapList(bookingList, BookingDTO.class,modelMapper);
     }
 
@@ -100,6 +149,21 @@ public class BookingService {
         List<Event> bookingListSt = repository.findByBookingEmailAndStartTimeLessThanOrderByStartTimeDesc(PageRequest.of(page,pageSize),userEmail,localDateTime);
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
+        }
+        if(userRoles.contains(EnumRole.LECTURER.name())) {
+            User user = userRepository.findByEmail(userEmail);
+            List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
+            List<Event> events = new ArrayList<>();
+            categoryOwners.forEach(e -> {
+                List<Event> eventList = repository.findByCategory(e.getEventcategory());
+                events.addAll(eventList);
+            });
+            List<Event> event = new ArrayList<>();
+            events.forEach(f ->{
+                List<Event> eventSort = repository.findAllByStartTimeLessThanOrderByStartTimeDesc(PageRequest.of(page,pageSize),localDateTime);
+                event.addAll(eventSort);
+            });
+            return listMapper.mapList(event, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
@@ -119,6 +183,21 @@ public class BookingService {
                 LocalDateTime.parse(enddate));
         if(userRoles.contains(EnumRole.STUDENT.name())){
             return listMapper.mapList(bookingListSt, BookingDTO.class, modelMapper);
+        }
+        if(userRoles.contains(EnumRole.LECTURER.name())) {
+            User user = userRepository.findByEmail(userEmail);
+            List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
+            List<Event> events = new ArrayList<>();
+            categoryOwners.forEach(e -> {
+                List<Event> eventList = repository.findByCategory(e.getEventcategory());
+                events.addAll(eventList);
+            });
+            List<Event> event = new ArrayList<>();
+            events.forEach(f ->{
+                List<Event> eventSort = repository.findAllByStartTimeBetweenOrderByStartTimeAsc(PageRequest.of(page,pageSize),LocalDateTime.parse(startdate), LocalDateTime.parse(enddate));
+                event.addAll(eventSort);
+            });
+            return listMapper.mapList(event, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class,modelMapper);
     }
@@ -152,7 +231,7 @@ public class BookingService {
         return repository.saveAndFlush(booking);
     }
     public Event UpdateBooking(Integer bookingId, BookingDTO updateBooking) throws BookingException {
-        BookingDTO oldBooking = getBookingId(bookingId);
+        BookingDTO oldBooking = (BookingDTO) getBookingId(bookingId);
         List<String> errors=new ArrayList<>();
         if(!oldBooking.getBookingName().equals(updateBooking.getBookingName())){
             errors.add("The bookingName can't change");
@@ -202,7 +281,7 @@ public class BookingService {
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         List<String> errors=new ArrayList<>();
         if (userRoles.contains(EnumRole.STUDENT.name())) {
-            if (!userEmail.equals(getBookingId(BookingId).getBookingEmail())){
+            if (!userEmail.equals(getBookingId(BookingId).get(0).getBookingEmail())){
                 try {
                     errors.add("This email is not booking this event");
                     throw new ForbiddenEx(errors.toString());

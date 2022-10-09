@@ -19,5 +19,9 @@ public interface BookingRepository extends JpaRepository<Event,Integer> {
     List<Event> findByBookingEmailAndStartTimeLessThanOrderByStartTimeDesc(Pageable page, String email, LocalDateTime localDateTime);
     List<Event> findByBookingEmailAndStartTimeBetweenOrderByStartTimeAsc(Pageable page, String email, LocalDateTime startdate, LocalDateTime enddate);
 
-    List<Event> findAllByCategory_Id(Integer id, Pageable page);
+    List<Event> findByCategory(EventCategory eventCategory);
+    List<Event> findByCategory_Id(Integer id);
+
+    List<Event> findAllById(Integer id);
+
 }

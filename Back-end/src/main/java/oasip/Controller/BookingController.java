@@ -40,7 +40,7 @@ public class BookingController {
     }
 
     @GetMapping("/{BookingId}")
-    public ResponseEntity<BookingDTO> getBooking(@Valid @PathVariable Integer BookingId){
+    public ResponseEntity<List<BookingDTO>> getBooking(@Valid @PathVariable Integer BookingId){
         return ResponseEntity.ok(service.getBookingId(BookingId));
     }
 

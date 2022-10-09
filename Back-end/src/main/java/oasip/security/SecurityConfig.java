@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh","/api/checkAuthen","/api/categories/**").permitAll();
         http.authorizeRequests().antMatchers("/api/**").permitAll();
         http.authorizeRequests().antMatchers("/api/users/**","/api/match/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers("/api/bookings/**").hasAnyAuthority("ADMIN","STUDENT");
+        http.authorizeRequests().antMatchers("/api/bookings/**").hasAnyAuthority("ADMIN","STUDENT","LECTURER");
         http.authorizeRequests().anyRequest().authenticated()
                 .and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
