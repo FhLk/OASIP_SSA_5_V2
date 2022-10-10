@@ -14,10 +14,7 @@ const props = defineProps({
     user: Object
 })
 
-const Test = () => {
-    console.log(props.user)
-}
-
+const hold=ref(true)
 const isToken = ref(false)
 
 onBeforeMount(() => {
@@ -42,7 +39,7 @@ const SignOut = () => {
     <div>
         <nav class="bgNav border-b-4 borderColor px-2 sm:px-4 py-1.5 font fixed top-0 left-0 right-0">
             <div class="flex justify-between">
-                <div class="flex">
+                <div class="flex" @click="hold=true">
                     <router-link to="/">
                         <h1 class="cf text-7xl px-1 ml-8 rounded-md hover:ring-4 ring-[#000000]">OASIP</h1>
                     </router-link>
@@ -52,7 +49,7 @@ const SignOut = () => {
                     <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
                     <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
                     <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarSignin v-else />
+                    <NavBarSignin v-else/>
                     <UserStatus v-if="role!== -1 && isToken" />
                 </div>
             </div>

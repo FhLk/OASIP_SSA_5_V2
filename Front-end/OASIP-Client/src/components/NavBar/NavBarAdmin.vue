@@ -14,7 +14,6 @@ const isToken = ref(false)
 
 onBeforeMount(() => {
     isToken.value = checkToken()
-    // isRole.value= checkRole()
 })
 
 onUpdated(() => {
@@ -30,7 +29,6 @@ const signOut = () => {
     localStorage.clear()
     isToken.value = false
     emits('signOut')
-    // alert("Sign Out Succes")
     GoSignIn()
 }
 
@@ -86,6 +84,10 @@ const checkTimeOut = () => {
 
 .cf {
     color: rgb(0, 0, 0);
+}
+
+.router-link-active{
+    color: red;
 }
 
 

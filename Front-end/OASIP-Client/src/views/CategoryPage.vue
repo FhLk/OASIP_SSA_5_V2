@@ -1,8 +1,11 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import Category from '../components/Category.vue';
 import { getCategories } from '../fetch/fetchCategory.js'
 import { checkRole, checkToken } from '../Store/local.js';
+const myRouter = useRouter()
+const myRoute = useRoute()
 const listCategories = ref([])
 const isToken = ref(false)
 const isRole=ref(-1)
@@ -15,23 +18,14 @@ onBeforeMount(async () => {
 const getList = async () => {
     listCategories.value = await getCategories()
 }
+
+onBeforeRouteLeave(()=>{
+    console.log(myRoute.name)
+})
 </script>
  
 <template>
     <Category :role="isRole" :categories="listCategories" @save="getList" />
-    <!-- <div v-else class="font bgl2 rounded-xl px-10 mx-10 pt-5 pb-11 mt-32">
-        <div class="flex justify-center text-2xl">
-            <p>No Category.</p>
-        </div>
-        <div class="flex justify-center text-2xl pt-4">
-            <p>Plase Sign-in for use OASIP.</p>
-        </div>
-        <div class="flex justify-center pt-2">
-            <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
-                <router-link to="/LoginPage">Sign In</router-link>
-            </button>
-        </div>
-    </div> -->
 </template>
  
 <style scoped>
