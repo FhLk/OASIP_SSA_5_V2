@@ -47,7 +47,7 @@ const autoPlay = () => {
  
 <template>
     <div class="bg h-screen h-full">
-        <div class="bg h-screen h-full pt-36 font text-5xl flex justify-center">
+        <div class="bg h-screen h-full pt-28 font text-5xl flex justify-center">
             <h2> Online Appointment Scheduling </h2>
         </div>
         <div class="bg h-screen h-full flex justify-center font">
@@ -61,20 +61,26 @@ const autoPlay = () => {
                 <router-link to="/CategoryPage">Category</router-link>
             </button>
         </div>
-        <div class="flex justify-center pb-10 pl-5 pt-14 bg h-full h-screen font">
+        <div class="flex justify-between mb-1 pl-5 pt-7 bg h-full h-screen font">
             <div class="flex">
-                {{numberSlide}}/5
-                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14"
+                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-36 h-8 cf mx-14"
                     @click="imgIndex--,numberSlide--,changeSlide()">
-                    Back
-                </button>
-                <img :src="slideImg[imgIndex]" class="imgid" />
-                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14"
-                    @click="imgIndex++,numberSlide++,changeSlide()">
-                    Next
+                       Back 
                 </button>
             </div>
+                <div class="flex">
+                    <img :src="slideImg[imgIndex]" class="imgid rounded-2xl shadow-md shadow-black/25" />
+                </div>
+            <div class="flex">
+                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-36 h-8 cf mx-14"
+                   @click="imgIndex++,numberSlide++,changeSlide()">
+                      Next
+               </button>
+            </div>    
         </div>
+            <div class="font flex justify-center">
+                {{numberSlide}}/5
+            </div>
     </div>
 </template>
  
@@ -90,8 +96,8 @@ const autoPlay = () => {
 }
 
 .imgid {
-    width: 300px;
-    height: 300px;
+    width: 664px;
+    height: 465px;
 }
 
 .btnindex {

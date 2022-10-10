@@ -98,7 +98,7 @@ const SignOut = () => {
 }
 
 .navbar {
-    background-color: rgb(189, 237, 255);
+    background-color: rgb(71, 188, 231);
     overflow: hidden;
     position: fixed;
     bottom: 0;
