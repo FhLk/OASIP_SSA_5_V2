@@ -226,7 +226,6 @@ const isSortCategory = () => {
 
 
 const SortByCategory = async (id = 1) => {
-    isDenide.value = false
     page.value = 0
     if (isSortByCategory.value) {
         getListBooking.value = await EventCategory(id)
