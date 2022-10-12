@@ -230,7 +230,6 @@ const SortByCategory = async (id = 1) => {
     isOwner.value=true
     page.value = 0
     if (isSortByCategory.value) {
-        isDenide.value = true
         getListBooking.value = await EventCategory(id)
         if (getListBooking.value === 403) {
             isDenide.value = true
