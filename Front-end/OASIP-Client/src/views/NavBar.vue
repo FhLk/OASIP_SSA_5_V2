@@ -14,7 +14,6 @@ const props = defineProps({
     user: Object
 })
 
-const hold=ref(true)
 const isToken = ref(false)
 
 onBeforeMount(() => {
