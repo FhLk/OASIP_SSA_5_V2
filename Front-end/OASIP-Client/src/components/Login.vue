@@ -168,7 +168,6 @@ const GoIndex = () => {
 }
 
 .login-button {
-  /* display: inline-block; */
   background-color: rgba(93, 143, 164);
   height: 50%;
   margin-top: 2%;
@@ -212,71 +211,4 @@ const GoIndex = () => {
   border: black 2px solid;
   box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.507);
 }
-
-/* 
-.login-input{
-  text-align: center;
-}
-.login-button {
-  display: inline-block;
-  background-color: lightblue;
-  height: 50%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  margin-left: 3.5%;
-  border-radius: 10px;
-  font-size: 30px;
-  color: antiquewhite;
-  width: 55%;
-}
-.info-input {
-  border-style: solid;
-  border-width: 5px;
-  border-radius: 5px;
-  border-color: black;
-  width: 60%;
-}
-.login {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  z-index: 10;
-  background-color: white;
-  width: 500px;
-  max-width: 80%;
-  color: black;
-  border: black 2px solid;
-  box-shadow: 5px 5px 10px 2px rgba(36, 36, 36, 0.507);
-}
-.login-header {
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-.login-header .login-title {
-  font-size: 35px;
-  font-weight: bold;
-  padding-left: 1%;
-}
-.login-header .close-login {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 35px;
-  font-weight: bold;
-}
-.login-header .close-login:hover {
-  color: red;
-}
-.login-body {
-  padding: 10px 15px;
-  font-size: 20px;
-  font-weight: bold;
-  padding-left: 6%;
-} */
 </style>

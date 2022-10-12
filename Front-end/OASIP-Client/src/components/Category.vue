@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
+import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
 import { getCategories, getCategory, saveCategory } from '../fetch/fetchCategory';
 
 const emits = defineEmits(['save'])
@@ -46,20 +47,13 @@ const EditCategory = (category) => {
 
 }
 
-const reset = () => {
-    isEdit.value = false
-    isEditId.value = 0
-    Edit.value.name = ""
-    Edit.value.description = ""
-    Edit.value.duration = 0
-}
-
 const check = computed(() => {
     return Edit.value.name !== getCategoryDetail.value.categoryName
         || Edit.value.description !== getCategoryDetail.value.description
         || Edit.value.duration !== getCategoryDetail.value.duration
         ? false : true
 });
+
 const CheckInput = async (updateCategory) => {
     let isCheck = true
     if (Edit.value.name === '') {
@@ -74,7 +68,7 @@ const CheckInput = async (updateCategory) => {
         isDuration.value = false
     }
     if (isCheck) {
-        if (confirm("Are you sure")) {
+        if (await sureAlert()) {
             updateCategory.description = Edit.value.description
             updateCategory.duration = Edit.value.duration
             updateCategory.categoryName = Edit.value.name
@@ -82,13 +76,19 @@ const CheckInput = async (updateCategory) => {
             isNameEmpty.value = false
             await save(updateCategory)
             reset()
+            getCategoryDetail.value = await getCategory(updateCategory.id)
         }
     }
 }
 const save = async (updateCategory) => {
     let res = await saveCategory(updateCategory)
     if (res === 200) {
+        accessAlert("Updated")
         emits('save')
+        reset()
+    }
+    else{
+        deniedAlert("change","Category")
         reset()
     }
 }
@@ -120,6 +120,15 @@ const close = () => {
     isEditId.value = -1
     reset()
 }
+
+const reset = () => {
+    count=0
+    isEdit.value = false
+    isEditId.value = 0
+    Edit.value.name = ""
+    Edit.value.description = ""
+    Edit.value.duration = 0
+}
 </script>
  
 <template>
@@ -140,7 +149,7 @@ const close = () => {
                     <div class="text-xl flex justify-center mx-2 mt-1">
                         <p> {{ category.categoryName }} </p>
                     </div>
-                    <div class="flex justify-center">
+                    <div v-if="role!==1" class="flex justify-center">
                         <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
                             <router-link to="/AddEventPage">{{`Add Booking`}}</router-link>
                         </button>
@@ -177,7 +186,7 @@ const close = () => {
                                 </span>
                                 <span v-else>
                                     <div class="">
-                                        {{ getCategoryDetail.description }}
+                                        {{ category.description }}
                                     </div>
                                 </span>
                             </p>
@@ -190,7 +199,7 @@ const close = () => {
                                     </p>
                                 </span>
                                 <span v-else>
-                                    {{ getCategoryDetail.duration }} (mins.)
+                                    {{ category.duration }} (mins.)
                                 </span>
                             </p>
                         </div>

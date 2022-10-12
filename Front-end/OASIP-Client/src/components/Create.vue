@@ -2,6 +2,7 @@
 import moment from 'moment';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
 const isBooking = ref(false)
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
@@ -137,7 +138,7 @@ const CheckInput = async (booking) => {
         isCategoryEmpty.value = false
         isDateEmpty.value = false
         isTimeEmpty.value = false
-        if (confirm("Are You sure ?")) {
+        if (await sureAlert()) {
             await createBooking(booking)
             reset()
         }
@@ -170,7 +171,10 @@ const createBooking = async (booking) => {
         })
     })
     if (res.status === 201) {
-        alert("You have a new Booking")
+        accessAlert("Created")
+    }
+    else{
+        deniedAlert("create","Booking")
     }
 }
 

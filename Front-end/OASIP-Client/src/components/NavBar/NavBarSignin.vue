@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 const emits=defineEmits(['index'])
-const onHold=ref(true)
 
 const signIn = () => {
     localStorage.clear()

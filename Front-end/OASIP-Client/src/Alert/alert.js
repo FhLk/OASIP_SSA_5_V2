@@ -10,25 +10,34 @@ export const delAlert = async () => {
         confirmButtonText: 'Yes, delete it!'
     })
     if (test.isConfirmed) {
-        Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-        )
         return true
     }
     return false
 }
 export const sureAlert = async () => {
     const sure = await Swal.fire({
-        title: 'Do you want to save the changes?',
+        title: 'Are you sure?',
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No'
     })
     if (sure.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
         return true
     }
     return false
+}
+
+export const deniedAlert = async (action, event) => {
+    await Swal.fire({
+        icon: 'error',
+        title: `Can't ${action} this ${event}`,
+        text: 'Something wrong!',
+    })
+}
+
+export const accessAlert = async (action) => {
+    await Swal.fire({
+        icon:'success',
+        title:`${action}`
+      })
 }

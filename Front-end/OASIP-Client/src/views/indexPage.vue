@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from '@vue/reactivity';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+import { checkRole } from '../Store/local';
+const role=ref(-1)
 const slideImg = ref([
     "./index1.png",
     "./index2.png",
@@ -8,6 +10,10 @@ const slideImg = ref([
     "./index4.png",
     "./index5.png",
 ])
+
+onBeforeMount(()=>{
+    role.value=checkRole(localStorage.getItem("role"))
+})
 
 const numberSlide=ref(1)
 const imgIndex = ref(0)
@@ -51,7 +57,7 @@ const autoPlay = () => {
             <h2> Online Appointment Scheduling </h2>
         </div>
         <div class="bg h-screen h-full flex justify-center font">
-            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+            <button v-if="role!==1" class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
                 <router-link to="/AddEventPage">Add New Schedule</router-link>
             </button>
             <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">

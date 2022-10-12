@@ -19,13 +19,10 @@ const getList = async () => {
     listCategories.value = await getCategories()
 }
 
-onBeforeRouteLeave(()=>{
-    console.log(myRoute.name)
-})
 </script>
  
 <template>
-    <Category :role="isRole" :categories="listCategories" @save="getList" />
+    <Category :role="isRole" :categories="listCategories" @save="getList"/>
 </template>
  
 <style scoped>

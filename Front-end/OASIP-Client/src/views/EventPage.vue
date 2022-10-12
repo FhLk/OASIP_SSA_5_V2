@@ -17,18 +17,18 @@ onBeforeMount(() => {
             <img src="../assets/timetable.png" class="calendar ml-5 ">
         </h1>
         <List v-if="isToken" />
-        <div v-else class="font bgl2 rounded-xl px-10 mx-10 pt-5 pb-11">   
-                <div class="flex justify-center text-2xl">
-                    <p>No Events.</p>
-                </div>
-                <div class="flex justify-center text-2xl pt-4">
-                    <p>Plase Sign-in for use OASIP.</p>
-                </div>
-                <div class="flex justify-center pt-2">
-                    <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
-                        <router-link to="/LoginPage">Sign In</router-link>
-                    </button>
-                </div>
+        <div v-else class="font bgl2 rounded-xl px-10 mx-10 pt-5 pb-11">
+            <div class="flex justify-center text-2xl">
+                <p>No Events.</p>
+            </div>
+            <div class="flex justify-center text-2xl pt-4">
+                <p>Plase Sign-in for use OASIP.</p>
+            </div>
+            <div class="flex justify-center pt-2">
+                <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
+                    <router-link to="/LoginPage">Sign In</router-link>
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -51,6 +51,7 @@ onBeforeMount(() => {
 .font {
     font-family: 'Mitr', sans-serif;
 }
+
 .ccf {
     color: rgb(0, 0, 0);
 }

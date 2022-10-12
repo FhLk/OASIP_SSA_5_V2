@@ -39,7 +39,7 @@ const SignOut = () => {
     <div>
         <nav class="bgNav border-b-4 borderColor px-2 sm:px-4 py-1.5 font fixed top-0 left-0 right-0">
             <div class="flex justify-between">
-                <div class="flex" @click="hold=true">
+                <div class="flex">
                     <router-link to="/">
                         <h1 class="cf text-7xl px-1 ml-8 rounded-md hover:ring-4 ring-[#000000]">OASIP</h1>
                     </router-link>

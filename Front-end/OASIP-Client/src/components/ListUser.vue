@@ -3,7 +3,7 @@ import { computed, onBeforeMount, onBeforeUpdate, ref } from 'vue';
 import Swal from 'sweetalert2';
 import moment from "moment";
 import { deleteUser, getUsers, detail } from '../fetch/fetchUserAPI';
-import { sureAlert } from '../Alert/alert.js';
+import { accessAlert, sureAlert } from '../Alert/alert.js';
 import Match from './Match.vue';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -20,7 +20,6 @@ const isDetail = ref(-1)
 const getUser = ref({})
 const isEdit = ref(false)
 const isEditId = ref(0)
-const isOpen = ref(false)
 
 let count = 0
 const detailUser = async (id) => {
@@ -58,6 +57,7 @@ const BackPage = async () => {
 const del = async (user) => {
     const res = await deleteUser(user)
     if (res === 200) {
+        accessAlert("Deleted.")
         getAllUser.value = await getUsers(page.value)
         reset()
     }
@@ -208,15 +208,12 @@ const saveUser = async (updateUser) => {
         })
     })
     if (res.status === 200) {
+        accessAlert("Updated")
         getAllUser.value = await getUsers(page.value)
         reset()
     }
     else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Something wrong.',
-            text: "You can't change this Booking",
-        })
+        deniedAlert("change","Uses")
         getAllUser.value = await getUsers(page.value)
         reset()
     }

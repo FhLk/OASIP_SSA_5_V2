@@ -72,6 +72,9 @@ const checkTimeOut = () => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
+.router-link-active{
+    color: red;
+}
 .font {
     font-family: 'Mitr', sans-serif;
 }
