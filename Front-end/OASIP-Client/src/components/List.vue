@@ -86,6 +86,7 @@ onBeforeMount(async () => {
     role.value=checkRole(localStorage.getItem("role"))
     if(role.value===1){
         isDenide.value=true
+        isOwner.value=true
     }
     await Page()
 })
@@ -225,7 +226,6 @@ const isSortCategory = () => {
     SortByCategory()
 }
 
-
 const SortByCategory = async (id = 1) => {
     isOwner.value=true
     page.value = 0
@@ -233,6 +233,8 @@ const SortByCategory = async (id = 1) => {
         isDenide.value = true
         getListBooking.value = await EventCategory(id)
         if (getListBooking.value === 403) {
+            isDenide.value = true
+            isOwner.value=false
             getListBooking.value = []
         }
         getListBooking.value.forEach((data) => {
@@ -430,7 +432,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                 </li>
             </ul>
         </div>
-        <div v-else-if="isOwner" class="flex justify-center">
+        <div v-else-if="isOwner===false" class="flex justify-center">
             <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">
