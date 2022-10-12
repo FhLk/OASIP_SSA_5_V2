@@ -20,11 +20,6 @@ onBeforeMount(() => {
     isToken.value = checkToken()
 })
 
-const myRouter = useRouter()
-const GoSignIn = () => {
-    myRouter.push({ name: 'LoginPage' })
-}
-
 onUpdated(() => {
     isToken.value = checkToken()
 })
