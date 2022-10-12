@@ -20,7 +20,7 @@ const sortDay = ref(moment().local().format(DateFormat).slice(0, 10).trim())
 const categoryID = ref(1)
 const role=ref(-1)
 const isDenide = ref(false)
-const isOwner=ref(true)
+const isOwner=ref(false)
 
 const getListBooking = ref([])
 const Page = async (page = 0) => {
@@ -430,7 +430,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                 </li>
             </ul>
         </div>
-        <div v-else-if="!isOwner" class="flex justify-center">
+        <div v-else-if="isOwner" class="flex justify-center">
             <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">
