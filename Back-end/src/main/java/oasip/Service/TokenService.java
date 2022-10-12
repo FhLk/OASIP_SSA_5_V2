@@ -1,12 +1,10 @@
 package oasip.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import oasip.Entity.EventUser;
+import oasip.Entity.User;
 import oasip.Repository.UserRepository;
-import oasip.exeption.NotfoundEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +21,7 @@ public class TokenService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        EventUser user =  repository.findByEmail(email);
+        User user =  repository.findByEmail(email);
         if (user == null){
             throw new UsernameNotFoundException("Email not found" + email);
 //            try{
@@ -44,6 +42,6 @@ public class TokenService implements UserDetailsService {
 //        }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole()));
-        return new User(user.getEmail(),user.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
     }
 }

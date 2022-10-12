@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 const props = defineProps({
     getUsers: {
@@ -121,7 +122,7 @@ const checkInfor = async (user) => {
     if (!getRole.includes(user.role.trim())) {
         isCheck = false
         isHaveRole.value = false
-        alert("Not Have this role.")
+        deniedAlert("create","User (Not have role.)")
         newUser.value.role = "STUDENT"
     }
     if (isCheck) {
@@ -130,7 +131,7 @@ const checkInfor = async (user) => {
         isNameEmpty.value = false
         isDuplicateName.value = false
         isDuplicateEmail.value = false
-        if (confirm("Are You sure ?")) {
+        if (await sureAlert()) {
             await createUser(user)
             reset()
         }
@@ -152,7 +153,10 @@ const createUser = async (user) => {
         })
     })
     if (res.status === 201) {
-        alert("You have a new User")
+        accessAlert("Created")
+    }
+    else{
+        deniedAlert("create","User")
     }
 }
 const reset = () => {
@@ -252,8 +256,6 @@ const countEmail = computed(() => {
             </div>
         </div>
     </div>
-
-
 </template>
  
 <style scoped>

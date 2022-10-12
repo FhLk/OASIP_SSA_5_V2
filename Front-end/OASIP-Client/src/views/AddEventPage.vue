@@ -1,15 +1,16 @@
 <script setup>
 import Create from '../components/Create.vue';
 import { computed, onBeforeMount, ref } from 'vue';
-import { checkToken, expiresToken } from '../Store/local.js';
+import { checkRole, checkToken, expiresToken } from '../Store/local.js';
 const isToken = ref(false)
 const getListCategories = ref([]);
+const role = ref(-1)
 
 const getCategories = async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
         method: 'GET',
         headers: {
-            // "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
         }
     })
     getListCategories.value = await res.json()
@@ -17,6 +18,7 @@ const getCategories = async () => {
 
 onBeforeMount(async () => {
     isToken.value = checkToken()
+    role.value=checkRole(localStorage.getItem("role"))
     await getCategories()
 })
 </script>
@@ -25,7 +27,17 @@ onBeforeMount(async () => {
     <div class="bg h-screen h-full">
         <h1 class="font text-5xl flex justify-center pt-28">Add New Schedule</h1>
         <div>
-            <Create v-if="isToken" :getCategories="getListCategories" />
+            <Create v-if="isToken && role!==1" :getCategories="getListCategories" />
+            <div v-else-if="isToken && role===1">
+                <div class="font flex justify-center "> 
+                    <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule.</h1>
+                </div>
+                <div class="font flex justify-center mt-2">
+                    <button class="mx-10 px-4 py-2 btt cf hover:bg-[#A53D59] rounded-md">
+                        <router-link to="/">Back</router-link>
+                    </button>
+                </div>
+            </div>  
             <div v-else>
                 <div class="font flex justify-center "> 
                     <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule. Plase Sign-in.</h1>

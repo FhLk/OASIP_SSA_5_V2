@@ -1,7 +1,10 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import moment from "moment"
+import Swal from 'sweetalert2'
 import { EventPast, EventCategory, EventDay, EventDelete, EventDetail, EventSave, Events } from '../fetch/fetchEventAPI';
+import { delAlert, sureAlert,deniedAlert, accessAlert } from '../Alert/alert';
+import { checkRole } from '../Store/local';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
 
@@ -15,10 +18,11 @@ const isSortByCategory = ref(false)
 const isClear = ref(true)
 const sortDay = ref(moment().local().format(DateFormat).slice(0, 10).trim())
 const categoryID = ref(1)
+const role=ref(-1)
+const isDenide = ref(false)
 
 const getListBooking = ref([])
 const Page = async (page = 0) => {
-    let res
     if (page >= 0) {
         if (isSortByPast.value) {
             getListBooking.value = await EventPast(page)
@@ -78,8 +82,11 @@ const SortByDateTimeASC = (list) => {
 }
 
 onBeforeMount(async () => {
+    role.value=checkRole(localStorage.getItem("role"))
+    if(role.value===1){
+        isDenide.value=true
+    }
     await Page()
-
 })
 
 let count = 0
@@ -129,35 +136,36 @@ const reset = () => {
 
 const savebooking = async (updateBooking) => {
     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
-        alert("You can't change Booking in past")
+        deniedAlert("change","Booking in past.")
         await Page(page.value)
         reset()
     }
-    else if (confirm("You sure change this Booking ?")) {
+    else if (await sureAlert()) {
         updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
         updateBooking.eventNote = EditNote.value
         const res = await EventSave(updateBooking)
         if (res === 200) {
-            alert("You have a change Booking.")
+            accessAlert("Updated")
             await Page(page.value)
             reset()
         }
         else {
-            alert("You can't change this Booking")
+            deniedAlert("change","Booking")
             reset()
         }
     }
 }
 
 const deleteBooking = async (id) => {
-    if (confirm("Do you want delete this Booking ?")) {
+    if (await delAlert()) {
         const res = await EventDelete(id)
         if (res === 200) {
             await Page(page.value)
             reset()
+            accessAlert("Delete")
         }
-        else {
-            alert("Can't Delete this Booking")
+        else{
+            deniedAlert("delete","Booking")
             reset()
         }
     }
@@ -215,14 +223,22 @@ const isSortCategory = () => {
     sortDay.value = moment().local().format(DateFormat).slice(0, 10).trim()
     SortByCategory()
 }
+
+
 const SortByCategory = async (id = 1) => {
+    isDenide.value = false
     page.value = 0
     if (isSortByCategory.value) {
         getListBooking.value = await EventCategory(id)
+        if (getListBooking.value === 403) {
+            isDenide.value = true
+            getListBooking.value = []
+        }
         getListBooking.value.forEach((data) => {
             data.startTime = ShowDateTime(data.startTime)
         })
         getListBooking.value = SortByDateTimeDESC(getListBooking.value)
+
     }
 }
 
@@ -278,7 +294,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                 <button @click="showDetail(data.id)" :class="isDetail === data.id ? ccl : cdet"
                                     class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
                             </div>
-                            <div>
+                            <div v-if="!isDenide">
                                 <img @click="deleteBooking(data.id)" src="../assets/trash.png"
                                     class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                             </div>
@@ -328,7 +344,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     </span>
                                 </div>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2" v-if="!isDenide">
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
                                 <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
@@ -352,7 +368,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                 <button @click="showDetail(data.id)" :class="isDetail === data.id ? ccl : cdet"
                                     class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
                             </div>
-                            <div>
+                            <div v-if="!isDenide">
                                 <img @click="deleteBooking(data)" src="../assets/trash.png"
                                     class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                             </div>
@@ -399,7 +415,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                     </span>
                                 </div>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2" v-if="!isDenide">
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
                                 <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
@@ -412,6 +428,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                     <br />
                 </li>
             </ul>
+        </div>
+        <div v-else-if="isDenide" class="flex justify-center">
+            <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">
             <h2>No Scheduled Events.</h2>

@@ -25,17 +25,10 @@ const GoSignIn = () => {
     myRouter.push({ name: 'LoginPage' })
 }
 
-const signIn = () => {
-    localStorage.clear()
-    isToken.value = checkToken()
-    GoSignIn()
-}
-
 const signOut = () => {
     localStorage.clear()
     isToken.value = false
     emits('signOut')
-    alert("Sign Out Succes")
     GoSignIn()
 }
 
@@ -77,7 +70,9 @@ const checkTimeOut = () => {
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
-
+.router-link-active{
+    color: red;
+}
 .font {
     font-family: 'Mitr', sans-serif;
 }

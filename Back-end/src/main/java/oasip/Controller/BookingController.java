@@ -1,12 +1,10 @@
 package oasip.Controller;
 
 import oasip.DTO.BookingDTO;
-import oasip.DTO.UserDTO;
-import oasip.Entity.EventBooking;
+import oasip.Entity.Event;
 import oasip.Entity.EventCategory;
 import oasip.Service.BookingService;
 import oasip.exeption.BookingException;
-import oasip.exeption.ForbiddenEx;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -77,8 +75,8 @@ public class BookingController {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BookingDTO> AddBooking(@Valid @RequestBody BookingDTO newBooking){
-        EventBooking eventBooking=service.CreateBooking(newBooking);
-        return new ResponseEntity<>(modelMapper.map(eventBooking,BookingDTO.class),HttpStatus.CREATED);
+        Event event =service.CreateBooking(newBooking);
+        return new ResponseEntity<>(modelMapper.map(event,BookingDTO.class),HttpStatus.CREATED);
     }
 
     @PutMapping("/{BookingId}")

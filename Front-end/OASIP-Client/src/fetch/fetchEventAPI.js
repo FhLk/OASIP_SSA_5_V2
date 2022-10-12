@@ -44,6 +44,7 @@ export const EventPast = async (page = 0) => {
     }
     if (res.status === 200) {
         let events = await res.json()
+        // console.log(events);
         return events
     }
     return []
@@ -70,6 +71,9 @@ export const EventCategory = async (id, page = 0) => {
     if (res.status === 200) {
         let events = await res.json()
         return events
+    }
+    else if (res.status===403){
+        return 403
     }
     return []
 }
@@ -133,7 +137,7 @@ export const EventDelete = async (id) => {
 }
 
 export const EventDetail = async (id) => {
-    const res = await await fetch(`${fetchUrl}/bookings/${id}`, {
+    const res = await fetch(`${fetchUrl}/bookings/${id}`, {
         method: 'GET',
         headers: {
             "Authorization": `Bearer ${localStorage.getItem('access_token')}`
