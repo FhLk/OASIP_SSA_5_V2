@@ -226,11 +226,12 @@ const isSortCategory = () => {
 
 
 const SortByCategory = async (id = 1) => {
+    isDenide.value=false
     page.value = 0
     if (isSortByCategory.value) {
+        isDenide.value = true
         getListBooking.value = await EventCategory(id)
         if (getListBooking.value === 403) {
-            isDenide.value = true
             getListBooking.value = []
         }
         getListBooking.value.forEach((data) => {
@@ -428,7 +429,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                 </li>
             </ul>
         </div>
-        <div v-else-if="isDenide" class="flex justify-center">
+        <div v-else-if="isDenide===false" class="flex justify-center">
             <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">
