@@ -4,7 +4,7 @@ export const getCategories = async () => {
     const res = await fetch(`${fetchUrl}/categories`, {
         method: 'GET',
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            // "Authorization": `Bearer ${localStorage.getItem('access_token')}`
         }
     })
     if (res.status === 200) {
@@ -20,7 +20,7 @@ export const getCategory = async (id) => {
     const res = await fetch(`${fetchUrl}/categories/${id}`, {
         method: 'GET',
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+            // "Authorization": `Bearer ${localStorage.getItem('access_token')}`
         }
     })
     if (res.status === 200) {

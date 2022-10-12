@@ -14,7 +14,6 @@ const isToken = ref(false)
 
 onBeforeMount(() => {
     isToken.value = checkToken()
-    // isRole.value= checkRole()
 })
 
 onUpdated(() => {
@@ -30,7 +29,6 @@ const signOut = () => {
     localStorage.clear()
     isToken.value = false
     emits('signOut')
-    alert("Sign Out Succes")
     GoSignIn()
 }
 
@@ -83,9 +81,15 @@ const checkTimeOut = () => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
-
+.router-link-active{
+    color: red;
+}
 .cf {
     color: rgb(0, 0, 0);
+}
+
+.router-link-active{
+    color: red;
 }
 
 

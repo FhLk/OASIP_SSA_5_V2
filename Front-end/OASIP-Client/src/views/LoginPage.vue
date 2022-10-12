@@ -20,15 +20,6 @@ onBeforeMount(() => {
     GoIndex()
   }
 })
-
-// onBeforeUpdate(()=>{
-//   console.log("wow")
-// })
-
-// onUpdated(()=>{
-//   console.log("wow")
-// })
-
 </script>
  
 <template>
