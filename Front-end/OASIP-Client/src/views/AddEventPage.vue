@@ -9,9 +9,6 @@ const role = ref(-1)
 const getCategories = async () => {
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
         method: 'GET',
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`
-        }
     })
     getListCategories.value = await res.json()
 }
@@ -27,8 +24,8 @@ onBeforeMount(async () => {
     <div class="bg h-screen h-full">
         <h1 class="font text-5xl flex justify-center pt-28">Add New Schedule</h1>
         <div>
-            <Create v-if="isToken && role!==1" :getCategories="getListCategories" />
-            <div v-else-if="isToken && role===1">
+            <Create v-if="role!==1" :role="role" :getCategories="getListCategories" />
+            <div v-else-if="role===1">
                 <div class="font flex justify-center "> 
                     <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule.</h1>
                 </div>
@@ -38,16 +35,6 @@ onBeforeMount(async () => {
                     </button>
                 </div>
             </div>  
-            <div v-else>
-                <div class="font flex justify-center "> 
-                    <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule. Plase Sign-in.</h1>
-                </div>
-                <div class="font flex justify-center mt-2">
-                    <button class="mx-10 px-4 py-2 btt cf hover:bg-[#A53D59] rounded-md">
-                        <router-link to="/LoginPage">Sign In</router-link>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 </template>
