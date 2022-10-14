@@ -140,7 +140,7 @@ const reset = () => {
                 <h1 class="text-5xl mb-5">Category</h1>
             </div>
         <div class="font ccf bgcat mx-7 pt-7 rounded-t-lg">
-            <h2 class="ml-10 text-xl mb-3">Definition</h2>
+            <h2 class="ml-10 text-2xl  mb-3">Definition</h2>
             <div class="flex justify-between ml-6">
                 <div v-for="(category, index) in categories" :key="index">
                     <div class="mx-10" >
@@ -158,10 +158,10 @@ const reset = () => {
             </div>
         </div>
         <div class="font ccf bgcat mx-7 py-5 rounded-b-lg mb-4 flex justify-center">
-            <div v-for="(category, index) in categories" :key="index">
-                <div v-if="isDetail===category.id">
-                    <div class="flex justify-between">
-                        <div>
+            <div v-for="(category, index) in categories" :key="index" class="bg-[#F0F8FF] rounded-lg">
+                <div v-if="isDetail===category.id" class="pl-3 px-2 py-2">
+                    <div>
+                        <div class="flex justify-between">
                             <p>
                                 <span v-if="isEdit && isEditId===category.id">
                                     <input type="text" v-model="Edit.name" maxlength="100" class="rounded-sm px-1" />
@@ -170,27 +170,27 @@ const reset = () => {
                                         Name.
                                     </p>
                                 </span>
-                                <span v-else class="text-xl">
+                                <span v-else class="text-xl mr-5">
                                     {{ category.categoryName }}
                                 </span>
                             </p>
+                            <button class="test text-3xl h-0" @click="close">&times;</button>
                         </div>
-                        <button class="test text-5xl justify-self-end h-0" @click="close">&times;</button>
                         </div>
-                        <div>
-                            <p>Description:
+                        <div class="description">
+                            <p>Description :
                                 <span v-if="isEdit && isEditId===category.id">
                                     <textarea rows="5" cols="50" v-model="Edit.description" maxlength="500"
                                         class="rounded-sm px-1"></textarea>
                                     <p class="text-sm text-stone-500">(Number of Character : {{countDescription}})</p>
                                 </span>
                                 <span v-else>
-                                    <div class="">
+                                    <div class="text-neutral-600">
                                         {{ category.description }}
                                     </div>
                                 </span>
                             </p>
-                            <p>Duration:
+                            <p>Duration :
                                 <span v-if="isEdit && isEditId===category.id">
                                     <input type="number" v-model="Edit.duration" min="1" max="480" class="rounded-sm pl-1"
                                         @click="isDuration=false" />
@@ -198,7 +198,7 @@ const reset = () => {
                                     <p v-if="isDuration" class="text-xs text-red-600">Duration have time less/more than range
                                     </p>
                                 </span>
-                                <span v-else>
+                                <span v-else class="text-neutral-600">
                                     {{ category.duration }} (mins.)
                                 </span>
                             </p>
@@ -248,8 +248,8 @@ const reset = () => {
 }
 
 .description {
-    max-width: 35%;
-    margin-left: 2%;
+    max-width: 600px ;
+    margin-left: 5%;
 }
 
 .font {

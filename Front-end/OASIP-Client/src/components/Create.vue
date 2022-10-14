@@ -195,7 +195,7 @@ onBeforeMount(() => {
     <div class="font ccf text-lg mt-2">
         <div>
             <div class="flex justify-center">
-                <div class="bgc px-10 py-3 my-4 rounded-lg">
+                <div class="bgc px-10 py-3 my-4 rounded-lg flex">
                     <div class="mr-2 mt-2">
                         <p>Full Name: <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
                                 maxlength="100" class="px-1 rounded-sm"></p>
