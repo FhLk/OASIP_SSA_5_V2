@@ -47,9 +47,13 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
 </script>
  
 <template>
-  <div>
+  <div class="flex mt-2">
+    <p>
+      Check Match Password :
+    </p>
     <input type="password" placeholder="password" v-model="password" 
-    @click="isPass=true,isPassMatch=true" @keydown="isPass=true,isPassMatch=true"/>
+    @click="isPass=true,isPassMatch=true" @keydown="isPass=true,isPassMatch=true" 
+    class="ml-2 mx-1 px-2 rounded pb-1" />
     <button @click="checkMatch(user,password)" :class="cdet">Check</button>
     <p :class="isPass===false ? errorMessage : ''" v-if="isPass===false">*Plase Input password.*</p>
   </div>
