@@ -34,7 +34,7 @@ const stay="bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
 }
 
 .router-link-active{
-    color: red;
+    color:#0547A5;
 }
 
 .cf1 {
