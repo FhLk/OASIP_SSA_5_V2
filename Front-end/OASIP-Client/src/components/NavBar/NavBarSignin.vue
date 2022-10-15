@@ -21,7 +21,7 @@ const stay = "bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
                 <button :class="hold">
                     <router-link to="/CategoryPage">Category </router-link>
                 </button>
-                <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
+                <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf1 mx-2">
                     <router-link to="/LoginPage">Sign In</router-link>
                 </button>
             </div>
@@ -47,6 +47,6 @@ const stay = "bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
 
 
 .btLogIn {
-    background-color: rgb(105, 1, 29);
+    background-color: rgb(251 113 133);
 }
 </style>
