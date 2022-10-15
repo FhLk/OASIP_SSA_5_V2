@@ -249,7 +249,7 @@ onBeforeMount(() => {
                                 - <label :for="index">{{ category.categoryName }}</label>
                             </ul>
                             <p v-if="isCategoryEmpty && Object.keys(newbooking.category).length === 0"
-                            class="text-xs text-red-600">Plase select category</p>
+                                class="text-xs text-red-600">Plase select category</p>
                         </div>
                         <div class="mt-1">
                             <p class="mr-2 mt-2">Note : </p>
