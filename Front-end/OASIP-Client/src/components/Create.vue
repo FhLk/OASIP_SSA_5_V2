@@ -195,66 +195,76 @@ onBeforeMount(() => {
     <div class="font ccf text-lg mt-2">
         <div>
             <div class="flex justify-center">
-                <div class="bgc px-10 py-3 my-4 rounded-lg flex">
-                    <div class="mr-2 mt-2">
-                        <p>Full Name: <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
-                                maxlength="100" class="px-1 rounded-sm"></p>
-                        <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
-                        <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">Plase Input your name
-                        </p>
+                <div class="bgc px-10 py-3 rounded-lg flex">
+                    <div class="ml-3">
+                        <div class="mr-2 mt-2">
+                            <p>Full Name : <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
+                                    maxlength="100" class="px-1 rounded-sm"></p>
+                            <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
+                            <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">Plase Input your
+                                name
+                            </p>
+                        </div>
+                        <div class="mr-2 mt-1">
+                            <p>E-mail : <input type="email" placeholder="example@example.com"
+                                    v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"
+                                    :disabled="isLogin"></p>
+                            <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
+                            <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input your
+                                e-mail
+                            </p>
+                            <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not
+                                follow
+                                format</p>
+                        </div>
+                        <div class="mt-2">
+                            <label>Date : </label>
+                            <input type="date" v-model="newbooking.Date" :min="new Date().toISOString().split('T')[0]"
+                                class="px-1 rounded-sm">
+                            <p v-if="isDateEmpty && newbooking.Date === ''" class="text-xs text-red-600">Plase Input
+                                your
+                                date.</p>
+                            <p v-else-if="isDatePast" class="text-xs text-red-600">Can't choose Date in Past or Present
+                            </p>
+                        </div>
+                        <div class="mt-2">
+                            <label> Start (Time) : </label>
+                            <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm">
+                            <p v-if="isTimeEmpty && newbooking.Time === ''" class="text-xs text-red-600">Plase Input
+                                your
+                                time
+                            </p>
+                        </div>
+                        <div class="mt-2">
+                            <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
+                            newbooking.category.duration === undefined ? 0 : newbooking.category.duration
+                            }}</label>
+                        </div>
                     </div>
-                    <div class="mr-2 mt-1">
-                        <p>E-mail: <input type="email" placeholder="example@example.com"
-                                v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"
-                                :disabled="isLogin"></p>
-                        <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
-                        <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input your
-                            e-mail
-                        </p>
-                        <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not follow
-                            format</p>
+                    <div class="ml-4">
+                        <div>
+                            <p class="mr-2 mt-1">Category : </p>
+                            <ul v-for="(category, index) in getCategories " :key="index">
+                                <input type="radio" :id="index" :value="category" v-model="newbooking.category">
+                                - <label :for="index">{{ category.categoryName }}</label>
+                            </ul>
+                            <p v-if="isCategoryEmpty && Object.keys(newbooking.category).length === 0"
+                            class="text-xs text-red-600">Plase select category</p>
+                        </div>
+                        <div class="mt-1">
+                            <p class="mr-2 mt-2">Note : </p>
+                            <textarea rows="5" cols="50" v-model="newbooking.eventNote" maxlength="500"
+                                class="px-1 rounded-sm"></textarea>
+                            <p class="text-sm text-stone-500">(Number of Character : {{ countNote }})</p>
+                        </div>
                     </div>
-                    <p class="mr-2 mt-1">Category:
-                    <ul v-for="(category, index) in getCategories " :key="index">
-                        <input type="radio" :id="index" :value="category" v-model="newbooking.category">
-                        - <label :for="index">{{ category.categoryName }}</label>
-                    </ul>
-                    <p v-if="isCategoryEmpty && Object.keys(newbooking.category).length === 0"
-                        class="text-xs text-red-600">Plase select category</p>
-                    <div class="mt-1">
-                        <label>Date: </label>
-                        <input type="date" v-model="newbooking.Date" :min="new Date().toISOString().split('T')[0]"
-                            class="px-1 rounded-sm">
-                        <p v-if="isDateEmpty && newbooking.Date === ''" class="text-xs text-red-600">Plase Input your
-                            date.</p>
-                        <p v-else-if="isDatePast" class="text-xs text-red-600">Can't choose Date in Past or Present</p>
-                    </div>
-                    <div class="mt-1">
-                        <label> Start (Time): </label>
-                        <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm">
-                        <p v-if="isTimeEmpty && newbooking.Time === ''" class="text-xs text-red-600">Plase Input your
-                            time
-                        </p>
-                    </div>
-                    <div class="mt-1">
-                        <label class="mr-2 mt-5">Duration (Minute): {{ newbooking.bookingDuration =
-                        newbooking.category.duration === undefined ? 0 : newbooking.category.duration
-                        }}</label>
-                    </div>
-                    <div class="mt-1">
-                        <p class="mr-2 mt-2">Note: </p>
-                        <textarea rows="5" cols="50" v-model="newbooking.eventNote" maxlength="500"
-                            class="px-1 rounded-sm"></textarea>
-                        <p class="text-sm text-stone-500">(Number of Character : {{ countNote }})</p>
-                    </div>
-                    <div class="mt-4">
-                        <button @click="CheckInput(newbooking)"
-                            class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]">OK</button>
-                        <button @click="reset"
-                            class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
-                    </div>
-                    </p>
                 </div>
+            </div>
+            <div class="mt-3 flex justify-center">
+                <button @click="CheckInput(newbooking)"
+                    class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]">OK</button>
+                <button @click="reset"
+                    class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>
         </div>
     </div>
