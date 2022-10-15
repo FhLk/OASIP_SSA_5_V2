@@ -235,11 +235,6 @@ onBeforeMount(() => {
                                 time
                             </p>
                         </div>
-                        <div class="mt-2">
-                            <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
-                            newbooking.category.duration === undefined ? 0 : newbooking.category.duration
-                            }}</label>
-                        </div>
                     </div>
                     <div class="ml-4">
                         <div>
@@ -249,7 +244,12 @@ onBeforeMount(() => {
                                 - <label :for="index">{{ category.categoryName }}</label>
                             </ul>
                             <p v-if="isCategoryEmpty && Object.keys(newbooking.category).length === 0"
-                                class="text-xs text-red-600">Plase select category</p>
+                            class="text-xs text-red-600">Plase select category</p>
+                        </div>
+                        <div class="mt-2">
+                            <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
+                            newbooking.category.duration === undefined ? 0 : newbooking.category.duration
+                            }}</label>
                         </div>
                         <div class="mt-1">
                             <p class="mr-2 mt-2">Note : </p>
