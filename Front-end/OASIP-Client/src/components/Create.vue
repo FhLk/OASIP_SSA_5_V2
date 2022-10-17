@@ -1,6 +1,6 @@
 <script setup>
 import moment from 'moment';
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
@@ -18,8 +18,9 @@ const isEmailEmpty = ref(false);
 const isCategoryEmpty = ref(false);
 const isDateEmpty = ref(false);
 const isTimeEmpty = ref(false);
-const isDatePast = ref(false)
-
+const isDatePast = ref(false);
+const isCategory = ref(0);
+let {params} = useRoute()
 let DateFormat = "YYYY-MM-DD HH:mm"
 
 const emits = defineEmits(['add'])
@@ -41,6 +42,15 @@ const newbooking = ref({
     eventNote: "",
     bookingDuration: 0
 });
+
+const isInfor=computed(()=>{
+    return newbooking.value.bookingName==="" || 
+    newbooking.value.bookingEmail==="" ||
+    newbooking.value.Date==="" ||
+    newbooking.value.Time==="" ||
+    Object.keys(newbooking.value.category).length === 0 ||
+    newbooking.value.bookingDuration===0 ? true:false
+})
 
 const reset = () => {
     isBooking.value = false
@@ -181,12 +191,13 @@ const countEmail = computed(() => {
 })
 
 const isLogin = ref(false)
-onBeforeMount(() => {
+onBeforeMount(async () => {
     if (checkRole(localStorage.getItem("role")) === 2) {
         isLogin.value = true
         newbooking.value.bookingName = localStorage.getItem("name")
         newbooking.value.bookingEmail = localStorage.getItem("email")
     }
+    isCategory.value=Number(params.category)
 })
 
 </script>
@@ -199,7 +210,7 @@ onBeforeMount(() => {
                     <div class="ml-3">
                         <div class="mr-2 mt-2">
                             <p>Full Name : <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
-                                    maxlength="100" class="px-1 rounded-sm"></p>
+                                    maxlength="100" class="px-1 rounded-sm" @click="isNameEmpty=false"></p>
                             <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                             <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">Plase Input your
                                 name
@@ -208,7 +219,7 @@ onBeforeMount(() => {
                         <div class="mr-2 mt-1">
                             <p>E-mail : <input type="email" placeholder="example@example.com"
                                     v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"
-                                    :disabled="isLogin"></p>
+                                    :disabled="isLogin" @click="isEmailEmpty=false,isEmailNotFormat=false"></p>
                             <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                             <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input your
                                 e-mail
@@ -220,7 +231,7 @@ onBeforeMount(() => {
                         <div class="mt-2">
                             <label>Date : </label>
                             <input type="date" v-model="newbooking.Date" :min="new Date().toISOString().split('T')[0]"
-                                class="px-1 rounded-sm">
+                                class="px-1 rounded-sm" @click="isDateEmpty=false">
                             <p v-if="isDateEmpty && newbooking.Date === ''" class="text-xs text-red-600">Plase Input
                                 your
                                 date.</p>
@@ -229,7 +240,7 @@ onBeforeMount(() => {
                         </div>
                         <div class="mt-2">
                             <label> Start (Time) : </label>
-                            <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm">
+                            <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm" @click="isTimeEmpty=false">
                             <p v-if="isTimeEmpty && newbooking.Time === ''" class="text-xs text-red-600">Plase Input
                                 your
                                 time
@@ -240,7 +251,7 @@ onBeforeMount(() => {
                         <div>
                             <p class="mr-2 mt-1">Category : </p>
                             <ul v-for="(category, index) in getCategories " :key="index">
-                                <input type="radio" :id="index" :value="category" v-model="newbooking.category">
+                                <input type="radio" :id="index" :value="category" v-model="newbooking.category" @click="isCategoryEmpty=false" :checked="category.id===isCategory" :disabled="isCategory">
                                 - <label :for="index">{{ category.categoryName }}</label>
                             </ul>
                             <p v-if="isCategoryEmpty && Object.keys(newbooking.category).length === 0"
@@ -262,7 +273,7 @@ onBeforeMount(() => {
             </div>
             <div class="mt-3 flex justify-center">
                 <button @click="CheckInput(newbooking)"
-                    class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80]">OK</button>
+                    class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80] disabled:bg-[#999999]" :disabled="isInfor">OK</button>
                 <button @click="reset"
                     class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>

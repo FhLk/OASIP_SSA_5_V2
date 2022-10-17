@@ -87,8 +87,8 @@ const save = async (updateCategory) => {
         emits('save')
         reset()
     }
-    else{
-        deniedAlert("change","Category")
+    else {
+        deniedAlert("change", "Category")
         reset()
     }
 }
@@ -122,7 +122,7 @@ const close = () => {
 }
 
 const reset = () => {
-    count=0
+    count = 0
     isEdit.value = false
     isEditId.value = 0
     Edit.value.name = ""
@@ -133,17 +133,17 @@ const reset = () => {
  
 <template>
     <div class="mt-28 font">
-            <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
-                        <router-link to="/">{{`<< Back`}}</router-link>
-                </button>
-            <div class="font flex justify-center">
-                <h1 class="text-5xl mb-5">Category</h1>
-            </div>
+        <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
+            <router-link to="/">{{`<< Back`}}</router-link>
+        </button>
+        <div class="font flex justify-center">
+            <h1 class="text-5xl mb-5">Category</h1>
+        </div>
         <div class="font ccf bgcat mx-7 pt-7 rounded-t-lg">
             <h2 class="ml-10 text-2xl  mb-3">Definition</h2>
             <div class="flex justify-between ml-6">
                 <div v-for="(category, index) in categories" :key="index">
-                    <div class="mx-10" >
+                    <div class="mx-10">
                         <img :src="clinicImg[index]" @click="categoryDetail(category.id)" class="cliImg" />
                     </div>
                     <div class="text-xl flex justify-center mx-2 mt-1">
@@ -151,7 +151,8 @@ const reset = () => {
                     </div>
                     <div v-if="role!==1" class="flex justify-center">
                         <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                            <router-link to="/AddEventPage">{{`Add Booking`}}</router-link>
+                            <router-link :to="{name: 'AddEventByCategoryPage',params:{category:category.id}}">{{`Add Booking`}}
+                            </router-link>
                         </button>
                     </div>
                 </div>
@@ -166,7 +167,8 @@ const reset = () => {
                                 <span v-if="isEdit && isEditId===category.id">
                                     <input type="text" v-model="Edit.name" maxlength="100" class="rounded-sm px-1" />
                                     <p class="text-sm text-stone-500">(Number of Character : {{countName}})</p>
-                                    <p v-if="isNameEmpty && countName===100" class="text-xs text-red-600">Plase Input Category
+                                    <p v-if="isNameEmpty && countName===100" class="text-xs text-red-600">Plase Input
+                                        Category
                                         Name.
                                     </p>
                                 </span>
@@ -176,47 +178,48 @@ const reset = () => {
                             </p>
                             <button class="test text-3xl h-0" @click="close">&times;</button>
                         </div>
-                        </div>
-                        <div class="description">
-                            <p>Description :
-                                <span v-if="isEdit && isEditId===category.id">
-                                    <textarea rows="5" cols="50" v-model="Edit.description" maxlength="500"
-                                        class="rounded-sm px-1"></textarea>
-                                    <p class="text-sm text-stone-500">(Number of Character : {{countDescription}})</p>
-                                </span>
-                                <span v-else>
-                                    <div class="text-neutral-600">
-                                        {{ category.description }}
-                                    </div>
-                                </span>
-                            </p>
-                            <p>Duration :
-                                <span v-if="isEdit && isEditId===category.id">
-                                    <input type="number" v-model="Edit.duration" min="1" max="480" class="rounded-sm pl-1"
-                                        @click="isDuration=false" />
-                                    : <span class="text-sm text-stone-500">(1 to 480 mins)</span>
-                                    <p v-if="isDuration" class="text-xs text-red-600">Duration have time less/more than range
-                                    </p>
-                                </span>
-                                <span v-else class="text-neutral-600">
-                                    {{ category.duration }} (mins.)
-                                </span>
-                            </p>
-                        </div>
-                        <div>
-                            <button v-if="isEdit" @click="CheckInput(category)"
-                                class="bg-green-600 rounded-full px-2 mx-2 text-white hover:bg-[#4ADE80] disabled:bg-[#8F9892]"
-                                :disabled="check">
-                                Save
-                            </button>
-                            <button v-if="role===1||role===0" @click="EditCategory(category)" :class="isEdit ? ccl : ced">
-                                {{ isEdit ? "Cancel":"Edit"}}
-                            </button>
-                        </div>
+                    </div>
+                    <div class="description">
+                        <p>Description :
+                            <span v-if="isEdit && isEditId===category.id">
+                                <textarea rows="5" cols="50" v-model="Edit.description" maxlength="500"
+                                    class="rounded-sm px-1"></textarea>
+                                <p class="text-sm text-stone-500">(Number of Character : {{countDescription}})</p>
+                            </span>
+                            <span v-else>
+                                <div class="text-neutral-600">
+                                    {{ category.description }}
+                                </div>
+                            </span>
+                        </p>
+                        <p>Duration :
+                            <span v-if="isEdit && isEditId===category.id">
+                                <input type="number" v-model="Edit.duration" min="1" max="480" class="rounded-sm pl-1"
+                                    @click="isDuration=false" />
+                                : <span class="text-sm text-stone-500">(1 to 480 mins)</span>
+                                <p v-if="isDuration" class="text-xs text-red-600">Duration have time less/more than
+                                    range
+                                </p>
+                            </span>
+                            <span v-else class="text-neutral-600">
+                                {{ category.duration }} (mins.)
+                            </span>
+                        </p>
+                    </div>
+                    <div>
+                        <button v-if="isEdit" @click="CheckInput(category)"
+                            class="bg-green-600 rounded-full px-2 mx-2 text-white hover:bg-[#4ADE80] disabled:bg-[#8F9892]"
+                            :disabled="check">
+                            Save
+                        </button>
+                        <button v-if="role===1||role===0" @click="EditCategory(category)" :class="isEdit ? ccl : ced">
+                            {{ isEdit ? "Cancel":"Edit"}}
+                        </button>
                     </div>
                 </div>
+            </div>
             <div>
-        </div>
+            </div>
         </div>
     </div>
 </template>
@@ -248,7 +251,7 @@ const reset = () => {
 }
 
 .description {
-    max-width: 600px ;
+    max-width: 600px;
     margin-left: 5%;
 }
 

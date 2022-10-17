@@ -117,14 +117,16 @@ const GoIndex = () => {
             <img src="../assets/mail_user.png" class="user mx-2" />
             <input class="info-input mt-2 px-1" type="text" placeholder="Username" v-model="login.email"
               @click="isEmail = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" />
+              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false"
+              @keydown.enter="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false"/>
           </div>
           <p :class="isEmail ? errorMessage : ''" v-if="isEmail">*Plase Input your username*</p>
           <div class="flex justify-center py-1">
             <img src="../assets/padlock.png" class="password mx-2" />
             <input class="info-input mt-2 px-1" type="password" placeholder="Password" v-model="login.password"
               @click="isPass = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" />
+              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" 
+              @keydown.enter="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false"/>
           </div>
           <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
         </div>
