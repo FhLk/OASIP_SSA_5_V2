@@ -261,7 +261,9 @@ public class BookingService {
     public void sendConfirmEmail(BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException {
         String subject = "[OASIP] " + newBooking.getCategory().getCategoryName() + " @ " + newBooking.getStartTime();
         String senderName = "OASIP ADMIN";
-        String mailContent = "<p>BookingName: " + newBooking.getBookingName() + "</p>";
+        String mailContent = "<p>Reply-to: noreply@intproj21.sit.kmutt.ac.th </p>";
+
+        mailContent += "<p>BookingName: " + newBooking.getBookingName() + "</p>";
 
         mailContent += "<p>Event Category: " + newBooking.getCategory().getCategoryName() + "</p>";
 
@@ -273,9 +275,9 @@ public class BookingService {
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("noreply@intproj21.sit.kmutt.ac.th", senderName);
-        helper.setTo("taohoo002p@gmail.com");
+        helper.setTo(newBooking.getBookingEmail());
         helper.setSubject(subject);
-        helper.setText(mailContent);
+        helper.setText(mailContent,true);
         emailSender.send(message);
 
     }
