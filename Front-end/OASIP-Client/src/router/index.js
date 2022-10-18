@@ -10,6 +10,7 @@ import CategoryPage from '../views/CategoryPage.vue'
 const history = createWebHistory('ssa5')
 const routes = [
     {path: '/',name: 'indexPage',component: indexPage},
+    {path: '/AddEventPage/:category',name: 'AddEventByCategoryPage',component: AddEventPage},
     {path: '/AddEventPage',name: 'AddEventPage',component: AddEventPage},
     {path: '/EventPage',name: 'EventPage',component: EventPage},
     {path: '/AboutPage',name:'AboutPage',component:AboutPage},

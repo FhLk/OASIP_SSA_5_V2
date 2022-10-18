@@ -1,23 +1,27 @@
 <script setup>
 import { ref } from 'vue';
-const emits=defineEmits(['index'])
+const emits = defineEmits(['index'])
 
 const signIn = () => {
     localStorage.clear()
 }
 
-const hold="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx-1"
-const stay="bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
+const hold = "hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx-1"
+const stay = "bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
 </script>
  
 <template>
     <div>
         <div class="flex justify-between">
             <div class="justify-self-end">
+                <button @click="checkTimeOut" :class="hold"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    <router-link to="/AddEventPage">Add New Schedule</router-link>
+                </button>
                 <button :class="hold">
                     <router-link to="/CategoryPage">Category </router-link>
                 </button>
-                <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf mx-2">
+                <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf1 mx-2">
                     <router-link to="/LoginPage">Sign In</router-link>
                 </button>
             </div>
@@ -33,8 +37,8 @@ const stay="bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
     color: rgb(251, 251, 249);
 }
 
-.router-link-active{
-    color:#0547A5;
+.router-link-active {
+    color: #0547A5;
 }
 
 .cf1 {
@@ -43,6 +47,6 @@ const stay="bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
 
 
 .btLogIn {
-    background-color: rgb(105, 1, 29);
+    background-color: rgb(251 113 133);
 }
 </style>

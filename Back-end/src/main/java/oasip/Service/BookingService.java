@@ -18,10 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -44,6 +50,9 @@ public class BookingService {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     public List<BookingDTO> getBookings(int page, int pageSize, String sort) {
         List<Event> bookingList = repository.findAll(PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, sort))).getContent();
@@ -247,6 +256,30 @@ public class BookingService {
             }
         }
         return repository.saveAndFlush(booking);
+    }
+
+    public void sendConfirmEmail(BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException {
+        String subject = "[OASIP] " + newBooking.getCategory().getCategoryName() + " @ " + newBooking.getStartTime();
+        String senderName = "OASIP ADMIN";
+        String mailContent = "<p>Reply-to: noreply@intproj21.sit.kmutt.ac.th </p>";
+
+        mailContent += "<p>BookingName: " + newBooking.getBookingName() + "</p>";
+
+        mailContent += "<p>Event Category: " + newBooking.getCategory().getCategoryName() + "</p>";
+
+        mailContent += "<p>When: " + newBooking.getStartTime() + "</p>";
+
+        mailContent += "<p>Event Note: " + newBooking.getEventNote() + "</p>";
+
+        MimeMessage message = emailSender.createMimeMessage();
+
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("noreply@intproj21.sit.kmutt.ac.th", senderName);
+        helper.setTo(newBooking.getBookingEmail());
+        helper.setSubject(subject);
+        helper.setText(mailContent,true);
+        emailSender.send(message);
+
     }
 
     public Event UpdateBooking(Integer bookingId, BookingDTO updateBooking) throws BookingException {

@@ -57,18 +57,7 @@ const autoPlay = () => {
         <div class="bg h-screen h-full pt-28 font text-5xl flex justify-center">
             <h2> Online Appointment Scheduling </h2>
         </div>
-        <div class="bg h-screen h-full flex justify-center font">
-            <button v-if="role!==1" class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                <router-link to="/AddEventPage">Add New Schedule</router-link>
-            </button>
-            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                <router-link to="/EventPage"> Show Schedule </router-link>
-            </button>
-            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                <router-link to="/CategoryPage">Category</router-link>
-            </button>
-        </div>
-        <div class="flex justify-between mb-1 pl-5 pt-7 bg h-full h-screen font">
+        <div class="flex justify-between mb-1 pl-5 pt-7 bg h-full h-screen font mt-4">
             <div class="flex">
                 <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-36 h-8 cf mx-14"
                     @click="imgIndex--,numberSlide--,changeSlide()">

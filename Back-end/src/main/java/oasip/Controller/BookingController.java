@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -69,8 +71,9 @@ public class BookingController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BookingDTO> AddBooking(@Valid @RequestBody BookingDTO newBooking){
+    public ResponseEntity<BookingDTO> AddBooking(@Valid @RequestBody BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException {
         Event event =service.CreateBooking(newBooking);
+        service.sendConfirmEmail(newBooking);
         return new ResponseEntity<>(modelMapper.map(event,BookingDTO.class),HttpStatus.CREATED);
     }
 
