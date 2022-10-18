@@ -198,18 +198,8 @@ onBeforeMount(async () => {
         newbooking.value.bookingEmail = localStorage.getItem("email")
     }
     isCategory.value=Number(params.category)
-    newbooking.value.category=props.getCategories[isCategory.value-1]
 })
 
-console.log(newbooking.value.category)
-// const Test=(t)=>{
-//     if(t!==0){
-//         return props.getCategories[t-1].duration
-//     }
-//     else{
-//         return 0
-//     }
-// }
 </script>
  
 <template>
