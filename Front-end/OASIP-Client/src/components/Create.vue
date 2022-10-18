@@ -201,6 +201,7 @@ onBeforeMount(async () => {
     newbooking.value.category=props.getCategories[isCategory.value-1]
 })
 
+console.log(newbooking.value.category)
 // const Test=(t)=>{
 //     if(t!==0){
 //         return props.getCategories[t-1].duration
