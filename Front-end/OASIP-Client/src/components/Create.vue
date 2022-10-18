@@ -198,16 +198,17 @@ onBeforeMount(async () => {
         newbooking.value.bookingEmail = localStorage.getItem("email")
     }
     isCategory.value=Number(params.category)
+    newbooking.value.category=props.getCategories[isCategory.value]
 })
 
-const Test=(t)=>{
-    if(t!==0){
-        return props.getCategories[t-1].duration
-    }
-    else{
-        return 0
-    }
-}
+// const Test=(t)=>{
+//     if(t!==0){
+//         return props.getCategories[t-1].duration
+//     }
+//     else{
+//         return 0
+//     }
+// }
 </script>
  
 <template>
@@ -267,7 +268,7 @@ const Test=(t)=>{
                         </div>
                         <div class="mt-2">
                             <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
-                            newbooking.category.duration === undefined ? 0 : Test(isCategory)
+                            newbooking.category.duration === undefined ? 0 : newbooking.category.duration
                             }}</label>
                             <!-- <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
                             Test(isCategory)
