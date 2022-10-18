@@ -205,7 +205,7 @@ const Test=(t)=>{
         return 0
     }
     else{
-        return props.getCategories[t].duration
+        return props.getCategories[t-1].duration
     }
 }
 </script>
