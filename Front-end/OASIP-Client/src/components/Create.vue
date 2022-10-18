@@ -202,10 +202,10 @@ onBeforeMount(async () => {
 
 const Test=(t)=>{
     if(t!==undefined){
-        return 0
+        return props.getCategories[t-1].duration
     }
     else{
-        return props.getCategories[t-1].duration
+        return 0
     }
 }
 </script>
