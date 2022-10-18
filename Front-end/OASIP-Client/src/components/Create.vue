@@ -198,7 +198,7 @@ onBeforeMount(async () => {
         newbooking.value.bookingEmail = localStorage.getItem("email")
     }
     isCategory.value=Number(params.category)
-    newbooking.value.category=props.getCategories[isCategory.value]
+    newbooking.value.category=props.getCategories[isCategory.value-1]
 })
 
 // const Test=(t)=>{
