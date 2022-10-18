@@ -202,8 +202,7 @@ onBeforeMount(async () => {
 
 const Test=(t)=>{
     if(t!==undefined){
-        console.log(props.getCategories[t-1]);
-        // return props.getCategories[t-1].category.duration
+        return props.getCategories[t-1].duration
     }
     else{
         return 0
@@ -267,12 +266,12 @@ const Test=(t)=>{
                             class="text-xs text-red-600">Plase select category</p>
                         </div>
                         <div class="mt-2">
-                            <!-- <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
-                            newbooking.category.duration === undefined ? 0 : newbooking.category.duration
-                            }}</label> -->
                             <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
-                            Test(isCategory)
+                            newbooking.category.duration === undefined ? 0 : Test(isCategory)
                             }}</label>
+                            <!-- <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
+                            Test(isCategory)
+                            }}</label> -->
                         </div>
                         <div class="mt-1">
                             <p class="mr-2 mt-2">Note : </p>
