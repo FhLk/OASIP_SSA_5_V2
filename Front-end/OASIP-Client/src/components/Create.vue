@@ -200,6 +200,14 @@ onBeforeMount(async () => {
     isCategory.value=Number(params.category)
 })
 
+const Test=(t)=>{
+    if(t!==undefined){
+        return 0
+    }
+    else{
+        return props.getCategories[t].duration
+    }
+}
 </script>
  
 <template>
@@ -258,8 +266,11 @@ onBeforeMount(async () => {
                             class="text-xs text-red-600">Plase select category</p>
                         </div>
                         <div class="mt-2">
-                            <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
+                            <!-- <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
                             newbooking.category.duration === undefined ? 0 : newbooking.category.duration
+                            }}</label> -->
+                            <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
+                            Test(isCategory)
                             }}</label>
                         </div>
                         <div class="mt-1">
