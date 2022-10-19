@@ -1,6 +1,6 @@
 <script setup>
 import moment from 'moment';
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
@@ -19,17 +19,14 @@ const isCategoryEmpty = ref(false);
 const isDateEmpty = ref(false);
 const isTimeEmpty = ref(false);
 const isDatePast = ref(false);
-const isCategory = ref(0);
-let {params} = useRoute()
+let { params } = useRoute()
+const isCategory = ref(params.category);
 let DateFormat = "YYYY-MM-DD HH:mm"
 
 const emits = defineEmits(['add'])
 
 const props = defineProps({
-    getCategories: {
-        type: Array,
-        require: true
-    },
+    getCategories: Array,
     role: Number
 })
 
@@ -43,13 +40,13 @@ const newbooking = ref({
     bookingDuration: 0
 });
 
-const isInfor=computed(()=>{
-    return newbooking.value.bookingName==="" || 
-    newbooking.value.bookingEmail==="" ||
-    newbooking.value.Date==="" ||
-    newbooking.value.Time==="" ||
-    Object.keys(newbooking.value.category).length === 0 ||
-    newbooking.value.bookingDuration===0 ? true:false
+const isInfor = computed(() => {
+    return newbooking.value.bookingName === "" ||
+        newbooking.value.bookingEmail === "" ||
+        newbooking.value.Date === "" ||
+        newbooking.value.Time === "" ||
+        Object.keys(newbooking.value.category).length === 0 ||
+        newbooking.value.bookingDuration === 0 ? true : false
 })
 
 const reset = () => {
@@ -197,19 +194,15 @@ onBeforeMount(async () => {
         newbooking.value.bookingName = localStorage.getItem("name")
         newbooking.value.bookingEmail = localStorage.getItem("email")
     }
-    isCategory.value=Number(params.category)
-    newbooking.value.category=props.getCategories[isCategory.value-1]
+    // console.log(isCategory.value);
+})
+onUpdated(async () => {
+    if (isCategory.value !== undefined) {
+        newbooking.value.category = await props.getCategories[Number(isCategory.value) - 1]
+    }
 })
 
-console.log(newbooking.value.category)
-// const Test=(t)=>{
-//     if(t!==0){
-//         return props.getCategories[t-1].duration
-//     }
-//     else{
-//         return 0
-//     }
-// }
+
 </script>
  
 <template>
@@ -250,7 +243,8 @@ console.log(newbooking.value.category)
                         </div>
                         <div class="mt-2">
                             <label> Start (Time) : </label>
-                            <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm" @click="isTimeEmpty=false">
+                            <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm"
+                                @click="isTimeEmpty=false">
                             <p v-if="isTimeEmpty && newbooking.Time === ''" class="text-xs text-red-600">Plase Input
                                 your
                                 time
@@ -261,19 +255,18 @@ console.log(newbooking.value.category)
                         <div>
                             <p class="mr-2 mt-1">Category : </p>
                             <ul v-for="(category, index) in getCategories " :key="index">
-                                <input type="radio" :id="index" :value="category" v-model="newbooking.category" @click="isCategoryEmpty=false" :checked="category.id===isCategory" :disabled="isCategory">
+                                <input type="radio" :id="index" :value="category" v-model="newbooking.category"
+                                    @click="isCategoryEmpty=false" :checked="category.id===isCategory"
+                                    :disabled="isCategory">
                                 - <label :for="index">{{ category.categoryName }}</label>
                             </ul>
                             <p v-if="isCategoryEmpty && Object.keys(newbooking.category).length === 0"
-                            class="text-xs text-red-600">Plase select category</p>
+                                class="text-xs text-red-600">Plase select category</p>
                         </div>
                         <div class="mt-2">
                             <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
                             newbooking.category.duration === undefined ? 0 : newbooking.category.duration
                             }}</label>
-                            <!-- <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
-                            Test(isCategory)
-                            }}</label> -->
                         </div>
                         <div class="mt-1">
                             <p class="mr-2 mt-2">Note : </p>
@@ -286,7 +279,8 @@ console.log(newbooking.value.category)
             </div>
             <div class="mt-3 flex justify-center">
                 <button @click="CheckInput(newbooking)"
-                    class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80] disabled:bg-[#999999]" :disabled="isInfor">OK</button>
+                    class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80] disabled:bg-[#999999]"
+                    :disabled="isInfor">OK</button>
                 <button @click="reset"
                     class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>
