@@ -3,7 +3,8 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Match, Authen, checkAuthen } from '../fetch/fetchUserAPI.js'
 import { checkRole } from '../Store/local';
-import Swal from 'sweetalert2'
+import { LoadingAlert } from '../Alert/alert.js'
+import Swal from 'sweetalert2';
 const emits = defineEmits(['login'])
 const errorMessage = ref("")
 const isEmail = ref(false)
@@ -43,6 +44,7 @@ const checkLogin = async (log) => {
   if (isCheck) {
     isPass.value = false
     isEmail.value = false
+    LoadingAlert()
     const resLogin = await checkAuthen(log)
     if (resLogin === 200) {
       token.value = await Authen(log)
@@ -116,17 +118,17 @@ const GoIndex = () => {
           <div class="flex justify-center mt-5 py-1">
             <img src="../assets/mail_user.png" class="user mx-2" />
             <input class="info-input mt-2 px-1" type="text" placeholder="Username" v-model="login.email"
-              @click="isEmail = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown.enter="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false"/>
+              @click="isEmail = false, isLogin = false, isEmailLogin = false, isPassLogin = false"
+              @keydown="isLogin = false, isEmailLogin = false, isPassLogin = false"
+              @keydown.enter="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false" />
           </div>
           <p :class="isEmail ? errorMessage : ''" v-if="isEmail">*Plase Input your username*</p>
           <div class="flex justify-center py-1">
             <img src="../assets/padlock.png" class="password mx-2" />
             <input class="info-input mt-2 px-1" type="password" placeholder="Password" v-model="login.password"
-              @click="isPass = false,isLogin=false,isEmailLogin=false,isPassLogin=false"
-              @keydown="isLogin=false,isEmailLogin=false,isPassLogin=false" 
-              @keydown.enter="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false"/>
+              @click="isPass = false, isLogin = false, isEmailLogin = false, isPassLogin = false"
+              @keydown="isLogin = false, isEmailLogin = false, isPassLogin = false"
+              @keydown.enter="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false" />
           </div>
           <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
         </div>
@@ -138,7 +140,7 @@ const GoIndex = () => {
       </div>
       <div class="flex space-x-2 justify-center mt-4">
         <button class="login-button hover:bg-[#99C0D0] hover:shadow-lg px-4"
-          @click="checkLogin(login),isLogin=false,isEmailLogin=false,isPassLogin=false">sign in</button>
+          @click="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false">sign in</button>
       </div>
     </div>
   </div>

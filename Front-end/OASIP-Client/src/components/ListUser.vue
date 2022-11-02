@@ -2,8 +2,8 @@
 import { computed, onBeforeMount, onBeforeUpdate, ref } from 'vue';
 import Swal from 'sweetalert2';
 import moment from "moment";
-import { deleteUser, getUsers, detail } from '../fetch/fetchUserAPI';
-import { accessAlert, sureAlert } from '../Alert/alert.js';
+import { deleteUser, getUsers, detail, save } from '../fetch/fetchUserAPI';
+import { accessAlert, ExceptionAlert, sureAlert } from '../Alert/alert.js';
 import Match from './Match.vue';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -55,9 +55,20 @@ const BackPage = async () => {
 }
 
 const del = async (user) => {
-    const res = await deleteUser(user)
-    if (res === 200) {
-        accessAlert("Deleted.")
+    try {
+        const res = await deleteUser(user)
+        if (res === 200) {
+            accessAlert("Deleted.")
+            getAllUser.value = await getUsers(page.value)
+            reset()
+        }
+        else {
+            deniedAlert("delete", "User")
+            getAllUser.value = await getUsers(page.value)
+            reset()
+        }
+    } catch (error) {
+        ExceptionAlert("Failed")
         getAllUser.value = await getUsers(page.value)
         reset()
     }
@@ -195,25 +206,12 @@ const checkInfor = async (user) => {
 }
 
 const saveUser = async (updateUser) => {
-    const res = await fetch(`${fetchUrl}/users/${updateUser.id}`, {
-        method: "PUT",
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: updateUser.name.trim(),
-            email: updateUser.email.trim(),
-            role: updateUser.role
-        })
-    })
-    if (res.status === 200) {
-        accessAlert("Updated")
+    const res = await save(updateUser)
+    if (res === 200) {
         getAllUser.value = await getUsers(page.value)
         reset()
     }
     else {
-        deniedAlert("change","Uses")
         getAllUser.value = await getUsers(page.value)
         reset()
     }
@@ -256,13 +254,13 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     <div>
                         <p class="text-3xl">{{ user.name }}</p>
                         <p class="text-[#5C5A5A] mt-1 mx-4 text-xl "><span class="text-black">E-mail :</span> {{
-                        user.email
+                                user.email
                         }} <span class="text-black">Role :</span> {{ user.role }} </p>
                     </div>
                     <div class="flex justify-between cf">
                         <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
                             <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">{{ isDetail
-                            === user.id ? "Closed" : "Detail"
+                                    === user.id ? "Closed" : "Detail"
                             }}</button>
                         </div>
                         <div class="mr-5">
@@ -284,7 +282,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 <p v-else-if="isDuplicateName" class="text-xs text-red-600">*This Username is already
                                     use*</p>
                                 <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1"> (Number of Character : {{
-                                countName
+                                        countName
                                 }})</p>
                             </div>
                             <div class="flex mt-2">
@@ -304,7 +302,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 <p v-else-if="isDuplicateEmail" class="text-xs text-red-600">*This Email is already use*
                                 </p>
                                 <p v-show="isEdit" class="text-sm text-stone-500 mx-1 mt-1">(Number of Character : {{
-                                countEmail
+                                        countEmail
                                 }})</p>
                             </div>
                             <div class="flex mt-2">
@@ -332,7 +330,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                                 :disabled="isUserOld">Save
                             </button>
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">
-                                {{ isEdit ? "Cancel" :"Edit"}}
+                                {{ isEdit ? "Cancel" : "Edit" }}
                             </button>
                         </div>
                         <div>

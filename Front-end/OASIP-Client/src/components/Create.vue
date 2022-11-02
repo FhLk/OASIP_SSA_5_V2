@@ -194,26 +194,27 @@ onBeforeMount(async () => {
         newbooking.value.bookingName = localStorage.getItem("name")
         newbooking.value.bookingEmail = localStorage.getItem("email")
     }
-    // console.log(isCategory.value);
 })
 onUpdated(async () => {
     if (isCategory.value !== undefined) {
         newbooking.value.category = await props.getCategories[Number(isCategory.value) - 1]
     }
 })
-
-
 </script>
  
 <template>
-    <div class="font ccf text-lg mt-2">
-        <div>
+    <div class="font ccf text-lg pt-28">
+        <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
+            <router-link to="/">{{ `<< Back` }}</router-link>
+        </button>
+        <div v-if="getCategories.length !== 0">
+            <h1 class="font text-5xl flex justify-center">Add New Schedule</h1>
             <div class="flex justify-center">
                 <div class="bgc px-10 py-3 rounded-lg flex">
                     <div class="ml-3">
                         <div class="mr-2 mt-2">
                             <p>Full Name : <input type="text" placeholder="Name..." v-model="newbooking.bookingName"
-                                    maxlength="100" class="px-1 rounded-sm" @click="isNameEmpty=false"></p>
+                                    maxlength="100" class="px-1 rounded-sm" @click="isNameEmpty = false"></p>
                             <p class="text-sm text-stone-500">(Number of Character : {{ countName }})</p>
                             <p v-if="isNameEmpty && countName === 100" class="text-xs text-red-600">Plase Input your
                                 name
@@ -222,7 +223,7 @@ onUpdated(async () => {
                         <div class="mr-2 mt-1">
                             <p>E-mail : <input type="email" placeholder="example@example.com"
                                     v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"
-                                    :disabled="isLogin" @click="isEmailEmpty=false,isEmailNotFormat=false"></p>
+                                    :disabled="isLogin" @click="isEmailEmpty = false, isEmailNotFormat = false"></p>
                             <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
                             <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input your
                                 e-mail
@@ -234,7 +235,7 @@ onUpdated(async () => {
                         <div class="mt-2">
                             <label>Date : </label>
                             <input type="date" v-model="newbooking.Date" :min="new Date().toISOString().split('T')[0]"
-                                class="px-1 rounded-sm" @click="isDateEmpty=false">
+                                class="px-1 rounded-sm" @click="isDateEmpty = false">
                             <p v-if="isDateEmpty && newbooking.Date === ''" class="text-xs text-red-600">Plase Input
                                 your
                                 date.</p>
@@ -244,7 +245,7 @@ onUpdated(async () => {
                         <div class="mt-2">
                             <label> Start (Time) : </label>
                             <input type="time" v-model="newbooking.Time" class="px-1 pl-1 rounded-sm"
-                                @click="isTimeEmpty=false">
+                                @click="isTimeEmpty = false">
                             <p v-if="isTimeEmpty && newbooking.Time === ''" class="text-xs text-red-600">Plase Input
                                 your
                                 time
@@ -256,7 +257,7 @@ onUpdated(async () => {
                             <p class="mr-2 mt-1">Category : </p>
                             <ul v-for="(category, index) in getCategories " :key="index">
                                 <input type="radio" :id="index" :value="category" v-model="newbooking.category"
-                                    @click="isCategoryEmpty=false" :checked="category.id===isCategory"
+                                    @click="isCategoryEmpty = false" :checked="category.id === isCategory"
                                     :disabled="isCategory">
                                 - <label :for="index">{{ category.categoryName }}</label>
                             </ul>
@@ -265,7 +266,7 @@ onUpdated(async () => {
                         </div>
                         <div class="mt-2">
                             <label class="mr-2 mt-5">Duration (Minute) : {{ newbooking.bookingDuration =
-                            newbooking.category.duration === undefined ? 0 : newbooking.category.duration
+                                    newbooking.category.duration === undefined ? 0 : newbooking.category.duration
                             }}</label>
                         </div>
                         <div class="mt-1">
@@ -285,11 +286,20 @@ onUpdated(async () => {
                     class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>
         </div>
+        <div v-else>
+            <div class="font flex justify-center">
+                <h1 class="text-5xl mb-5">Not Available Now</h1>
+            </div>
+        </div>
     </div>
 </template>
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
+
+.btnindex {
+    background-color: rgb(0, 191, 255);
+}
 
 .font {
     font-family: 'Mitr', sans-serif;
@@ -301,5 +311,9 @@ onUpdated(async () => {
 
 .ccf {
     color: rgb(42, 39, 40);
+}
+
+.cf {
+    color: rgb(248 250 252);
 }
 </style>

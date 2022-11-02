@@ -10,7 +10,6 @@ const props=defineProps({
 const isPass=ref(true)
 const isPassMatch=ref(true)
 const errorMessage=ref("")
-const userInfor=props.user
 const password=ref("")
 
 const checkMatch = async (user,pass) => {

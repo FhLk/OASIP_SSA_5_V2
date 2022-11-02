@@ -37,7 +37,26 @@ export const deniedAlert = async (action, event) => {
 
 export const accessAlert = async (action) => {
     await Swal.fire({
-        icon:'success',
-        title:`${action}`
-      })
+        icon: 'success',
+        title: `${action}`
+    })
+}
+
+export const ExceptionAlert = async (code) => {
+    await Swal.fire({
+        icon: "error",
+        title: "HTTP Error",
+        text: `Status ${code}`
+    })
+}
+
+export const LoadingAlert = () => {
+    Swal.fire({
+        title: "Please Wait",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    })
 }

@@ -41,7 +41,7 @@ onBeforeMount(async () => {
         </div>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
             <div class="flex justify-center text-2xl">
-                <p>Plase Sign-in for use OASIP.</p>
+                <p>Plase Sign-in as "ADMIN" for use OASIP.</p>
             </div>
             <div class="flex justify-center pt-2">
                 <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">

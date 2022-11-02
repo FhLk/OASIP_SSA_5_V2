@@ -13,8 +13,8 @@ onBeforeMount(() => {
     <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg">
         <img src="../assets/user.png" class="imgid shadow-gray-600 shadow-md">
         <div class="ml-1 text-center">
-            <p>{{name}}</p>
-            <p class="">{{role}}</p>
+            <p>{{ name }}</p>
+            <p class="">{{ role }}</p>
         </div>
     </div>
 </template>

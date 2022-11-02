@@ -3,7 +3,7 @@ import { onBeforeMount, ref } from 'vue';
 import moment from "moment"
 import Swal from 'sweetalert2'
 import { EventPast, EventCategory, EventDay, EventDelete, EventDetail, EventSave, Events } from '../fetch/fetchEventAPI';
-import { delAlert, sureAlert,deniedAlert, accessAlert } from '../Alert/alert';
+import { delAlert, sureAlert, deniedAlert, accessAlert } from '../Alert/alert';
 import { checkRole } from '../Store/local';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -18,9 +18,9 @@ const isSortByCategory = ref(false)
 const isClear = ref(true)
 const sortDay = ref(moment().local().format(DateFormat).slice(0, 10).trim())
 const categoryID = ref(1)
-const role=ref(-1)
+const role = ref(-1)
 const isDenide = ref(false)
-const isOwner=ref(false)
+const isOwner = ref(false)
 
 const getListBooking = ref([])
 const Page = async (page = 0) => {
@@ -83,10 +83,10 @@ const SortByDateTimeASC = (list) => {
 }
 
 onBeforeMount(async () => {
-    role.value=checkRole(localStorage.getItem("role"))
-    if(role.value===1){
-        isDenide.value=true
-        isOwner.value=true
+    role.value = checkRole(localStorage.getItem("role"))
+    if (role.value === 1) {
+        isDenide.value = true
+        isOwner.value = true
     }
     await Page()
 })
@@ -138,7 +138,7 @@ const reset = () => {
 
 const savebooking = async (updateBooking) => {
     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
-        deniedAlert("change","Booking in past.")
+        deniedAlert("change", "Booking in past.")
         await Page(page.value)
         reset()
     }
@@ -146,13 +146,18 @@ const savebooking = async (updateBooking) => {
         updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
         updateBooking.eventNote = EditNote.value
         const res = await EventSave(updateBooking)
-        if (res === 200) {
-            accessAlert("Updated")
-            await Page(page.value)
-            reset()
-        }
-        else {
-            deniedAlert("change","Booking")
+        try {
+            if (res === 200) {
+                accessAlert("Updated")
+                await Page(page.value)
+                reset()
+            }
+            else {
+                deniedAlert("change", "Booking")
+                reset()
+            }
+        } catch (error) {
+            deniedAlert("change", "Booking")
             reset()
         }
     }
@@ -160,14 +165,19 @@ const savebooking = async (updateBooking) => {
 
 const deleteBooking = async (id) => {
     if (await delAlert()) {
-        const res = await EventDelete(id)
-        if (res === 200) {
-            await Page(page.value)
-            reset()
-            accessAlert("Delete")
-        }
-        else{
-            deniedAlert("delete","Booking")
+        try {
+            const res = await EventDelete(id)
+            if (res === 200) {
+                await Page(page.value)
+                reset()
+                accessAlert("Delete")
+            }
+            else {
+                deniedAlert("delete", "Booking")
+                reset()
+            }
+        } catch (error) {
+            deniedAlert("delete", "Booking")
             reset()
         }
     }
@@ -227,13 +237,13 @@ const isSortCategory = () => {
 }
 
 const SortByCategory = async (id = 1) => {
-    isOwner.value=true
+    isOwner.value = true
     page.value = 0
     if (isSortByCategory.value) {
         getListBooking.value = await EventCategory(id)
         if (getListBooking.value === 403) {
             isDenide.value = true
-            isOwner.value=false
+            isOwner.value = false
             getListBooking.value = []
         }
         getListBooking.value.forEach((data) => {
@@ -350,7 +360,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
                                 <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                "Edit"
+                                        "Edit"
                                 }}</button>
                             </div>
                         </div>
@@ -421,7 +431,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
                                 <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                "Edit"
+                                        "Edit"
                                 }}</button>
                             </div>
                         </div>
@@ -431,7 +441,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                 </li>
             </ul>
         </div>
-        <div v-else-if="isOwner===false" class="flex justify-center">
+        <div v-else-if="isOwner === false" class="flex justify-center">
             <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">

@@ -1,136 +1,194 @@
 import { setToken } from "../Store/local";
-import { delAlert } from "../Alert/alert.js";
-import Swal from 'sweetalert2'
+import { delAlert, deniedAlert, ExceptionAlert } from "../Alert/alert.js";
 
 const fetchUrl = import.meta.env.VITE_BASE_URL;
 
 export const Match = async (log) => {
-  const res = await fetch(`${fetchUrl}/match`, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: log.email.trim(),
-      password: log.password
+  try {
+    const res = await fetch(`${fetchUrl}/match`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: log.email.trim(),
+        password: log.password
+      })
     })
-  })
-  return res.status;
+    return res.status;
+  } catch (error) {
+    return 0
+  }
 }
 
 export const checkAuthen = async (log) => {
-  const res = await fetch(`${fetchUrl}/checkAuthen`, {
-    method: "POST",
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: log.email.trim(),
-      password: log.password
+  try {
+    const res = await fetch(`${fetchUrl}/checkAuthen`, {
+      method: "POST",
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: log.email.trim(),
+        password: log.password
+      })
     })
-  })
-  return res.status;
+    return res.status;
+  } catch (error) {
+    ExceptionAlert("Failed")
+    return 0
+  }
 }
 
 export const Authen = async (log) => {
-  const res = await fetch(`${fetchUrl}/login`, {
-    method: "POST",
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    body: `email=${log.email.trim()}&password=${log.password}`
-  })
-  if (res.status === 200) {
-    let token = await res.json()
-    setToken(token)
-    await reAuthen()
-    return token.access_token
+  try {
+    const res = await fetch(`${fetchUrl}/login`, {
+      method: "POST",
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      body: `email=${log.email.trim()}&password=${log.password}`
+    })
+    if (res.status === 200) {
+      let token = await res.json()
+      setToken(token)
+      await reAuthen()
+      return token.access_token
+    }
+    else {
+      ExceptionAlert(res.status)
+      return ""
+    }
+  } catch (error) {
+    ExceptionAlert("Failed")
+    return ""
   }
-  else {
-    alert("Can't Authentication")
-  }
-  return ""
 }
 
 export const reAuthen = async () => {
-  const res = await fetch(`${fetchUrl}/token/refresh`, {
-    method: "GET",
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem('refresh_token')}`
+  try {
+    const res = await fetch(`${fetchUrl}/token/refresh`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('refresh_token')}`
+      }
+    })
+    if (res.status === 200) {
+      let newtoken = await res.json()
+      setToken(newtoken)
     }
-  })
-  if (res.status === 200) {
-    let newtoken = await res.json()
-    setToken(newtoken)
-  }
-  else {
-    alert("Can't Authentication")
+    else {
+      ExceptionAlert(403)
+    }
+  } catch (error) {
+    ExceptionAlert("Failed")
   }
 }
 
 export const AllUser = async () => {
   let all = []
-  const res = await fetch(`${fetchUrl}/users/check`, {
-    method: 'GET',
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem('access_token')}`
-    }
-  })
-  if (res.status === 200) {
-    return all = await res.json()
-  }
-  else {
-    return all;
-  }
-}
-
-export const getUsers = async (page = 0) => {
-  let users = []
-  const res = await fetch(`${fetchUrl}/users?page=${page}`, {
-    method: 'GET',
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem('access_token')}`
-    }
-  })
-  if (res.status === 200) {
-    users = await res.json()
-  }
-  else {
-    users = []
-  }
-  return users
-}
-
-export const deleteUser = async (user) => {
-  if (await delAlert()) {
-    const res = await fetch(`${fetchUrl}/users/${user.id}`, {
-      method: 'DELETE',
+  try {
+    const res = await fetch(`${fetchUrl}/users/check`, {
+      method: 'GET',
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('access_token')}`
       }
     })
     if (res.status === 200) {
-      return 200
+      return all = await res.json()
+    }
+    return [];
+  } catch (error) {
+    return []
+  }
+}
+
+export const getUsers = async (page = 0) => {
+  let users = []
+  try {
+    const res = await fetch(`${fetchUrl}/users?page=${page}`, {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    if (res.status === 200) {
+      users = await res.json()
     }
     else {
-      alert("Can't Delete this Booking")
+      users = []
     }
-    return
+    return users
+  } catch (error) {
+    return []
+  }
+}
+
+export const deleteUser = async (user) => {
+  if (await delAlert()) {
+    try {
+      const res = await fetch(`${fetchUrl}/users/${user.id}`, {
+        method: 'DELETE',
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+        }
+      })
+      if (res.status === 200) {
+        return 200
+      }
+      else {
+        deniedAlert("delete", "User")
+        return res.status
+      }
+    } catch (error) {
+      return 0
+    }
   }
 }
 
 export const detail = async (id) => {
-  const res = await fetch(`${fetchUrl}/users/${id}`, {
-    method: 'GET',
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+  try {
+    const res = await fetch(`${fetchUrl}/users/${id}`, {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    if (res.status === 200) {
+      let user = await res.json()
+      return user
     }
-  })
-  if(res.status===200){
-    let user=await res.json()
-    return user
+    return {}
+  } catch (error) {
+    return {}
   }
-  return {}
+}
+
+export const save = async (updateUser) => {
+  try {
+    const res = await fetch(`${fetchUrl}/users/${updateUser.id}`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: updateUser.name.trim(),
+        email: updateUser.email.trim(),
+        role: updateUser.role
+      })
+    })
+    if (res.status === 200) {
+      accessAlert("Updated")
+      return 200
+    }
+    else {
+      deniedAlert("change", "Uses")
+      return res.status
+    }
+  } catch (error) {
+    return 0
+  }
 }
 

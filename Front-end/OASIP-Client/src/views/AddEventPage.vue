@@ -2,31 +2,31 @@
 import Create from '../components/Create.vue';
 import { computed, onBeforeMount, ref } from 'vue';
 import { checkRole, checkToken, expiresToken } from '../Store/local.js';
+import { getCategories } from '../fetch/fetchCategory';
 const isToken = ref(false)
 const getListCategories = ref([]);
 const role = ref(-1)
 
-const getCategories = async () => {
-    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
-        method: 'GET',
-    })
-    getListCategories.value = await res.json()
-}
+// const getCategories = async () => {
+//     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
+//         method: 'GET',
+//     })
+//     getListCategories.value = await res.json()
+// }
 
 onBeforeMount(async () => {
     isToken.value = checkToken()
-    role.value=checkRole(localStorage.getItem("role"))
-    await getCategories()
+    role.value = checkRole(localStorage.getItem("role"))
+    getListCategories.value = await getCategories()
 })
 </script>
  
 <template>
     <div class="bg h-screen h-full">
-        <h1 class="font text-5xl flex justify-center pt-28">Add New Schedule</h1>
         <div>
-            <Create v-if="role!==1" :role="role" :getCategories="getListCategories" />
-            <div v-else-if="role===1">
-                <div class="font flex justify-center "> 
+            <Create v-if="role !== 1" :role="role" :getCategories="getListCategories" />
+            <div v-else-if="role === 1">
+                <div class="font flex justify-center ">
                     <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule.</h1>
                 </div>
                 <div class="font flex justify-center mt-2">
@@ -34,7 +34,7 @@ onBeforeMount(async () => {
                         <router-link to="/">Back</router-link>
                     </button>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 </template>
