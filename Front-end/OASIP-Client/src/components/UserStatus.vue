@@ -3,6 +3,7 @@ import { onBeforeMount, ref } from 'vue';
 // const pic = ref()
 const name = ref("")
 const role = ref("")
+const isTogle = ref(false)
 onBeforeMount(() => {
     role.value = localStorage.getItem("role")
     name.value = localStorage.getItem("name")
@@ -10,16 +11,44 @@ onBeforeMount(() => {
 </script>
  
 <template>
-    <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg">
-        <img src="../assets/user.png" class="imgid shadow-gray-600 shadow-md">
-        <div class="ml-1 text-center">
-            <p>{{ name }}</p>
-            <p class="">{{ role }}</p>
+    <div class="block">
+        <button>
+            <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg max-h-20"
+                @click="isTogle = isTogle ? false : true">
+                <img src="../assets/user.png" class="imgid shadow-gray-600 shadow-md">
+                <div class="ml-1 text-center">
+                    <p>{{ name }}</p>
+                    <p class="">{{ role }}</p>
+                </div>
+            </div>
+        </button>
+        <div v-if="isTogle" class="bg-[#0EA2B0] mt-2 rounded-lg">
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                </li>
+            </ul>
+            <div class="py-1">
+                <a href="#"
+                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                    out</a>
+            </div>
         </div>
     </div>
 </template>
  
 <style scoped>
+/* .block{} */
 .imgid {
     width: 50px;
     height: 50px;

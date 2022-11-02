@@ -66,14 +66,14 @@ const checkTimeOut = () => {
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                 <router-link to="/UserPage">User</router-link>
             </button>
-            <!-- <div>
+            <div>
                 <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                     <router-link to="/AddUserPage">Create New Account</router-link>
                 </button>
                 <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                     <router-link to="/LoginPage">Sign Out</router-link>
                 </button>
-            </div> -->
+            </div>
         </div>
     </div>
 </template>

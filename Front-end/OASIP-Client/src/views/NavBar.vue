@@ -72,6 +72,7 @@ const SignOut = () => {
 
 .bgNav {
     background-color: rgb(255, 255, 255);
+    max-height: 13%;
 }
 
 .borderColor {
