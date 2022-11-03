@@ -18,6 +18,7 @@ export const Match = async (log) => {
     })
     return res.status;
   } catch (error) {
+    ExceptionAlert("Failed")
     return 0
   }
 }
@@ -100,6 +101,7 @@ export const AllUser = async () => {
     }
     return [];
   } catch (error) {
+    ExceptionAlert("Failed")
     return []
   }
 }
@@ -121,6 +123,7 @@ export const getUsers = async (page = 0) => {
     }
     return users
   } catch (error) {
+    ExceptionAlert("Failed")
     return []
   }
 }
@@ -142,6 +145,7 @@ export const deleteUser = async (user) => {
         return res.status
       }
     } catch (error) {
+      ExceptionAlert("Failed")
       return 0
     }
   }
@@ -161,6 +165,7 @@ export const detail = async (id) => {
     }
     return {}
   } catch (error) {
+    ExceptionAlert("Failed")
     return {}
   }
 }
@@ -188,6 +193,7 @@ export const save = async (updateUser) => {
       return res.status
     }
   } catch (error) {
+    ExceptionAlert("Failed")
     return 0
   }
 }

@@ -45,7 +45,7 @@ export const accessAlert = async (action) => {
 export const ExceptionAlert = async (code) => {
     await Swal.fire({
         icon: "error",
-        title: "HTTP Error",
+        title: typeof(code) === Number() ? "HTTP Error":"Disconnection to Server",
         text: `Status ${code}`
     })
 }
@@ -59,4 +59,8 @@ export const LoadingAlert = () => {
             Swal.showLoading()
         }
     })
+}
+
+export const CloseAlert =()=>{
+    Swal.close()
 }

@@ -1,8 +1,12 @@
+import { CloseAlert, ExceptionAlert, LoadingAlert } from "../Alert/alert";
+
 const fetchUrl = import.meta.env.VITE_BASE_URL;
 export const Events = async (page = 0) => {
     let res;
     try {
+        LoadingAlert()
         if (page === 0) {
+            
             res = await fetch(`${fetchUrl}/bookings`, {
                 method: 'GET',
                 headers: {
@@ -20,10 +24,12 @@ export const Events = async (page = 0) => {
         }
         if (res.status === 200) {
             let events = await res.json()
+            CloseAlert()
             return events
         }
         return []
     } catch (error) {
+        ExceptionAlert("Failed")
         return []
     }
 }
@@ -31,6 +37,7 @@ export const Events = async (page = 0) => {
 export const EventPast = async (page = 0) => {
     let res;
     try {
+        LoadingAlert()
         if (page === 0) {
             res = await fetch(`${fetchUrl}/bookings/sortByPast`, {
                 method: 'GET',
@@ -49,10 +56,12 @@ export const EventPast = async (page = 0) => {
         }
         if (res.status === 200) {
             let events = await res.json()
+            CloseAlert()
             return events
         }
         return []
     } catch (error) {
+        ExceptionAlert("Failed")
         return []
     }
 
@@ -61,6 +70,7 @@ export const EventPast = async (page = 0) => {
 export const EventCategory = async (id, page = 0) => {
     let res;
     try {
+        LoadingAlert()
         if (page === 0) {
             res = await fetch(`${fetchUrl}/bookings/sortByCategory?category=${id}`, {
                 method: 'GET',
@@ -79,13 +89,16 @@ export const EventCategory = async (id, page = 0) => {
         }
         if (res.status === 200) {
             let events = await res.json()
+            CloseAlert()
             return events
         }
         else if (res.status === 403) {
+            ExceptionAlert(403)
             return 403
         }
         return []
     } catch (error) {
+        ExceptionAlert("Failed")
         return []
     }
 
@@ -94,6 +107,7 @@ export const EventCategory = async (id, page = 0) => {
 export const EventDay = async (day, page = 0) => {
     let res
     try {
+        LoadingAlert()
         if (page === 0) {
             res = await fetch(`${fetchUrl}/bookings/sortByDay?date=${day}`, {
                 method: 'GET',
@@ -116,6 +130,7 @@ export const EventDay = async (day, page = 0) => {
         }
         return []
     } catch (error) {
+        ExceptionAlert("Failed")
         return []
     }
 }
@@ -143,6 +158,7 @@ export const EventSave = async (updateBooking) => {
         })
         return res.status
     } catch (error) {
+        ExceptionAlert("Failed")
         return 0
     }
 }
@@ -157,6 +173,7 @@ export const EventDelete = async (id) => {
         })
         return res.status
     } catch (error) {
+        ExceptionAlert("Failed")
         return 0
     }
 }
@@ -175,6 +192,7 @@ export const EventDetail = async (id) => {
         }
         return {}
     } catch (error) {
+        ExceptionAlert("Failed")
         return {}
     }
 }
@@ -202,6 +220,7 @@ export const createByRole = async (booking) => {
         })
         return res.status
     } catch (error) {
+        ExceptionAlert("Failed")
         return 0
     }
 }
@@ -228,6 +247,7 @@ export const createByGuest = async (booking) => {
         })
         return res.status  
     } catch (error) {
+        ExceptionAlert("Failed")
         return 0
     }
 }

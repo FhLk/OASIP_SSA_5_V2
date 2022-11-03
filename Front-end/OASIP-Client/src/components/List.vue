@@ -145,6 +145,7 @@ const savebooking = async (updateBooking) => {
     else if (await sureAlert()) {
         updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
         updateBooking.eventNote = EditNote.value
+        LoadingAlert()
         const res = await EventSave(updateBooking)
         try {
             if (res === 200) {
