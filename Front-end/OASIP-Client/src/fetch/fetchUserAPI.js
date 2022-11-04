@@ -1,5 +1,5 @@
 import { setToken } from "../Store/local";
-import { delAlert, deniedAlert, ExceptionAlert } from "../Alert/alert.js";
+import { accessAlert, delAlert, deniedAlert, ExceptionAlert } from "../Alert/alert.js";
 
 const fetchUrl = import.meta.env.VITE_BASE_URL;
 
@@ -190,6 +190,35 @@ export const save = async (updateUser) => {
     }
     else {
       deniedAlert("change", "Uses")
+      return res.status
+    }
+  } catch (error) {
+    ExceptionAlert("Failed")
+    return 0
+  }
+}
+
+export const create = async (user) => {
+  try {
+    const res = await fetch(`${fetchUrl}/users`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: user.name.trim(),
+        email: user.email.trim(),
+        password: user.password,
+        role: user.role
+      })
+    })
+    if (res.status === 201) {
+      accessAlert("Created")
+      return 201
+    }
+    else {
+      deniedAlert("create", "User")
       return res.status
     }
   } catch (error) {

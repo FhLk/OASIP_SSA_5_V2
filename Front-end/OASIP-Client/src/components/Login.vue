@@ -3,7 +3,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Match, Authen, checkAuthen } from '../fetch/fetchUserAPI.js'
 import { checkRole } from '../Store/local';
-import { LoadingAlert } from '../Alert/alert.js'
+import { CloseAlert, LoadingAlert } from '../Alert/alert.js'
 import Swal from 'sweetalert2';
 const emits = defineEmits(['login'])
 const errorMessage = ref("")
@@ -73,11 +73,13 @@ const checkLogin = async (log) => {
       isLogin.value = true
       isEmailLogin.value = true
       login.value.password = ""
+      CloseAlert()
     }
     else if (resLogin === 401) {
       isLogin.value = true
       isPassLogin.value = true
       login.value.password = ""
+      CloseAlert()
     }
   }
 }

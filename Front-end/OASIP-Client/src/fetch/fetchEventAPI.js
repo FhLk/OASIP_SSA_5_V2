@@ -126,6 +126,7 @@ export const EventDay = async (day, page = 0) => {
         }
         if (res.status === 200) {
             let events = await res.json()
+            CloseAlert()
             return events
         }
         return []

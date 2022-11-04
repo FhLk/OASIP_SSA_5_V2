@@ -10,14 +10,14 @@ import CategoryPage from '../views/CategoryPage.vue'
 const history = createWebHistory('ssa5')
 const routes = [
     {path: '/',name: 'indexPage',component: indexPage},
-    {path: '/AddEventPage/:category',name: 'AddEventByCategoryPage',component: AddEventPage},
-    {path: '/AddEventPage',name: 'AddEventPage',component: AddEventPage},
-    {path: '/EventPage',name: 'EventPage',component: EventPage},
-    {path: '/AboutPage',name:'AboutPage',component:AboutPage},
-    {path: '/UserPage',name: 'UserPage',component: UserPage},
-    {path: '/LoginPage',name: 'LoginPage',component: LoginPage},
-    {path: '/AddUserPage',name: 'AddUserPage',component: AddUserPage},
-    {path: '/CategoryPage', name:'CategoryPage',component: CategoryPage}
+    {path: '/event/create/:category',name: 'AddEventByCategoryPage',component: AddEventPage},
+    {path: '/event/create',name: 'AddEventPage',component: AddEventPage},
+    {path: '/event',name: 'EventPage',component: EventPage},
+    {path: '/about',name:'AboutPage',component:AboutPage},
+    {path: '/user',name: 'UserPage',component: UserPage},
+    {path: '/login',name: 'LoginPage',component: LoginPage},
+    {path: '/user/create',name: 'AddUserPage',component: AddUserPage},
+    {path: '/category', name:'CategoryPage',component: CategoryPage}
 ]
 const router = createRouter({ history, routes })
 export default router

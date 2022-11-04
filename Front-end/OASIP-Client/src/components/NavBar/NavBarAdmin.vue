@@ -3,7 +3,6 @@ import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { checkToken, expiresToken, expiresAccess } from '../../Store/local';
 import { reAuthen } from "../../fetch/fetchUserAPI";
-import UserStatus from "../UserStatus.vue";
 const emits = defineEmits(['signOut', 'timeOut'])
 const props = defineProps({
     token: String,
@@ -55,23 +54,23 @@ const checkTimeOut = () => {
     <div>
         <div class="flex">
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/EventPage">Show Schedule </router-link>
+                <router-link to="/event">Show Schedule </router-link>
             </button>
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/CategoryPage">Category </router-link>
+                <router-link to="/category">Category </router-link>
             </button>
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/AddEventPage">Add New Schedule</router-link>
+                <router-link to="/event/create">Add New Schedule</router-link>
             </button>
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/UserPage">User</router-link>
+                <router-link to="/user">User</router-link>
             </button>
             <div>
                 <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                    <router-link to="/AddUserPage">Create New Account</router-link>
+                    <router-link to="/user/create">Create New Account</router-link>
                 </button>
                 <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                    <router-link to="/LoginPage">Sign Out</router-link>
+                    <router-link to="/login">Sign Out</router-link>
                 </button>
             </div>
         </div>

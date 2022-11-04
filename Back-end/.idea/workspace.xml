@@ -6,6 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/CreateUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/CreateUser.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarLecturer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarLecturer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarSignin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarSignin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarStudent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarStudent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/fetch/fetchUserAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/fetch/fetchUserAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +248,8 @@
       <workItem from="1665925202986" duration="6315000" />
       <workItem from="1666002521656" duration="1873000" />
       <workItem from="1667382527046" duration="659000" />
-      <workItem from="1667469644013" duration="1862000" />
+      <workItem from="1667469644013" duration="2457000" />
+      <workItem from="1667539607051" duration="1143000" />
     </task>
     <servers />
   </component>
