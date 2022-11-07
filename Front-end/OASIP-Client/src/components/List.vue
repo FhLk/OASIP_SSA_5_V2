@@ -127,6 +127,7 @@ const EditEvent = (booking) => {
 }
 
 const reset = () => {
+    isOwner.value = false
     isEditId.value = 0
     isDetail.value = -1
     count = 0
@@ -174,8 +175,8 @@ const deleteBooking = async (id) => {
                 accessAlert("Delete")
             }
             else {
-                deniedAlert("delete", "Booking")
                 reset()
+                deniedAlert("delete", "Booking")
             }
         } catch (error) {
             deniedAlert("delete", "Booking")
@@ -442,7 +443,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                 </li>
             </ul>
         </div>
-        <div v-else-if="isOwner === false" class="flex justify-center">
+        <div v-else-if="isOwner === false && role === 1 && isSortByCategory" class="flex justify-center">
             <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">

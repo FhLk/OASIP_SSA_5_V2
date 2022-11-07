@@ -140,10 +140,7 @@ export const deleteUser = async (user) => {
       if (res.status === 200) {
         return 200
       }
-      else {
-        deniedAlert("delete", "User")
         return res.status
-      }
     } catch (error) {
       ExceptionAlert("Failed")
       return 0

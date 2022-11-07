@@ -24,14 +24,6 @@ onUpdated(() => {
     isToken.value = checkToken()
 })
 
-const SignOut = () => {
-    Swal.fire(
-        'Success',
-        'Thank you for use OASIP',
-        'success'
-    )
-}
-
 </script>
  
 <template>
@@ -45,11 +37,11 @@ const SignOut = () => {
                     <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
                 </div>
                 <div class="flex">
-                    <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarSignin v-else/>
-                    <UserStatus v-if="role!== -1 && isToken" />
+                    <NavBarAdmin v-if="role === 0 && isToken" :token="token" />
+                    <NavBarLecturer v-else-if="role === 1 && isToken" :token="token" />
+                    <NavBarStudent v-else-if="role === 2 && isToken" :token="token" />
+                    <NavBarSignin v-else />
+                    <UserStatus v-if="role !== -1 && isToken" @sign-out="role = -1, token = ''" />
                 </div>
             </div>
         </nav>

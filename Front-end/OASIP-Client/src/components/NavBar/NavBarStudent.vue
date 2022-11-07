@@ -13,7 +13,6 @@ const isToken = ref(false)
 
 onBeforeMount(() => {
     isToken.value = checkToken()
-    // isRole.value= checkRole()
 })
 
 onUpdated(() => {
@@ -25,12 +24,12 @@ const GoSignIn = () => {
     myRouter.push({ name: 'LoginPage' })
 }
 
-const signOut = () => {
-    localStorage.clear()
-    isToken.value = false
-    emits('signOut')
-    GoSignIn()
-}
+// const signOut = () => {
+//     localStorage.clear()
+//     isToken.value = false
+//     emits('signOut')
+//     GoSignIn()
+// }
 
 const checkTimeOut = () => {
     isToken.value = checkToken()
@@ -60,9 +59,9 @@ const checkTimeOut = () => {
             <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                 <router-link to="/event/create">Add New Schedule</router-link>
             </button>
-            <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
+            <!-- <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                 <router-link to="/login">Sign Out</router-link>
-            </button>
+            </button> -->
         </div>
     </div>
 

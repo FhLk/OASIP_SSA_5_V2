@@ -93,7 +93,7 @@ export const EventCategory = async (id, page = 0) => {
             return events
         }
         else if (res.status === 403) {
-            ExceptionAlert(403)
+            CloseAlert()
             return 403
         }
         return []

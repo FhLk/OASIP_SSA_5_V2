@@ -1,6 +1,8 @@
 <script setup>
+import Swal from 'sweetalert2';
 import { onBeforeMount, ref } from 'vue';
-// const pic = ref()
+import { useRouter } from 'vue-router';
+const emits = defineEmits(['signOut', 'timeOut'])
 const name = ref("")
 const role = ref("")
 const isTogle = ref(false)
@@ -8,6 +10,16 @@ onBeforeMount(() => {
     role.value = localStorage.getItem("role")
     name.value = localStorage.getItem("name")
 })
+
+const signOut = () => {
+    localStorage.clear()
+    emits('signOut')
+    Swal.fire(
+        'Success',
+        'Thank you for use OASIP',
+        'success'
+    )
+}
 </script>
  
 <template>
@@ -39,9 +51,9 @@ onBeforeMount(() => {
                 </li>
             </ul>
             <div class="py-1">
-                <a href="#"
-                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                    out</a>
+                <router-link to="/login" @click="signOut()"
+                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    Sign Out</router-link>
             </div>
         </div>
     </div>
