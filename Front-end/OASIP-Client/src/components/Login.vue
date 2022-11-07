@@ -59,11 +59,12 @@ const checkLogin = async (log) => {
       else {
         user.value = getUserLocal()
         role.value = checkRole(localStorage.getItem("role"))
-        Swal.fire(
-          'Success',
-          'Welcome to OASIP',
-          'success'
-        )
+        Swal.fire({
+          title:'Success',
+          text:'Welcome to OASIP',
+          icon: 'success',
+          confirmButtonText: "Close"
+        })
         emits('login', { token: token.value, role: role.value })
         GoIndex()
         reset()

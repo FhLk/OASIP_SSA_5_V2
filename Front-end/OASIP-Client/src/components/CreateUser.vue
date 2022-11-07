@@ -123,7 +123,7 @@ const checkInfor = async (user) => {
     if (!getRole.includes(user.role.trim())) {
         isCheck = false
         isHaveRole.value = false
-        deniedAlert("create","User (Not have role.)")
+        await deniedAlert("create","User (Not have role.)")
         newUser.value.role = "STUDENT"
     }
     if (isCheck) {

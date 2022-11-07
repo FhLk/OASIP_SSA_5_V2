@@ -24,13 +24,6 @@ const GoSignIn = () => {
     myRouter.push({ name: 'LoginPage' })
 }
 
-const signOut = () => {
-    localStorage.clear()
-    isToken.value = false
-    emits('signOut')
-    GoSignIn()
-}
-
 const checkTimeOut = () => {
     isToken.value = checkToken()
     if (isToken.value === false) {

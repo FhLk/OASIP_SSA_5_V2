@@ -7,13 +7,6 @@ const isToken = ref(false)
 const getListCategories = ref([]);
 const role = ref(-1)
 
-// const getCategories = async () => {
-//     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories`, {
-//         method: 'GET',
-//     })
-//     getListCategories.value = await res.json()
-// }
-
 onBeforeMount(async () => {
     isToken.value = checkToken()
     role.value = checkRole(localStorage.getItem("role"))

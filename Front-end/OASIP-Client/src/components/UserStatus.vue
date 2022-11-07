@@ -14,11 +14,13 @@ onBeforeMount(() => {
 const signOut = () => {
     localStorage.clear()
     emits('signOut')
-    Swal.fire(
-        'Success',
-        'Thank you for use OASIP',
-        'success'
-    )
+    Swal.fire({
+        allowOutsideClick: false,
+        icon:"success",
+        title:"Success",
+        text:"Thank you for use OASIP.",
+        confirmButtonText:"Close"
+    })
 }
 </script>
  

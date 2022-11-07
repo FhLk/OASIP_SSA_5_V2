@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { computed, onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, LoadingAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
 import { createByGuest, createByRole } from '../fetch/fetchEventAPI.js'
 const isBooking = ref(false)
@@ -29,6 +29,11 @@ const props = defineProps({
     getCategories: Array,
     role: Number
 })
+
+const myRouter = useRouter()
+const GoHome = () => {
+    myRouter.push({ name: 'indexPage' })
+}
 
 const newbooking = ref({
     bookingName: "",
@@ -148,16 +153,14 @@ const CheckInput = async (booking) => {
         isDateEmpty.value = false
         isTimeEmpty.value = false
         if (await sureAlert()) {
+            LoadingAlert()
             await createBooking(booking)
             reset()
         }
     }
 }
 
-const myRouter = useRouter()
-const GoHome = () => {
-    myRouter.push({ name: 'EventPage' })
-}
+
 
 const createBooking = async (booking) => {
     let res;
@@ -171,7 +174,7 @@ const createBooking = async (booking) => {
         accessAlert("Created")
     }
     else {
-        deniedAlert("create", "Booking")
+        await deniedAlert("create", "Booking")
     }
 }
 

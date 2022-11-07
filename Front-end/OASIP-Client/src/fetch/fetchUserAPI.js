@@ -1,5 +1,5 @@
 import { setToken } from "../Store/local";
-import { accessAlert, delAlert, deniedAlert, ExceptionAlert } from "../Alert/alert.js";
+import { accessAlert, CloseAlert, delAlert, deniedAlert, ExceptionAlert, LoadingAlert } from "../Alert/alert.js";
 
 const fetchUrl = import.meta.env.VITE_BASE_URL;
 
@@ -89,6 +89,7 @@ export const reAuthen = async () => {
 
 export const AllUser = async () => {
   let all = []
+  LoadingAlert()
   try {
     const res = await fetch(`${fetchUrl}/users/check`, {
       method: 'GET',
@@ -97,6 +98,7 @@ export const AllUser = async () => {
       }
     })
     if (res.status === 200) {
+      CloseAlert()
       return all = await res.json()
     }
     return [];
@@ -129,8 +131,8 @@ export const getUsers = async (page = 0) => {
 }
 
 export const deleteUser = async (user) => {
-  if (await delAlert()) {
-    try {
+  try {
+    if (await delAlert()) {
       const res = await fetch(`${fetchUrl}/users/${user.id}`, {
         method: 'DELETE',
         headers: {
@@ -140,11 +142,12 @@ export const deleteUser = async (user) => {
       if (res.status === 200) {
         return 200
       }
-        return res.status
-    } catch (error) {
-      ExceptionAlert("Failed")
-      return 0
+      return res.status
     }
+  }
+  catch (error) {
+    ExceptionAlert("Failed")
+    return 0
   }
 }
 
@@ -182,11 +185,11 @@ export const save = async (updateUser) => {
       })
     })
     if (res.status === 200) {
-      accessAlert("Updated")
+      await accessAlert("Updated")
       return 200
     }
     else {
-      deniedAlert("change", "Uses")
+      await deniedAlert("change", "Uses")
       return res.status
     }
   } catch (error) {

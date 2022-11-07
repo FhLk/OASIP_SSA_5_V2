@@ -26,7 +26,7 @@ onBeforeMount(() => {
             </div>
             <div class="flex justify-center pt-2">
                 <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
-                    <router-link to="/LoginPage">Sign In</router-link>
+                    <router-link to="/login">Sign In</router-link>
                 </button>
             </div>
         </div>

@@ -7,6 +7,7 @@ export const delAlert = async () => {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
+        allowOutsideClick: false,
         confirmButtonText: 'Yes, delete it!'
     })
     if (test.isConfirmed) {
@@ -17,6 +18,7 @@ export const delAlert = async () => {
 export const sureAlert = async () => {
     const sure = await Swal.fire({
         title: 'Are you sure?',
+        allowOutsideClick: false,
         showCancelButton: true,
         confirmButtonText: 'Yes',
         cancelButtonText: 'No'
@@ -30,14 +32,18 @@ export const sureAlert = async () => {
 export const deniedAlert = async (action, event) => {
     await Swal.fire({
         icon: 'error',
+        allowOutsideClick: false,
         title: `Can't ${action} this ${event}`,
         text: 'Something wrong!',
+        confirmButtonText: 'Close',
     })
 }
 
 export const accessAlert = async (action) => {
     await Swal.fire({
         icon: 'success',
+        allowOutsideClick: false,
+        confirmButtonText: 'Close',
         title: `${action}`
     })
 }
@@ -45,6 +51,7 @@ export const accessAlert = async (action) => {
 export const ExceptionAlert = async (code) => {
     await Swal.fire({
         icon: "error",
+        allowOutsideClick: false,
         title: typeof(code) === Number() ? "HTTP Error":"Disconnection to Server",
         text: `Status ${code}`
     })

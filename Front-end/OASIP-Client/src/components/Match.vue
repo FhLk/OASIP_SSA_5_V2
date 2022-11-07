@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { accessAlert, deniedAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, LoadingAlert } from '../Alert/alert';
 import { Match, Authen } from '../fetch/fetchUserAPI.js'
 import { checkRole } from '../Store/local';
 const props=defineProps({
@@ -21,6 +21,7 @@ const checkMatch = async (user,pass) => {
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
   if (isCheck) {
+    LoadingAlert()
     const resLogin = await Match({email:user.email,password:pass})
     if (resLogin === 200) {
         accessAlert("Matched")

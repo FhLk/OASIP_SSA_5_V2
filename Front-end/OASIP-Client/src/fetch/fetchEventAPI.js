@@ -4,9 +4,7 @@ const fetchUrl = import.meta.env.VITE_BASE_URL;
 export const Events = async (page = 0) => {
     let res;
     try {
-        LoadingAlert()
         if (page === 0) {
-            
             res = await fetch(`${fetchUrl}/bookings`, {
                 method: 'GET',
                 headers: {
@@ -37,7 +35,6 @@ export const Events = async (page = 0) => {
 export const EventPast = async (page = 0) => {
     let res;
     try {
-        LoadingAlert()
         if (page === 0) {
             res = await fetch(`${fetchUrl}/bookings/sortByPast`, {
                 method: 'GET',
@@ -70,7 +67,6 @@ export const EventPast = async (page = 0) => {
 export const EventCategory = async (id, page = 0) => {
     let res;
     try {
-        LoadingAlert()
         if (page === 0) {
             res = await fetch(`${fetchUrl}/bookings/sortByCategory?category=${id}`, {
                 method: 'GET',
@@ -107,7 +103,6 @@ export const EventCategory = async (id, page = 0) => {
 export const EventDay = async (day, page = 0) => {
     let res
     try {
-        LoadingAlert()
         if (page === 0) {
             res = await fetch(`${fetchUrl}/bookings/sortByDay?date=${day}`, {
                 method: 'GET',

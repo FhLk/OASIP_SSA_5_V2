@@ -1,9 +1,8 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import moment from "moment"
-import Swal from 'sweetalert2'
 import { EventPast, EventCategory, EventDay, EventDelete, EventDetail, EventSave, Events } from '../fetch/fetchEventAPI';
-import { delAlert, sureAlert, deniedAlert, accessAlert } from '../Alert/alert';
+import { delAlert, sureAlert, deniedAlert, accessAlert, LoadingAlert } from '../Alert/alert';
 import { checkRole } from '../Store/local';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -25,6 +24,7 @@ const isOwner = ref(false)
 const getListBooking = ref([])
 const Page = async (page = 0) => {
     if (page >= 0) {
+        LoadingAlert()
         if (isSortByPast.value) {
             getListBooking.value = await EventPast(page)
         }
@@ -139,27 +139,27 @@ const reset = () => {
 
 const savebooking = async (updateBooking) => {
     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
-        deniedAlert("change", "Booking in past.")
         await Page(page.value)
+        deniedAlert("change", "Booking in past.")
         reset()
     }
     else if (await sureAlert()) {
         updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
         updateBooking.eventNote = EditNote.value
-        LoadingAlert()
-        const res = await EventSave(updateBooking)
         try {
+            LoadingAlert()
+            const res = await EventSave(updateBooking)
             if (res === 200) {
-                accessAlert("Updated")
-                await Page(page.value)
+                await accessAlert("Updated")
+                Page(page.value)
                 reset()
             }
             else {
-                deniedAlert("change", "Booking")
                 reset()
+                await deniedAlert("change", "Booking")
             }
         } catch (error) {
-            deniedAlert("change", "Booking")
+            await deniedAlert("change", "Booking")
             reset()
         }
     }
@@ -171,15 +171,15 @@ const deleteBooking = async (id) => {
             const res = await EventDelete(id)
             if (res === 200) {
                 await Page(page.value)
-                reset()
                 accessAlert("Delete")
+                reset()
             }
             else {
+                await deniedAlert("delete", "Booking")
                 reset()
-                deniedAlert("delete", "Booking")
             }
         } catch (error) {
-            deniedAlert("delete", "Booking")
+            await deniedAlert("delete", "Booking")
             reset()
         }
     }

@@ -3,10 +3,10 @@ import { computed, onBeforeMount, onBeforeUpdate, ref } from 'vue';
 import Swal from 'sweetalert2';
 import moment from "moment";
 import { deleteUser, getUsers, detail, save } from '../fetch/fetchUserAPI';
-import { accessAlert, ExceptionAlert, sureAlert } from '../Alert/alert.js';
+import { accessAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert.js';
 import Match from './Match.vue';
-const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
+const emits=defineEmits(['save'])
 const props = defineProps({
     getUsers: {
         type: Array,
@@ -68,7 +68,6 @@ const del = async (user) => {
             reset()
         }
     } catch (error) {
-        ExceptionAlert("Failed")
         getAllUser.value = await getUsers(page.value)
         reset()
     }
@@ -199,6 +198,7 @@ const checkInfor = async (user) => {
             user.name = EditName.value
             user.email = EditEmail.value
             user.role = EditRole.value
+            LoadingAlert()
             await saveUser(user)
             reset()
         }
@@ -208,6 +208,7 @@ const checkInfor = async (user) => {
 const saveUser = async (updateUser) => {
     const res = await save(updateUser)
     if (res === 200) {
+        emits('save')
         getAllUser.value = await getUsers(page.value)
         reset()
     }
@@ -225,6 +226,8 @@ const reset = () => {
     EditName.value = ""
     EditEmail.value = ""
     EditRole.value = ""
+    isDuplicateName.value=false
+    isDuplicateEmail.value=false
 }
 
 onBeforeMount(async () => {

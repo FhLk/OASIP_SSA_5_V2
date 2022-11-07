@@ -47,7 +47,7 @@ onBeforeMount(async () => {
       </div>
       <div class="font flex justify-center mt-2">
         <button class="mx-10 px-4 py-2 btt cf hover:bg-[#A53D59] rounded-md">
-          <router-link to="/LoginPage">Sign In</router-link>
+          <router-link to="/login">Sign In</router-link>
         </button>
       </div>
     </div>

@@ -13,8 +13,10 @@ const routes = [
     {path: '/event/create/:category',name: 'AddEventByCategoryPage',component: AddEventPage},
     {path: '/event/create',name: 'AddEventPage',component: AddEventPage},
     {path: '/event',name: 'EventPage',component: EventPage},
+    {path: '/event/:id',name: 'EventPageId',component: EventPage},
     {path: '/about',name:'AboutPage',component:AboutPage},
     {path: '/user',name: 'UserPage',component: UserPage},
+    {path: '/user/:id',name: 'UserPageId',component: UserPage},
     {path: '/login',name: 'LoginPage',component: LoginPage},
     {path: '/user/create',name: 'AddUserPage',component: AddUserPage},
     {path: '/category', name:'CategoryPage',component: CategoryPage}
