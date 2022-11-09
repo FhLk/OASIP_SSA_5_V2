@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -27,9 +28,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @Slf4j
@@ -229,11 +232,13 @@ public class BookingService {
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
 
-    public Event CreateBooking(BookingDTO newBooking) {
+    public Event CreateBooking(BookingDTO newBooking) throws UserException {
         newBooking.setBookingName(newBooking.getBookingName().trim());
         newBooking.setBookingEmail(newBooking.getBookingEmail().trim());
         newBooking.setEventNote(newBooking.getEventNote().trim());
         Event booking = modelMapper.map(newBooking, Event.class);
+        List<Event> events = repository.findEventByCategory_Id(booking.getCategory().getId());
+        checkOverlap(LocalDateTime.parse(newBooking.getStartTime()), newBooking.getBookingDuration(), events);
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         List<String> errors = new ArrayList<>();
@@ -255,7 +260,7 @@ public class BookingService {
                 throw new RuntimeException(forbiddenEx);
             }
         }
-        return repository.saveAndFlush(booking);
+        return  repository.saveAndFlush(booking);
     }
 
     public void sendConfirmEmail(BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException {
@@ -326,6 +331,25 @@ public class BookingService {
     private Event mapBooking(BookingDTO oldBooking, BookingDTO newBooking) {
         oldBooking = newBooking;
         return modelMapper.map(oldBooking, Event.class);
+    }
+
+    private void checkOverlap(LocalDateTime dateTime, Integer duration, List<Event> eventList) throws UserException {
+        LocalDateTime newStartTime = dateTime;
+        LocalDateTime newEndTime = newStartTime.plusMinutes(duration);
+        List<String> errors = new ArrayList<>();
+        for (Event event : eventList){
+            LocalDateTime startTime = event.getStartTime();
+            LocalDateTime endTime = event.getStartTime().plusMinutes(event.getBookingDuration());
+            if (    newStartTime.isEqual(startTime) ||
+                    newStartTime.isBefore(startTime) && newEndTime.isAfter(startTime) ||
+                    newStartTime.isBefore(endTime) && newEndTime.isAfter(endTime) ||
+                    newStartTime.isBefore(startTime) && newEndTime.isAfter(endTime) ||
+                    newStartTime.isAfter(startTime) && newEndTime.isBefore(endTime)
+            ){
+                errors.add("Time is overlap");
+                throw new UserException(errors.toString());
+            }
+        }
     }
 
     public void DeleteBooking(Integer BookingId) {

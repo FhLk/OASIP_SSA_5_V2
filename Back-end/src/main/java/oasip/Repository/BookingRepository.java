@@ -28,4 +28,5 @@ public interface BookingRepository extends JpaRepository<Event,Integer> {
     List<Event> findByCategory(EventCategory eventCategory);
     List<Event> findAllById(Integer id);
 
+    List<Event> findEventByCategory_Id(Integer id);
 }
