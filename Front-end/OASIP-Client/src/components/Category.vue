@@ -1,6 +1,6 @@
 <script setup>
 import { computed, isProxy, onBeforeMount, ref } from 'vue';
-import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, LoadingAlert, sureAlert } from '../Alert/alert';
 import { getCategories, getCategory, saveCategory } from '../fetch/fetchCategory';
 
 const emits = defineEmits(['save'])
@@ -70,6 +70,7 @@ const CheckInput = async (updateCategory) => {
     }
     if (isCheck) {
         if (await sureAlert()) {
+            LoadingAlert()
             updateCategory.description = Edit.value.description
             updateCategory.duration = Edit.value.duration
             updateCategory.categoryName = Edit.value.name
@@ -85,12 +86,12 @@ const save = async (updateCategory) => {
     try {
         let res = await saveCategory(updateCategory)
         if (res === 200) {
-            accessAlert("Updated")
+            await accessAlert("Updated")
             emits('save')
             reset()
         }
         else {
-            deniedAlert("change", "Category")
+            await deniedAlert("change", "Category")
             reset()
         }
     } catch (error) {
@@ -138,9 +139,10 @@ const reset = () => {
  
 <template>
     <div class="mt-28 font">
-        <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
-            <router-link to="/">{{ `<< Back` }}</router-link>
-        </button>
+        <router-link to="/">
+            <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
+                {{ `<< Back` }} </button>
+        </router-link>
         <div v-if="categories.length !== 0">
             <div class="font flex justify-center">
                 <h1 class="text-5xl mb-5">Category</h1>
@@ -156,12 +158,12 @@ const reset = () => {
                             <p> {{ category.categoryName }} </p>
                         </div>
                         <div v-if="role !== 1" class="flex justify-center">
-                            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                                <router-link
-                                    :to="{ name: 'AddEventByCategoryPage', params: { category: category.id } }">{{ `Add
+                            <router-link :to="{ name: 'AddEventByCategoryPage', params: { category: category.id } }">
+                                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+                                    {{ `Add
                                     Booking`}}
-                                </router-link>
-                            </button>
+                                </button>
+                            </router-link>
                         </div>
                     </div>
                 </div>

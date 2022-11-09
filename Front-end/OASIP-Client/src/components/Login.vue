@@ -42,9 +42,9 @@ const checkLogin = async (log) => {
     errorMessage.value = "mb-2 text-[#FF0000] text-sm"
   }
   if (isCheck) {
+    LoadingAlert()
     isPass.value = false
     isEmail.value = false
-    LoadingAlert()
     const resLogin = await checkAuthen(log)
     if (resLogin === 200) {
       token.value = await Authen(log)
@@ -123,7 +123,7 @@ const GoIndex = () => {
             <input class="info-input mt-2 px-1" type="text" placeholder="Username" v-model="login.email"
               @click="isEmail = false, isLogin = false, isEmailLogin = false, isPassLogin = false"
               @keydown="isLogin = false, isEmailLogin = false, isPassLogin = false"
-              @keydown.enter="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false" />
+              @keyup.enter="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false" />
           </div>
           <p :class="isEmail ? errorMessage : ''" v-if="isEmail">*Plase Input your username*</p>
           <div class="flex justify-center py-1">
@@ -131,7 +131,7 @@ const GoIndex = () => {
             <input class="info-input mt-2 px-1" type="password" placeholder="Password" v-model="login.password"
               @click="isPass = false, isLogin = false, isEmailLogin = false, isPassLogin = false"
               @keydown="isLogin = false, isEmailLogin = false, isPassLogin = false"
-              @keydown.enter="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false" />
+              @keyup.enter="checkLogin(login), isLogin = false, isEmailLogin = false, isPassLogin = false" />
           </div>
           <p :class="isPass ? errorMessage : ''" v-if="isPass">*Plase Input your password*</p>
         </div>

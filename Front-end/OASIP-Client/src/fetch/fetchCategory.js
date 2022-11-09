@@ -1,12 +1,15 @@
 const fetchUrl = import.meta.env.VITE_BASE_URL;
+import { accessAlert, CloseAlert, delAlert, deniedAlert, ExceptionAlert, LoadingAlert } from "../Alert/alert.js";
 export const getCategories = async () => {
     let getCategories = []
+    LoadingAlert()
     try {
         const res = await fetch(`${fetchUrl}/categories`, {
             method: 'GET',
         })
         if (res.status === 200) {
             getCategories = await res.json()
+            CloseAlert()
             return getCategories
         }
         else {
@@ -20,10 +23,12 @@ export const getCategories = async () => {
 
 export const getCategory = async (id) => {
     try {
+        LoadingAlert()
         const res = await fetch(`${fetchUrl}/categories/${id}`, {
             method: 'GET',
         })
         if (res.status === 200) {
+            CloseAlert()
             let category = await res.json()
             return category
         }

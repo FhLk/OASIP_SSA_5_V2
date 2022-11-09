@@ -35,8 +35,6 @@ public class UserDetailDTO {
     private String createdOn;
     private String updateOn;
 
-
-
     public void setEmail(String email){
         this.email = email.trim();
     }

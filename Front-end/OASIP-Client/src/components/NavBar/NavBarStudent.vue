@@ -46,31 +46,37 @@ const checkTimeOut = () => {
 <template>
     <div>
         <div class="justify-self-end">
-            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/event">Show Schedule </router-link>
-            </button>
-            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/event/create">Add New Schedule</router-link>
-            </button>
-            <!-- <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                <router-link to="/login">Sign Out</router-link>
-            </button> -->
+            <router-link to="/event">
+                <button @click="checkTimeOut"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    Show Schedule
+                </button>
+            </router-link>
+            <router-link to="/event/create">
+                <button @click="checkTimeOut"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    Add New Schedule
+                </button>
+            </router-link>
         </div>
     </div>
-
 </template>
  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
-.router-link-active{
-    color:#0547A5;
+
+.router-link-active {
+    color: #0547A5;
 }
+
 .font {
     font-family: 'Mitr', sans-serif;
 }
+
 .cf {
     color: rgb(0, 0, 0);
 }
+
 .btLogIn {
     background-color: rgb(251 113 133);
 }

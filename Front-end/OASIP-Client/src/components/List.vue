@@ -23,8 +23,8 @@ const isOwner = ref(false)
 
 const getListBooking = ref([])
 const Page = async (page = 0) => {
+    LoadingAlert()
     if (page >= 0) {
-        LoadingAlert()
         if (isSortByPast.value) {
             getListBooking.value = await EventPast(page)
         }
@@ -94,6 +94,7 @@ onBeforeMount(async () => {
 let count = 0
 const showDetail = async (id) => {
     if (id !== count) {
+        LoadingAlert()
         getBooking.value = await EventDetail(id)
         getBooking.value.startTime = ShowDateTime(getBooking.value.startTime)
         count = id
@@ -167,11 +168,12 @@ const savebooking = async (updateBooking) => {
 
 const deleteBooking = async (id) => {
     if (await delAlert()) {
+        LoadingAlert()
         try {
             const res = await EventDelete(id)
             if (res === 200) {
+                await accessAlert("Delete")
                 await Page(page.value)
-                accessAlert("Delete")
                 reset()
             }
             else {
@@ -192,6 +194,7 @@ const note = " bgde px-1 mx-1 rounded-md ";
 const nonote = "";
 
 const SortByPast = async () => {
+    LoadingAlert()
     page.value = 0
     isClear.value = false
     isSortByCategory.value = false
@@ -218,6 +221,7 @@ const isSortDate = () => {
 }
 
 const SortByDate = async (StartDate = sortDay.value) => {
+    LoadingAlert()
     page.value = 0
     if (isSortByDate.value) {
         getListBooking.value = await EventDay(StartDate)
@@ -229,6 +233,7 @@ const SortByDate = async (StartDate = sortDay.value) => {
 }
 
 const isSortCategory = () => {
+    LoadingAlert()
     reset()
     isSortByCategory.value = true
     isSortByDate.value = false

@@ -184,6 +184,7 @@ export const EventDetail = async (id) => {
         })
         if (res.status === 200) {
             let event = await res.json()
+            CloseAlert()
             return event
         }
         return {}
@@ -211,7 +212,8 @@ export const createByRole = async (booking) => {
                 },
                 startTime: `${booking.Date}T${booking.Time}`,
                 bookingDuration: booking.bookingDuration,
-                eventNote: booking.eventNote.trim()
+                eventNote: booking.eventNote.trim(),
+                user: {id:Number(localStorage.getItem("id"))}
             })
         })
         return res.status

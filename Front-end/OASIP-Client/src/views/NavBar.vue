@@ -7,11 +7,12 @@ import NavBarSignin from '../components/NavBar/NavBarSignin.vue';
 import NavBarStudent from "../components/NavBar/NavBarStudent.vue";
 import NavBarLecturer from "../components/NavBar/NavBarLecturer.vue";
 import UserStatus from "../components/UserStatus.vue";
-const emits = defineEmits(['signOut', 'timeOut'])
+const emits = defineEmits(['signOut', 'timeOut','menu'])
 const props = defineProps({
     token: String,
     role: Number,
-    user: Object
+    user: Object,
+    isTogle:Boolean
 })
 
 const isToken = ref(false)
@@ -24,6 +25,12 @@ onUpdated(() => {
     isToken.value = checkToken()
 })
 
+const Test1=()=>{
+    console.log("wow1");
+}
+const Test2=()=>{
+    console.log("wow2");
+}
 </script>
  
 <template>
@@ -37,11 +44,11 @@ onUpdated(() => {
                     <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
                 </div>
                 <div class="flex">
-                    <NavBarAdmin v-if="role === 0 && isToken" :token="token" />
-                    <NavBarLecturer v-else-if="role === 1 && isToken" :token="token" />
-                    <NavBarStudent v-else-if="role === 2 && isToken" :token="token" />
+                    <NavBarAdmin v-if="role === 0 && isToken" :token="token" @click="isTogle= isTogle===false ? undefined:false" />
+                    <NavBarLecturer v-else-if="role === 1 && isToken" :token="token" @click="isTogle= isTogle===false ? undefined:false" />
+                    <NavBarStudent v-else-if="role === 2 && isToken" :token="token" @click="isTogle= isTogle===false ? undefined:false" />
                     <NavBarSignin v-else />
-                    <UserStatus v-if="role !== -1 && isToken" @sign-out="role = -1, token = ''" />
+                    <UserStatus v-if="role !== -1 && isToken" @sign-out="role = -1, token = ''" :isTogle="isTogle"/>
                 </div>
             </div>
         </nav>

@@ -1,11 +1,14 @@
 <script setup>
 import Swal from 'sweetalert2';
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, onBeforeUpdate, ref } from 'vue';
 import { useRouter } from 'vue-router';
-const emits = defineEmits(['signOut', 'timeOut'])
+const emits = defineEmits(['signOut', 'timeOut','menu'])
 const name = ref("")
 const role = ref("")
-const isTogle = ref(false)
+const props = defineProps({
+    isTogle: Boolean
+})
+
 onBeforeMount(() => {
     role.value = localStorage.getItem("role")
     name.value = localStorage.getItem("name")
@@ -16,10 +19,10 @@ const signOut = () => {
     emits('signOut')
     Swal.fire({
         allowOutsideClick: false,
-        icon:"success",
-        title:"Success",
-        text:"Thank you for use OASIP.",
-        confirmButtonText:"Close"
+        icon: "success",
+        title: "Success",
+        text: "Thank you for use OASIP.",
+        confirmButtonText: "Close"
     })
 }
 </script>
@@ -28,7 +31,7 @@ const signOut = () => {
     <div class="block">
         <button>
             <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg max-h-20"
-                @click="isTogle = isTogle ? false : true">
+                @click="isTogle = isTogle ? false : true,$emit('menu')">
                 <img src="../assets/user.png" class="imgid shadow-gray-600 shadow-md">
                 <div class="ml-1 text-center">
                     <p>{{ name }}</p>
@@ -62,7 +65,6 @@ const signOut = () => {
 </template>
  
 <style scoped>
-/* .block{} */
 .imgid {
     width: 50px;
     height: 50px;

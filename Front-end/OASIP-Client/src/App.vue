@@ -1,5 +1,4 @@
 <script setup>
-import { computed } from "@vue/reactivity";
 import { onBeforeMount, ref } from "vue";
 import NavBar from './views/NavBar.vue';
 import { checkRole, expiresAccess, expiresToken } from "./Store/local";
@@ -8,6 +7,7 @@ const token = ref("")
 const isTimeOut = ref(false)
 const role = ref(-1)
 const user = ref({})
+const togle =ref(false)
 const sentToken = (data) => {
     token.value = data.token
     role.value = data.role
@@ -35,12 +35,18 @@ const ReAuthen = async () => {
         await reAuthen()
     }
 }
-
 </script>
  
 <template>
-    <NavBar @click="ReAuthen,token=''" :token="token" :role="role" :user="user" @signOut="token=''" @timeOut="timeOut"  />
-    <router-view @login="sentToken" @click="ReAuthen,token=''"></router-view>
+    <NavBar 
+    :isTogle="togle" 
+    :token="token" 
+    :role="role" 
+    :user="user" 
+    @click="ReAuthen,token=''"
+    @signOut="token=''" 
+    @timeOut="timeOut"/>
+    <router-view @login="sentToken" @click="ReAuthen,token='',togle= togle===false ? undefined:false"></router-view>
 </template>
 
 
