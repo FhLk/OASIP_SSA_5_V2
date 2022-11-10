@@ -280,12 +280,28 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
     <div class="font ccf pt-3 rounded-md mx-10 mb-4 pb-3 bgl text-lg">
         <div class="bg-white flex py-2 justify-between">
             <p class="ml-5">Sort By : </p>
-            <button @click="SortByPast" :class="isSortByPast ? btso2 : btso1">Past</button>
-            <button @click="isSortCategory" :class="isSortByCategory ? btso2 : btso1"
-                :disabled="isSortByCategory">Category</button>
-            <button @click="isSortDate" :class="isSortByDate ? btso2 : btso1" :disabled="isSortByDate">Day</button>
-            <button @click="GetAll" class="clear rounded-md px-2 text-white hover:bg-[#763276] mx-2"
-                :disabled="isClear">All</button>
+            <div :class="isSortByPast ? '':'text-white'">
+                {{ `> >` }}
+                <button @click="SortByPast" :class="isSortByPast ? btso2 : btso1" :disabled="isSortByPast">Past</button>
+                {{ `< <` }}
+            </div>
+            <div :class="isSortByCategory ? '':'text-white'">
+                {{ `> >` }}
+                <button @click="isSortCategory" :class="isSortByCategory ? btso2 : btso1"
+                    :disabled="isSortByCategory">Category</button>
+                {{ `< <` }}
+            </div>
+            <div :class="isSortByDate ? '':'text-white'">
+                {{ `> >` }}
+                <button @click="isSortDate" :class="isSortByDate ? btso2 : btso1" :disabled="isSortByDate">Day</button>
+                {{ `< <` }}
+            </div>
+            <div :class="isClear ? '':'text-white'">
+                {{ `> >` }}
+                <button @click="GetAll" class="clear rounded-md px-2 text-white hover:bg-[#763276] mx-2"
+                    :disabled="isClear">All</button>
+                {{ `< <` }}
+            </div>
         </div>
         <div v-if="!isSortByDate === false">
             <input type="date" v-model="sortDay" @change="SortByDate(sortDay)"

@@ -5,21 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserIdDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/BookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/BookingDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/DTO/UserDetailDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Database/scriptDB/oasip_v2_insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Database/scriptDB/oasip_v2_insert.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Category.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/List.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/List.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarStudent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarStudent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UserStatus.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UserStatus.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/fetch/fetchCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/fetch/fetchCategory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/fetch/fetchEventAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/fetch/fetchEventAPI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/views/NavBar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,6 +249,7 @@
       <workItem from="1667539607051" duration="1143000" />
       <workItem from="1667820150026" duration="1715000" />
       <workItem from="1667831646888" duration="581000" />
+      <workItem from="1668091785541" duration="831000" />
     </task>
     <servers />
   </component>

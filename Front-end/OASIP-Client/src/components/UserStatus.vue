@@ -44,15 +44,7 @@ const signOut = () => {
                 aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
                     <a href="#"
-                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Create User</a>
                 </li>
             </ul>
             <div class="py-1">

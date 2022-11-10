@@ -71,11 +71,11 @@ const checkTimeOut = () => {
                 </button>
             </router-link>
             <div>
-                <router-link to="/user/create">
+                <!-- <router-link to="/user/create">
                     <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
                         Create New Account
                     </button>
-                </router-link>
+                </router-link> -->
             </div>
         </div>
     </div>
