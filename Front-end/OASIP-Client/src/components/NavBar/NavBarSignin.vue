@@ -16,13 +16,13 @@ const stay = "bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
             <div class="justify-self-end">
                 <button @click="checkTimeOut" :class="hold"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    <router-link to="/AddEventPage">Add New Schedule</router-link>
+                    <router-link to="/event/create">Add New Schedule</router-link>
                 </button>
                 <button :class="hold">
-                    <router-link to="/CategoryPage">Category </router-link>
+                    <router-link to="/category">Category </router-link>
                 </button>
                 <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf1 mx-2">
-                    <router-link to="/LoginPage">Sign In</router-link>
+                    <router-link to="/login">Sign In</router-link>
                 </button>
             </div>
         </div>

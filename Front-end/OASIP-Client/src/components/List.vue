@@ -1,9 +1,8 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import moment from "moment"
-import Swal from 'sweetalert2'
 import { EventPast, EventCategory, EventDay, EventDelete, EventDetail, EventSave, Events } from '../fetch/fetchEventAPI';
-import { delAlert, sureAlert,deniedAlert, accessAlert } from '../Alert/alert';
+import { delAlert, sureAlert, deniedAlert, accessAlert, LoadingAlert } from '../Alert/alert';
 import { checkRole } from '../Store/local';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -18,12 +17,13 @@ const isSortByCategory = ref(false)
 const isClear = ref(true)
 const sortDay = ref(moment().local().format(DateFormat).slice(0, 10).trim())
 const categoryID = ref(1)
-const role=ref(-1)
+const role = ref(-1)
 const isDenide = ref(false)
-const isOwner=ref(false)
+const isOwner = ref(false)
 
 const getListBooking = ref([])
 const Page = async (page = 0) => {
+    LoadingAlert()
     if (page >= 0) {
         if (isSortByPast.value) {
             getListBooking.value = await EventPast(page)
@@ -83,10 +83,10 @@ const SortByDateTimeASC = (list) => {
 }
 
 onBeforeMount(async () => {
-    role.value=checkRole(localStorage.getItem("role"))
-    if(role.value===1){
-        isDenide.value=true
-        isOwner.value=true
+    role.value = checkRole(localStorage.getItem("role"))
+    if (role.value === 1) {
+        isDenide.value = true
+        isOwner.value = true
     }
     await Page()
 })
@@ -94,6 +94,7 @@ onBeforeMount(async () => {
 let count = 0
 const showDetail = async (id) => {
     if (id !== count) {
+        LoadingAlert()
         getBooking.value = await EventDetail(id)
         getBooking.value.startTime = ShowDateTime(getBooking.value.startTime)
         count = id
@@ -127,6 +128,7 @@ const EditEvent = (booking) => {
 }
 
 const reset = () => {
+    isOwner.value = false
     isEditId.value = 0
     isDetail.value = -1
     count = 0
@@ -138,21 +140,27 @@ const reset = () => {
 
 const savebooking = async (updateBooking) => {
     if (moment(updateBooking.startTime).local().format(DateFormat) <= sortDay.value) {
-        deniedAlert("change","Booking in past.")
         await Page(page.value)
+        deniedAlert("change", "Booking in past.")
         reset()
     }
     else if (await sureAlert()) {
         updateBooking.startTime = `${EditDate.value}T${EditTime.value}`
         updateBooking.eventNote = EditNote.value
-        const res = await EventSave(updateBooking)
-        if (res === 200) {
-            accessAlert("Updated")
-            await Page(page.value)
-            reset()
-        }
-        else {
-            deniedAlert("change","Booking")
+        try {
+            LoadingAlert()
+            const res = await EventSave(updateBooking)
+            if (res === 200) {
+                await accessAlert("Updated")
+                Page(page.value)
+                reset()
+            }
+            else {
+                reset()
+                await deniedAlert("change", "Booking")
+            }
+        } catch (error) {
+            await deniedAlert("change", "Booking")
             reset()
         }
     }
@@ -160,14 +168,20 @@ const savebooking = async (updateBooking) => {
 
 const deleteBooking = async (id) => {
     if (await delAlert()) {
-        const res = await EventDelete(id)
-        if (res === 200) {
-            await Page(page.value)
-            reset()
-            accessAlert("Delete")
-        }
-        else{
-            deniedAlert("delete","Booking")
+        LoadingAlert()
+        try {
+            const res = await EventDelete(id)
+            if (res === 200) {
+                await accessAlert("Delete")
+                await Page(page.value)
+                reset()
+            }
+            else {
+                await deniedAlert("delete", "Booking")
+                reset()
+            }
+        } catch (error) {
+            await deniedAlert("delete", "Booking")
             reset()
         }
     }
@@ -180,6 +194,7 @@ const note = " bgde px-1 mx-1 rounded-md ";
 const nonote = "";
 
 const SortByPast = async () => {
+    LoadingAlert()
     page.value = 0
     isClear.value = false
     isSortByCategory.value = false
@@ -206,6 +221,7 @@ const isSortDate = () => {
 }
 
 const SortByDate = async (StartDate = sortDay.value) => {
+    LoadingAlert()
     page.value = 0
     if (isSortByDate.value) {
         getListBooking.value = await EventDay(StartDate)
@@ -217,6 +233,7 @@ const SortByDate = async (StartDate = sortDay.value) => {
 }
 
 const isSortCategory = () => {
+    LoadingAlert()
     reset()
     isSortByCategory.value = true
     isSortByDate.value = false
@@ -227,13 +244,13 @@ const isSortCategory = () => {
 }
 
 const SortByCategory = async (id = 1) => {
-    isOwner.value=true
+    isOwner.value = true
     page.value = 0
     if (isSortByCategory.value) {
         getListBooking.value = await EventCategory(id)
         if (getListBooking.value === 403) {
             isDenide.value = true
-            isOwner.value=false
+            isOwner.value = false
             getListBooking.value = []
         }
         getListBooking.value.forEach((data) => {
@@ -263,12 +280,28 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
     <div class="font ccf pt-3 rounded-md mx-10 mb-4 pb-3 bgl text-lg">
         <div class="bg-white flex py-2 justify-between">
             <p class="ml-5">Sort By : </p>
-            <button @click="SortByPast" :class="isSortByPast ? btso2 : btso1">Past</button>
-            <button @click="isSortCategory" :class="isSortByCategory ? btso2 : btso1"
-                :disabled="isSortByCategory">Category</button>
-            <button @click="isSortDate" :class="isSortByDate ? btso2 : btso1" :disabled="isSortByDate">Day</button>
-            <button @click="GetAll" class="clear rounded-md px-2 text-white hover:bg-[#763276] mx-2"
-                :disabled="isClear">All</button>
+            <div :class="isSortByPast ? '' : 'text-white'">
+                <span v-if="isSortByPast">{{ `> >` }}</span>
+                <button @click="SortByPast" :class="isSortByPast ? btso2 : btso1" :disabled="isSortByPast">Past</button>
+                <span v-if="isSortByPast">{{ `< <` }}</span>
+            </div>
+            <div :class="isSortByCategory ? '' : 'text-white'">
+                <span v-if="isSortByCategory">{{ `> >` }}</span>
+                <button @click="isSortCategory" :class="isSortByCategory ? btso2 : btso1"
+                    :disabled="isSortByCategory">Category</button>
+                <span v-if="isSortByCategory">{{ `< <` }}</span>
+            </div>
+            <div :class="isSortByDate ? '' : 'text-white'">
+                <span v-if="isSortByDate">{{ `> >` }}</span>
+                <button @click="isSortDate" :class="isSortByDate ? btso2 : btso1" :disabled="isSortByDate">Day</button>
+                <span v-if="isSortByDate">{{ `< <` }}</span>
+            </div>
+            <div :class="isClear ? '' : 'text-white'">
+                <span v-if="isClear">{{ `> >` }}</span>
+                <button @click="GetAll" class="clear rounded-md px-2 text-white hover:bg-[#763276] mx-2"
+                    :disabled="isClear">All</button>
+                <span v-if="isClear">{{ `< <` }}</span>
+            </div>
         </div>
         <div v-if="!isSortByDate === false">
             <input type="date" v-model="sortDay" @change="SortByDate(sortDay)"
@@ -294,7 +327,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                         <div class="flex justify-between mt-1">
                             <div>
                                 <button @click="showDetail(data.id)" :class="isDetail === data.id ? ccl : cdet"
-                                    class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
+                                    class="mt-4">{{ isDetail ===
+                                            data.id ? "Closed" : "Detail"
+                                    }}</button>
                             </div>
                             <div v-if="!isDenide">
                                 <img @click="deleteBooking(data.id)" src="../assets/trash.png"
@@ -349,8 +384,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                             <div class="mt-2" v-if="!isDenide">
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
-                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                "Edit"
+                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ?
+                                        "Cancel" :
+                                        "Edit"
                                 }}</button>
                             </div>
                         </div>
@@ -368,7 +404,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                         <div class="flex justify-between mt-1">
                             <div>
                                 <button @click="showDetail(data.id)" :class="isDetail === data.id ? ccl : cdet"
-                                    class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
+                                    class="mt-4">{{ isDetail ===
+                                            data.id ? "Closed" : "Detail"
+                                    }}</button>
                             </div>
                             <div v-if="!isDenide">
                                 <img @click="deleteBooking(data)" src="../assets/trash.png"
@@ -420,8 +458,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                             <div class="mt-2" v-if="!isDenide">
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
-                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
-                                "Edit"
+                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ?
+                                        "Cancel" :
+                                        "Edit"
                                 }}</button>
                             </div>
                         </div>
@@ -431,7 +470,7 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                 </li>
             </ul>
         </div>
-        <div v-else-if="isOwner===false" class="flex justify-center">
+        <div v-else-if="isOwner === false && role === 1 && isSortByCategory" class="flex justify-center">
             <h2>You are not Lecturer of this Clinic.</h2>
         </div>
         <div v-else class="flex justify-center">

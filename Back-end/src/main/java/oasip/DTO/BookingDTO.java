@@ -1,6 +1,7 @@
 package oasip.DTO;
 
 import lombok.*;
+import oasip.Entity.User;
 
 
 import javax.validation.constraints.*;
@@ -39,6 +40,8 @@ public class BookingDTO {
 
     @Size(max = 500,message = "Your Note have length more than 500 character")
     private String eventNote;
+
+    private UserIdDTO user;
 
     public String getStartTime(){
         return startTime.toString();

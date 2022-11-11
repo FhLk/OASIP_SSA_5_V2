@@ -5,6 +5,7 @@ import oasip.Entity.Event;
 import oasip.Entity.EventCategory;
 import oasip.Service.BookingService;
 import oasip.exeption.BookingException;
+import oasip.exeption.UserException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -71,7 +73,7 @@ public class BookingController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BookingDTO> AddBooking(@Valid @RequestBody BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<BookingDTO> AddBooking(@Valid @RequestBody BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException, UserException {
         Event event =service.CreateBooking(newBooking);
         service.sendConfirmEmail(newBooking);
         return new ResponseEntity<>(modelMapper.map(event,BookingDTO.class),HttpStatus.CREATED);

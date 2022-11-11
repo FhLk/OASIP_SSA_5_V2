@@ -3,7 +3,6 @@ import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { checkToken, expiresToken, expiresAccess } from '../../Store/local';
 import { reAuthen } from "../../fetch/fetchUserAPI";
-import UserStatus from "../UserStatus.vue";
 const emits = defineEmits(['signOut', 'timeOut'])
 const props = defineProps({
     token: String,
@@ -23,13 +22,6 @@ onUpdated(() => {
 const myRouter = useRouter()
 const GoSignIn = () => {
     myRouter.push({ name: 'LoginPage' })
-}
-
-const signOut = () => {
-    localStorage.clear()
-    isToken.value = false
-    emits('signOut')
-    GoSignIn()
 }
 
 const checkTimeOut = () => {
@@ -54,25 +46,36 @@ const checkTimeOut = () => {
 <template>
     <div>
         <div class="flex">
-            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/EventPage">Show Schedule </router-link>
-            </button>
-            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/CategoryPage">Category </router-link>
-            </button>
-            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/AddEventPage">Add New Schedule</router-link>
-            </button>
-            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                <router-link to="/UserPage">User</router-link>
-            </button>
+            <router-link to="/event">
+                <button @click="checkTimeOut"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    Show Schedule
+                </button>
+            </router-link>
+            <router-link to="/category">
+                <button @click="checkTimeOut"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    Category
+                </button>
+            </router-link>
+            <router-link to="/event/create">
+                <button @click="checkTimeOut"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    Add New Schedule
+                </button>
+            </router-link>
+            <router-link to="/user">
+                <button @click="checkTimeOut"
+                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                    User
+                </button>
+            </router-link>
             <div>
-                <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                    <router-link to="/AddUserPage">Create New Account</router-link>
-                </button>
-                <button @click="signOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
-                    <router-link to="/LoginPage">Sign Out</router-link>
-                </button>
+                <!-- <router-link to="/user/create">
+                    <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
+                        Create New Account
+                    </button>
+                </router-link> -->
             </div>
         </div>
     </div>
@@ -81,9 +84,10 @@ const checkTimeOut = () => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
-.router-link-active{
-    color:#0547A5;
+.router-link-active {
+    color: #0547A5;
 }
+
 .cf {
     color: rgb(0, 0, 0);
 }

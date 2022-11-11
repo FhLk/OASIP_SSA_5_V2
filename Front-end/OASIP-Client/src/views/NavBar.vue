@@ -7,11 +7,12 @@ import NavBarSignin from '../components/NavBar/NavBarSignin.vue';
 import NavBarStudent from "../components/NavBar/NavBarStudent.vue";
 import NavBarLecturer from "../components/NavBar/NavBarLecturer.vue";
 import UserStatus from "../components/UserStatus.vue";
-const emits = defineEmits(['signOut', 'timeOut'])
+const emits = defineEmits(['signOut', 'timeOut','menu'])
 const props = defineProps({
     token: String,
     role: Number,
-    user: Object
+    user: Object,
+    isTogle:Boolean
 })
 
 const isToken = ref(false)
@@ -24,14 +25,12 @@ onUpdated(() => {
     isToken.value = checkToken()
 })
 
-const SignOut = () => {
-    Swal.fire(
-        'Success',
-        'Thank you for use OASIP',
-        'success'
-    )
+const Test1=()=>{
+    console.log("wow1");
 }
-
+const Test2=()=>{
+    console.log("wow2");
+}
 </script>
  
 <template>
@@ -45,17 +44,17 @@ const SignOut = () => {
                     <img src="../assets/schedule.png" class="schedule flex justify-self-start ml-2">
                 </div>
                 <div class="flex">
-                    <NavBarAdmin v-if="role===0 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarLecturer v-else-if="role===1 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarStudent v-else-if="role===2 && isToken" :token="token" @sign-out="role=-1,token='',SignOut()" />
-                    <NavBarSignin v-else/>
-                    <UserStatus v-if="role!== -1 && isToken" />
+                    <NavBarAdmin v-if="role === 0 && isToken" :token="token" @click="isTogle= isTogle===false ? undefined:false" />
+                    <NavBarLecturer v-else-if="role === 1 && isToken" :token="token" @click="isTogle= isTogle===false ? undefined:false" />
+                    <NavBarStudent v-else-if="role === 2 && isToken" :token="token" @click="isTogle= isTogle===false ? undefined:false" />
+                    <NavBarSignin v-else />
+                    <UserStatus v-if="role !== -1 && isToken" @sign-out="role = -1, token = ''" :isTogle="isTogle"/>
                 </div>
             </div>
         </nav>
         <div class="navbar pt-0.5 pb-0.5 flex justify-end">
             <button class="text-black hover:bg-[#294592] rounded-md px-1 h-5 hover:text-white font">
-                <router-link to="/AboutPage">About Us</router-link>
+                <router-link to="/about">About Us</router-link>
             </button>
         </div>
     </div>
@@ -71,6 +70,7 @@ const SignOut = () => {
 
 .bgNav {
     background-color: rgb(255, 255, 255);
+    max-height: 13%;
 }
 
 .borderColor {

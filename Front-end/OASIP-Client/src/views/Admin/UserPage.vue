@@ -21,6 +21,11 @@ onBeforeMount(async () => {
     }
 })
 
+const getSave= async()=>{
+    if (role.value === 0) {
+        getAllUser.value = await AllUser()
+    }
+}
 </script>
 
 <template>
@@ -28,8 +33,8 @@ onBeforeMount(async () => {
         <h1 class="text-5xl mb-4 ml-5 flex justify-start rounded-md p-2">List ALL User
             <img src="../../assets/team.png" class="user ml-5 ">
         </h1>
-        <ListUser v-if="isToken && role===0" :getUsers="getAllUser" :role="role" />
-        <div v-else-if="role!==0 && isToken">
+        <ListUser v-if="isToken && role === 0" @save="getSave" :getUsers="getAllUser" :role="role" />
+        <div v-else-if="role !== 0 && isToken">
             <div class="font flex justify-center ">
                 <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>
             </div>
@@ -41,11 +46,11 @@ onBeforeMount(async () => {
         </div>
         <div v-else class="font bgl rounded-xl px-10 mx-10 pt-7 pb-10">
             <div class="flex justify-center text-2xl">
-                <p>Plase Sign-in for use OASIP.</p>
+                <p>Plase Sign-in as "ADMIN" for use OASIP.</p>
             </div>
             <div class="flex justify-center pt-2">
                 <button class="mx-10 px-4 py-2 btt cf hover:bg-[#5555AC] rounded-md">
-                    <router-link to="/LoginPage">Sign In</router-link>
+                    <router-link to="/login">Sign In</router-link>
                 </button>
             </div>
         </div>
