@@ -6,32 +6,32 @@ import { checkRole, checkToken, expiresAccess, expiresToken } from '../../Store/
 const getAllUser = ref([])
 
 const isToken = ref(false)
-const isTimeOut= ref(false)
+const isTimeOut = ref(false)
 const role = ref(-1)
 
 onBeforeMount(async () => {
   isToken.value = checkToken()
   isTimeOut.value = expiresToken()
-  if(isTimeOut.value){
-    isToken.value=false
+  if (isTimeOut.value) {
+    isToken.value = false
   }
-  else{
-    if(expiresAccess()){
+  else {
+    if (expiresAccess()) {
       await reAuthen()
     }
   }
   role.value = checkRole(localStorage.getItem("role"))
-  if(role.value===0){
+  if (role.value === 0) {
     getAllUser.value = await AllUser()
   }
 })
 </script>
  
 <template>
-  <div class="bg">
-    <h1 class="font text-5xl flex justify-center pt-28">Add New Account</h1>
-    <CreateUser v-if="isToken && role===0" :getUsers="getAllUser"/>
-    <div v-else-if="role!==0 && isToken">
+  <div class="bg pt-28">
+    <h1 class="font text-5xl flex justify-center">Add New Account</h1>
+    <CreateUser v-if="isToken && role === 0" :getUsers="getAllUser" />
+    <div v-else-if="role !== 0 && isToken">
       <div class="font flex justify-center ">
         <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>
       </div>
@@ -43,11 +43,11 @@ onBeforeMount(async () => {
     </div>
     <div v-else>
       <div class="font flex justify-center ">
-        <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Account. Plase Sign-in.</h1>
+        <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Account. Plase Sign-in as "ADMIN".</h1>
       </div>
       <div class="font flex justify-center mt-2">
         <button class="mx-10 px-4 py-2 btt cf hover:bg-[#A53D59] rounded-md">
-          <router-link to="/LoginPage">Sign In</router-link>
+          <router-link to="/login">Sign In</router-link>
         </button>
       </div>
     </div>

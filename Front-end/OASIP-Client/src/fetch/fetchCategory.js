@@ -1,50 +1,65 @@
 const fetchUrl = import.meta.env.VITE_BASE_URL;
+import { accessAlert, CloseAlert, delAlert, deniedAlert, ExceptionAlert, LoadingAlert } from "../Alert/alert.js";
 export const getCategories = async () => {
     let getCategories = []
-    const res = await fetch(`${fetchUrl}/categories`, {
-        method: 'GET',
-        headers: {
-            // "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+    LoadingAlert()
+    try {
+        const res = await fetch(`${fetchUrl}/categories`, {
+            method: 'GET',
+        })
+        if (res.status === 200) {
+            getCategories = await res.json()
+            CloseAlert()
+            return getCategories
         }
-    })
-    if (res.status === 200) {
-        getCategories = await res.json()
-        return getCategories
-    }
-    else {
+        else {
+            return []
+        }
+    } catch (error) {
+        ExceptionAlert("Failed")
         return []
     }
 }
 
 export const getCategory = async (id) => {
-    const res = await fetch(`${fetchUrl}/categories/${id}`, {
-        method: 'GET',
-        headers: {
-            // "Authorization": `Bearer ${localStorage.getItem('access_token')}`
+    try {
+        LoadingAlert()
+        const res = await fetch(`${fetchUrl}/categories/${id}`, {
+            method: 'GET',
+        })
+        if (res.status === 200) {
+            CloseAlert()
+            let category = await res.json()
+            return category
         }
-    })
-    if (res.status === 200) {
-        let category = await res.json()
-        return category
-    }
-    else {
+        else {
+            return
+        }
+    } catch (error) {
+        ExceptionAlert("Failed")
         return
     }
 }
 
 export const saveCategory = async (updateCategory) => {
-    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories/${updateCategory.id}`, {
-        method: 'PUT',
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: updateCategory.id,
-            categoryName: updateCategory.categoryName.trim(),
-            description: updateCategory.description.trim(),
-            duration: updateCategory.duration
+    try {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/categories/${updateCategory.id}`, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: updateCategory.id,
+                categoryName: updateCategory.categoryName.trim(),
+                description: updateCategory.description.trim(),
+                duration: updateCategory.duration
+            })
         })
-    })
-    return res.status
+        return res.status
+
+    } catch (error) {
+        ExceptionAlert("Failed")
+        return 
+    }
 }

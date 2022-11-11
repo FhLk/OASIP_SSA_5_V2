@@ -1,7 +1,8 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { accessAlert, deniedAlert, sureAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, LoadingAlert, sureAlert } from '../Alert/alert';
+import { create } from '../fetch/fetchUserAPI';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 const props = defineProps({
     getUsers: {
@@ -122,7 +123,7 @@ const checkInfor = async (user) => {
     if (!getRole.includes(user.role.trim())) {
         isCheck = false
         isHaveRole.value = false
-        deniedAlert("create","User (Not have role.)")
+        await deniedAlert("create","User (Not have role.)")
         newUser.value.role = "STUDENT"
     }
     if (isCheck) {
@@ -132,33 +133,13 @@ const checkInfor = async (user) => {
         isDuplicateName.value = false
         isDuplicateEmail.value = false
         if (await sureAlert()) {
-            await createUser(user)
+            LoadingAlert()
+            await create(user)
             reset()
         }
     }
 }
 
-const createUser = async (user) => {
-    const res = await fetch(`${fetchUrl}/users`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: user.name.trim(),
-            email: user.email.trim(),
-            password: user.password,
-            role: user.role
-        })
-    })
-    if (res.status === 201) {
-        accessAlert("Created")
-    }
-    else{
-        deniedAlert("create","User")
-    }
-}
 const reset = () => {
     newUser.value = {
         name: "",
