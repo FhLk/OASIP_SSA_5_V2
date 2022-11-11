@@ -280,27 +280,27 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
     <div class="font ccf pt-3 rounded-md mx-10 mb-4 pb-3 bgl text-lg">
         <div class="bg-white flex py-2 justify-between">
             <p class="ml-5">Sort By : </p>
-            <div :class="isSortByPast ? '':'text-white'">
-                {{ `> >` }}
+            <div :class="isSortByPast ? '' : 'text-white'">
+                <span v-if="isSortByPast">{{ `> >` }}</span>
                 <button @click="SortByPast" :class="isSortByPast ? btso2 : btso1" :disabled="isSortByPast">Past</button>
-                {{ `< <` }}
+                <span v-if="isSortByPast">{{ `< <` }}</span>
             </div>
-            <div :class="isSortByCategory ? '':'text-white'">
-                {{ `> >` }}
+            <div :class="isSortByCategory ? '' : 'text-white'">
+                <span v-if="isSortByCategory">{{ `> >` }}</span>
                 <button @click="isSortCategory" :class="isSortByCategory ? btso2 : btso1"
                     :disabled="isSortByCategory">Category</button>
-                {{ `< <` }}
+                <span v-if="isSortByCategory">{{ `< <` }}</span>
             </div>
-            <div :class="isSortByDate ? '':'text-white'">
-                {{ `> >` }}
+            <div :class="isSortByDate ? '' : 'text-white'">
+                <span v-if="isSortByDate">{{ `> >` }}</span>
                 <button @click="isSortDate" :class="isSortByDate ? btso2 : btso1" :disabled="isSortByDate">Day</button>
-                {{ `< <` }}
+                <span v-if="isSortByDate">{{ `< <` }}</span>
             </div>
-            <div :class="isClear ? '':'text-white'">
-                {{ `> >` }}
+            <div :class="isClear ? '' : 'text-white'">
+                <span v-if="isClear">{{ `> >` }}</span>
                 <button @click="GetAll" class="clear rounded-md px-2 text-white hover:bg-[#763276] mx-2"
                     :disabled="isClear">All</button>
-                {{ `< <` }}
+                <span v-if="isClear">{{ `< <` }}</span>
             </div>
         </div>
         <div v-if="!isSortByDate === false">
@@ -327,7 +327,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                         <div class="flex justify-between mt-1">
                             <div>
                                 <button @click="showDetail(data.id)" :class="isDetail === data.id ? ccl : cdet"
-                                    class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
+                                    class="mt-4">{{ isDetail ===
+                                            data.id ? "Closed" : "Detail"
+                                    }}</button>
                             </div>
                             <div v-if="!isDenide">
                                 <img @click="deleteBooking(data.id)" src="../assets/trash.png"
@@ -382,7 +384,8 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                             <div class="mt-2" v-if="!isDenide">
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
-                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
+                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ?
+                                        "Cancel" :
                                         "Edit"
                                 }}</button>
                             </div>
@@ -401,7 +404,9 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                         <div class="flex justify-between mt-1">
                             <div>
                                 <button @click="showDetail(data.id)" :class="isDetail === data.id ? ccl : cdet"
-                                    class="mt-4">{{ isDetail === data.id ? "Closed" : "Detail" }}</button>
+                                    class="mt-4">{{ isDetail ===
+                                            data.id ? "Closed" : "Detail"
+                                    }}</button>
                             </div>
                             <div v-if="!isDenide">
                                 <img @click="deleteBooking(data)" src="../assets/trash.png"
@@ -453,7 +458,8 @@ const btso2 = "cbtso rounded-md px-2 text-white hover:bg-[#5050D0] mx-2";
                             <div class="mt-2" v-if="!isDenide">
                                 <button @click="savebooking(data)" v-if="isEdit"
                                     class="bg-green-600 rounded-full px-2 text-white mr-2 hover:bg-[#4ADE80]">Save</button>
-                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ? "Cancel" :
+                                <button @click="EditEvent(data)" :class="isEdit ? ccl : ced">{{ isEdit ?
+                                        "Cancel" :
                                         "Edit"
                                 }}</button>
                             </div>
