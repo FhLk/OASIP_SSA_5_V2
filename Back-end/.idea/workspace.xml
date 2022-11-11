@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/List.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/List.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/NavBar/NavBarAdmin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/assets/admin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/assets/lecturer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/assets/student.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UserStatus.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UserStatus.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -5,13 +5,23 @@ import { useRouter } from 'vue-router';
 const emits = defineEmits(['signOut', 'timeOut','menu'])
 const name = ref("")
 const role = ref("")
+const picUser =ref("")
 const props = defineProps({
     isTogle: Boolean
 })
 
 onBeforeMount(() => {
     role.value = localStorage.getItem("role")
-    name.value = localStorage.getItem("name")
+    name.value = localStorage.getItem("name").split(" ")
+    if(role.value==="ADMIN"){
+        picUser.value="./admin.png"
+    }
+    else if(role.value==="LECTURER"){
+        picUser.value="./lecturer.png"
+    }
+    else{
+        picUser.value="./student.png"
+    }
 })
 
 const signOut = () => {
@@ -32,9 +42,9 @@ const signOut = () => {
         <button>
             <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg max-h-20"
                 @click="isTogle = isTogle ? false : true,$emit('menu')">
-                <img src="../assets/user.png" class="imgid shadow-gray-600 shadow-md">
+                <img :src="picUser" class="imgid">
                 <div class="ml-1 text-center">
-                    <p>{{ name }}</p>
+                    <p>{{ name[0] }} {{name[1].charAt(0)}}.</p>
                     <p class="">{{ role }}</p>
                 </div>
             </div>
