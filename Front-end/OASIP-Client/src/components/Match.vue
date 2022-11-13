@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { accessAlert, deniedAlert, LoadingAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, ExceptionAlert, LoadingAlert } from '../Alert/alert';
 import { Match, Authen } from '../fetch/fetchUserAPI.js'
 import { checkRole } from '../Store/local';
 const props=defineProps({
@@ -33,6 +33,9 @@ const checkMatch = async (user,pass) => {
       isPass.value=true
       password.value = ""
       reset()
+    }
+    else {
+      ExceptionAlert(res)
     }
   }
 }

@@ -13,6 +13,7 @@ export const getCategories = async () => {
             return getCategories
         }
         else {
+            ExceptionAlert(res.status)
             return []
         }
     } catch (error) {
@@ -33,6 +34,7 @@ export const getCategory = async (id) => {
             return category
         }
         else {
+            ExceptionAlert(res.status)
             return
         }
     } catch (error) {
@@ -57,7 +59,6 @@ export const saveCategory = async (updateCategory) => {
             })
         })
         return res.status
-
     } catch (error) {
         ExceptionAlert("Failed")
         return 

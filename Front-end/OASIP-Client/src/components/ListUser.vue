@@ -6,7 +6,7 @@ import { deleteUser, getUsers, detail, save } from '../fetch/fetchUserAPI';
 import { accessAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert.js';
 import Match from './Match.vue';
 let DateFormat = "YYYY-MM-DD HH:mm"
-const emits=defineEmits(['save'])
+const emits = defineEmits(['save'])
 const props = defineProps({
     getUsers: {
         type: Array,
@@ -62,10 +62,13 @@ const del = async (user) => {
             getAllUser.value = await getUsers(page.value)
             reset()
         }
-        else {
+        else if (res > 400 && res < 500) {
             deniedAlert("delete", "User")
             getAllUser.value = await getUsers(page.value)
             reset()
+        }
+        else {
+            ExceptionAlert(res.status)
         }
     } catch (error) {
         getAllUser.value = await getUsers(page.value)
@@ -226,8 +229,8 @@ const reset = () => {
     EditName.value = ""
     EditEmail.value = ""
     EditRole.value = ""
-    isDuplicateName.value=false
-    isDuplicateEmail.value=false
+    isDuplicateName.value = false
+    isDuplicateEmail.value = false
 }
 
 onBeforeMount(async () => {

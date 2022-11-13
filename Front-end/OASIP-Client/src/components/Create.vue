@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { computed, onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { accessAlert, deniedAlert, LoadingAlert, sureAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
 import { createByGuest, createByRole } from '../fetch/fetchEventAPI.js'
 // const isBooking = ref(false)
@@ -55,7 +55,6 @@ const isInfor = computed(() => {
 })
 
 const reset = () => {
-    // isBooking.value = false
     newbooking.value = {
         bookingName: "",
         bookingEmail: "",
@@ -65,7 +64,6 @@ const reset = () => {
         eventNote: "",
         bookingDuration: 0
     }
-    // GoHome()
 }
 
 const CheckInput = async (booking) => {
@@ -174,8 +172,11 @@ const createBooking = async (booking) => {
         accessAlert("Created")
         GoHome()
     }
-    else {
+    else if (res > 400 && res < 500) {
         await deniedAlert("create", "Booking")
+    }
+    else {
+        ExceptionAlert(res)
     }
 }
 
@@ -286,7 +287,7 @@ onUpdated(async () => {
                 <button @click="CheckInput(newbooking)"
                     class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80] disabled:bg-[#999999]"
                     :disabled="isInfor">OK</button>
-                <button @click="reset"
+                <button @click="reset,GoHome"
                     class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>
         </div>
