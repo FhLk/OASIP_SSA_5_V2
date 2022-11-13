@@ -3,7 +3,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Match, Authen, checkAuthen } from '../fetch/fetchUserAPI.js'
 import { checkRole } from '../Store/local';
-import { CloseAlert, LoadingAlert } from '../Alert/alert.js'
+import { CloseAlert, ExceptionAlert, LoadingAlert } from '../Alert/alert.js'
 import Swal from 'sweetalert2';
 const emits = defineEmits(['login'])
 const errorMessage = ref("")
@@ -49,11 +49,6 @@ const checkLogin = async (log) => {
     if (resLogin === 200) {
       token.value = await Authen(log)
       if (token.value === "") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
-        })
         login.value.password = ""
       }
       else {
@@ -81,6 +76,9 @@ const checkLogin = async (log) => {
       isPassLogin.value = true
       login.value.password = ""
       CloseAlert()
+    }
+    else{
+      ExceptionAlert(resLogin)
     }
   }
 }

@@ -2,7 +2,7 @@
 import { onBeforeMount, ref } from 'vue';
 import moment from "moment"
 import { EventPast, EventCategory, EventDay, EventDelete, EventDetail, EventSave, Events } from '../fetch/fetchEventAPI';
-import { delAlert, sureAlert, deniedAlert, accessAlert, LoadingAlert } from '../Alert/alert';
+import { delAlert, sureAlert, deniedAlert, accessAlert, LoadingAlert, ExceptionAlert } from '../Alert/alert';
 import { checkRole } from '../Store/local';
 const fetchUrl = import.meta.env.VITE_BASE_URL
 let DateFormat = "YYYY-MM-DD HH:mm"
@@ -155,9 +155,12 @@ const savebooking = async (updateBooking) => {
                 Page(page.value)
                 reset()
             }
-            else {
+            else if(res>400 && res< 500){
                 reset()
                 await deniedAlert("change", "Booking")
+            }
+            else {
+                ExceptionAlert(res)
             }
         } catch (error) {
             await deniedAlert("change", "Booking")
@@ -176,9 +179,12 @@ const deleteBooking = async (id) => {
                 await Page(page.value)
                 reset()
             }
-            else {
+            else if(res>400 && res <500) {
                 await deniedAlert("delete", "Booking")
                 reset()
+            }
+            else {
+                ExceptionAlert(res)
             }
         } catch (error) {
             await deniedAlert("delete", "Booking")
