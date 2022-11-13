@@ -1,6 +1,6 @@
 <script setup>
 import { computed, isProxy, onBeforeMount, ref } from 'vue';
-import { accessAlert, deniedAlert, LoadingAlert, sureAlert } from '../Alert/alert';
+import { accessAlert, deniedAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert';
 import { getCategories, getCategory, saveCategory } from '../fetch/fetchCategory';
 
 const emits = defineEmits(['save'])
@@ -90,9 +90,12 @@ const save = async (updateCategory) => {
             emits('save')
             reset()
         }
-        else {
+        else if (res > 400 && res < 500) {
             await deniedAlert("change", "Category")
             reset()
+        }
+        else {
+            ExceptionAlert(res)
         }
     } catch (error) {
         deniedAlert("change", "Category")

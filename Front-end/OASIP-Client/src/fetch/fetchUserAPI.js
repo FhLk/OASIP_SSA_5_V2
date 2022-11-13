@@ -80,7 +80,7 @@ export const reAuthen = async () => {
       setToken(newtoken)
     }
     else {
-      ExceptionAlert(403)
+      ExceptionAlert(res.status)
     }
   } catch (error) {
     ExceptionAlert("Failed")
@@ -101,7 +101,10 @@ export const AllUser = async () => {
       CloseAlert()
       return all = await res.json()
     }
-    return [];
+    else {
+      ExceptionAlert(res.status)
+      return []
+    }
   } catch (error) {
     ExceptionAlert("Failed")
     return []
@@ -119,11 +122,12 @@ export const getUsers = async (page = 0) => {
     })
     if (res.status === 200) {
       users = await res.json()
+      return users
     }
     else {
-      users = []
+      ExceptionAlert(res.status)
+      return []
     }
-    return users
   } catch (error) {
     ExceptionAlert("Failed")
     return []
@@ -139,9 +143,6 @@ export const deleteUser = async (user) => {
           "Authorization": `Bearer ${localStorage.getItem('access_token')}`
         }
       })
-      if (res.status === 200) {
-        return 200
-      }
       return res.status
     }
   }
@@ -163,7 +164,10 @@ export const detail = async (id) => {
       let user = await res.json()
       return user
     }
-    return {}
+    else {
+      ExceptionAlert(res.status)
+      return {}
+    }
   } catch (error) {
     ExceptionAlert("Failed")
     return {}
@@ -188,8 +192,12 @@ export const save = async (updateUser) => {
       await accessAlert("Updated")
       return 200
     }
-    else {
+    else if (res.status > 400 && res.status < 500) {
       await deniedAlert("change", "Uses")
+      return res.status
+    }
+    else {
+      ExceptionAlert(res.status)
       return res.status
     }
   } catch (error) {
@@ -217,8 +225,12 @@ export const create = async (user) => {
       accessAlert("Created")
       return 201
     }
-    else {
+    else if (res.status > 400 && res.status < 500) {
       deniedAlert("create", "User")
+      return res.status
+    }
+    else {
+      ExceptionAlert(res.status)
       return res.status
     }
   } catch (error) {
