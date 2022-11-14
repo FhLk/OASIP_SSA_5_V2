@@ -43,7 +43,7 @@ const changeSlide = () => {
 const autoPlay = () => {
     play.value = setInterval(() => {
         imgIndex.value++
-        if (imgIndex.value > 2) {
+        if (imgIndex.value > 4) {
             numberSlide.value = 1
             imgIndex.value = 0
         }
