@@ -7,7 +7,6 @@ const signIn = () => {
 }
 
 const hold = "hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx-1"
-const stay = "bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
 </script>
  
 <template>
@@ -18,9 +17,9 @@ const stay = "bg-[#7dd3fc] text-white rounded-md px-1 mt-4 h-8 mx-1"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
                     <router-link to="/event/create">Add New Schedule</router-link>
                 </button>
-                <button :class="hold">
-                    <router-link to="/category">Category </router-link>
-                </button>
+                    <button :class="hold">
+                        <router-link to="/category">Category</router-link>
+                    </button>
                 <button @click="signIn" class="btLogIn hover:bg-[#A53D59] rounded-md px-1 mt-4 h-8 cf1 mx-2">
                     <router-link to="/login">Sign In</router-link>
                 </button>

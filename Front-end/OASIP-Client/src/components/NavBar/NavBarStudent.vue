@@ -41,6 +41,7 @@ const checkTimeOut = () => {
     }
 }
 
+const hold = "hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx-1"
 </script>
  
 <template>
@@ -52,6 +53,9 @@ const checkTimeOut = () => {
                     Show Schedule
                 </button>
             </router-link>
+            <button :class="hold">
+                <router-link to="/category">Category</router-link>
+            </button>
             <router-link to="/event/create">
                 <button @click="checkTimeOut"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">

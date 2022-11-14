@@ -2,10 +2,10 @@
 import Swal from 'sweetalert2';
 import { onBeforeMount, onBeforeUpdate, ref } from 'vue';
 import { useRouter } from 'vue-router';
-const emits = defineEmits(['signOut', 'timeOut','menu'])
+const emits = defineEmits(['signOut', 'timeOut', 'menu'])
 const name = ref("")
 const role = ref("")
-const picUser =ref("")
+const picUser = ref("")
 const props = defineProps({
     isTogle: Boolean
 })
@@ -13,14 +13,14 @@ const props = defineProps({
 onBeforeMount(() => {
     role.value = localStorage.getItem("role")
     name.value = localStorage.getItem("name").split(" ")
-    if(role.value==="ADMIN"){
-        picUser.value="./admin.png"
+    if (role.value === "ADMIN") {
+        picUser.value = "./admin.png"
     }
-    else if(role.value==="LECTURER"){
-        picUser.value="./lecturer.png"
+    else if (role.value === "LECTURER") {
+        picUser.value = "./lecturer.png"
     }
-    else{
-        picUser.value="./student.png"
+    else {
+        picUser.value = "./student.png"
     }
 })
 
@@ -41,10 +41,10 @@ const signOut = () => {
     <div class="block">
         <button>
             <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg max-h-20"
-                @click="isTogle = isTogle ? false : true,$emit('menu')">
+                @click="isTogle = isTogle ? false : true, $emit('menu')">
                 <img :src="picUser" class="imgid">
                 <div class="ml-1 text-center">
-                    <p>{{ name[0] }} {{name[1].charAt(0)}}.</p>
+                    <p>{{ name[0] }} {{ name[1].charAt(0) }}{{ name[1].charAt(1) }}.</p>
                     <p class="">{{ role }}</p>
                 </div>
             </div>
@@ -53,8 +53,13 @@ const signOut = () => {
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                    <a href="#"
-                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Create User</a>
+                    <div v-if="role=== 'ADMIN'">
+                        <router-link to="/user/create"
+                        @click="isTogle=false"
+                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Create User
+                        </router-link>
+                    </div>
                 </li>
             </ul>
             <div class="py-1">
