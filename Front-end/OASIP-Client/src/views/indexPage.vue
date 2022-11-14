@@ -2,7 +2,7 @@
 import { computed } from '@vue/reactivity';
 import { onBeforeMount, ref } from 'vue';
 import { checkRole } from '../Store/local';
-const role=ref(-1)
+const role = ref(-1)
 const slideImg = ref([
     "./index1.png",
     "./index2.png",
@@ -11,18 +11,18 @@ const slideImg = ref([
     "./index5.png",
 ])
 
-onBeforeMount(()=>{
-    role.value=checkRole(localStorage.getItem("role"))
+onBeforeMount(() => {
+    role.value = checkRole(localStorage.getItem("role"))
 })
 
-const numberSlide=ref(1)
+const numberSlide = ref(1)
 const imgIndex = ref(0)
 const play = ref(setInterval(() => {
     numberSlide.value++
     imgIndex.value++
     if (imgIndex.value > 4) {
         imgIndex.value = 0
-        numberSlide.value=1
+        numberSlide.value = 1
     }
 }, 3000)
 )
@@ -30,11 +30,11 @@ const play = ref(setInterval(() => {
 const changeSlide = () => {
     clearInterval(play.value)
     if (imgIndex.value < 0) {
-        numberSlide.value=5
+        numberSlide.value = 5
         imgIndex.value = 4
     }
     if (imgIndex.value > 4) {
-        numberSlide.value=1
+        numberSlide.value = 1
         imgIndex.value = 0
     }
     setTimeout(autoPlay(), 5000)
@@ -60,23 +60,24 @@ const autoPlay = () => {
         <div class="flex justify-between mb-1 pl-5 pt-7 bg h-full h-screen font mt-4">
             <div class="flex">
                 <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-36 h-8 cf mx-14"
-                    @click="imgIndex--,numberSlide--,changeSlide()">
-                       Back 
+                    @click="imgIndex--, numberSlide--, changeSlide()">
+                    Back
                 </button>
             </div>
-                <div class="flex">
-                    <img :src="slideImg[imgIndex]" class="imgid rounded-2xl shadow-md shadow-black/25" />
-                </div>
+            <div class="flex relative">
+                <img :src="slideImg[imgIndex]" class="imgid rounded-2xl shadow-md shadow-black/25" />
+                <!-- <button class="btnindex absolute hover:bg-[#00A1E1] rounded-md px-1 mt-36 h-8 cf mx-14">Test</button> -->
+            </div>
             <div class="flex">
                 <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-36 h-8 cf mx-14"
-                   @click="imgIndex++,numberSlide++,changeSlide()">
-                      Next
-               </button>
-            </div>    
-        </div>
-            <div class="font flex justify-center">
-                {{numberSlide}}/5
+                    @click="imgIndex++, numberSlide++, changeSlide()">
+                    Next
+                </button>
             </div>
+        </div>
+        <div class="font flex justify-center">
+            {{ numberSlide }}/5
+        </div>
     </div>
 </template>
  

@@ -287,7 +287,7 @@ onUpdated(async () => {
                 <button @click="CheckInput(newbooking)"
                     class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80] disabled:bg-[#999999]"
                     :disabled="isInfor">OK</button>
-                <button @click="reset,GoHome"
+                <button @click="reset,GoHome()"
                     class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>
         </div>

@@ -24,7 +24,6 @@ export const getCategories = async () => {
 
 export const getCategory = async (id) => {
     try {
-        LoadingAlert()
         const res = await fetch(`${fetchUrl}/categories/${id}`, {
             method: 'GET',
         })

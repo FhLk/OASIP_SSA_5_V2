@@ -46,30 +46,22 @@ const checkTimeOut = () => {
 <template>
     <div>
         <div class="flex">
-            <router-link to="/event">
                 <button @click="checkTimeOut"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    Show Schedule
+                    <router-link to="/event">Show Schedule</router-link>
                 </button>
-            </router-link>
-            <router-link to="/category">
                 <button @click="checkTimeOut"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    Category
+                    <router-link to="/category">Category</router-link>
                 </button>
-            </router-link>
-            <router-link to="/event/create">
                 <button @click="checkTimeOut"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    Add New Schedule
+                    <router-link to="/event/create">Add New Schedule</router-link>
                 </button>
-            </router-link>
-            <router-link to="/user">
                 <button @click="checkTimeOut"
                     class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    User
+                    <router-link to="/user">User</router-link>
                 </button>
-            </router-link>
             <div>
                 <!-- <router-link to="/user/create">
                     <button @click="checkTimeOut" class="btLogIn hover:bg-[#fda4af] rounded-md px-1 mt-4 h-8 cf mx-2">
