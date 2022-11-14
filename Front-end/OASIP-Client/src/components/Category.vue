@@ -114,13 +114,13 @@ const countName = computed(() => {
 
 let count = 0
 const categoryDetail = async (id) => {
-    if (count !== id) {
+    if (id !== count) {
+        LoadingAlert()
         getCategoryDetail.value = await getCategory(id)
         count = id
     }
     isDetail.value = isDetail.value === id ? -1 : id
     isEdit.value = false
-    reset()
 }
 
 const close = () => {
@@ -161,12 +161,12 @@ const reset = () => {
                             <p> {{ category.categoryName }} </p>
                         </div>
                         <div v-if="role !== 1" class="flex justify-center">
-                            <router-link :to="{ name: 'AddEventByCategoryPage', params: { category: category.id } }">
-                                <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
-                                    {{ `Add
+                            <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
+                                <router-link
+                                    :to="{ name: 'AddEventByCategoryPage', params: { category: category.id } }">{{ `Add
                                     Booking`}}
-                                </button>
-                            </router-link>
+                                </router-link>
+                            </button>
                         </div>
                     </div>
                 </div>
