@@ -45,7 +45,7 @@ const autoPlay = () => {
         numberSlide.value++
         imgIndex.value++
         if (imgIndex.value > 4) {
-            numberSlide.value=1
+            numberSlide.value = 1
             imgIndex.value = 0
         }
     }, 3000)
