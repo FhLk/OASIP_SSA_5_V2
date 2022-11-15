@@ -250,6 +250,7 @@ const isSortCategory = () => {
 }
 
 const SortByCategory = async (id = 1) => {
+    LoadingAlert()
     isOwner.value = true
     page.value = 0
     if (isSortByCategory.value) {
