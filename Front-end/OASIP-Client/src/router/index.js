@@ -16,7 +16,7 @@ const routes = [
     {path: '/event/:id',name: 'EventPageId',component: EventPage},
     {path: '/about',name:'AboutPage',component:AboutPage},
     {path: '/user',name: 'UserPage',component: UserPage},
-    {path: '/user/:id',name: 'UserPageId',component: UserPage},
+    {path: '/user/:userId',name: 'UserPageId',component: UserPage},
     {path: '/login',name: 'LoginPage',component: LoginPage},
     {path: '/user/create',name: 'AddUserPage',component: AddUserPage},
     {path: '/category', name:'CategoryPage',component: CategoryPage}

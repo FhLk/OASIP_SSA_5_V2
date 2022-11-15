@@ -113,6 +113,7 @@ export const AllUser = async () => {
 
 export const getUsers = async (page = 0) => {
   let users = []
+  LoadingAlert()
   try {
     const res = await fetch(`${fetchUrl}/users?page=${page}`, {
       method: 'GET',
@@ -121,6 +122,7 @@ export const getUsers = async (page = 0) => {
       }
     })
     if (res.status === 200) {
+      CloseAlert()
       users = await res.json()
       return users
     }
@@ -161,6 +163,7 @@ export const detail = async (id) => {
       }
     })
     if (res.status === 200) {
+      CloseAlert()
       let user = await res.json()
       return user
     }
