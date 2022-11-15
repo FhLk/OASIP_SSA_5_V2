@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import moment from "moment";
 import { deleteUser, getUsers, detail, save } from '../fetch/fetchUserAPI';
 import { accessAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert.js';
-import Match from './Match.vue';
 let DateFormat = "YYYY-MM-DD HH:mm"
 const emits = defineEmits(['save'])
 const props = defineProps({
@@ -24,6 +23,7 @@ const isEditId = ref(0)
 let count = 0
 const detailUser = async (id) => {
     if (count !== id) {
+        LoadingAlert()
         getUser.value = await detail(id);
         getUser.value.createdOn = showTimeStampe(getUser.value.createdOn)
         getUser.value.updateOn = showTimeStampe(getUser.value.updateOn)
@@ -265,9 +265,11 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                     </div>
                     <div class="flex justify-between cf">
                         <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
-                            <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">{{ isDetail
-                                    === user.id ? "Closed" : "Detail"
-                            }}</button>
+                            <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">
+                                <!-- <router-link :to="{ name: 'UserPageId', params: { userId: user.id } }"> -->
+                                {{ isDetail === user.id ? "Closed" : "Detail" }}
+                                <!-- </router-link> -->
+                            </button>
                         </div>
                         <div class="mr-5">
                             <img @click="del(user)" src="../assets/trash.png"
@@ -338,9 +340,6 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                             <button @click="EditEvent(user)" :class="isEdit ? ccl : ced">
                                 {{ isEdit ? "Cancel" : "Edit" }}
                             </button>
-                        </div>
-                        <div>
-                            <Match :user="user" />
                         </div>
                     </div>
                 </li>
