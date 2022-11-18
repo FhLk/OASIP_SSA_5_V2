@@ -8,10 +8,13 @@ import oasip.Repository.BookingRepository;
 import oasip.Repository.CategoryOwnerRepository;
 import oasip.Repository.CategoryRepository;
 import oasip.Repository.UserRepository;
+import oasip.Service.Storage.FileSystemStorageService;
+import oasip.Service.Storage.StorageService;
 import oasip.Utils.EnumRole;
 import oasip.Utils.ListMapper;
 import oasip.exeption.BookingException;
 import oasip.exeption.ForbiddenEx;
+import oasip.exeption.OkException;
 import oasip.exeption.UserException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
@@ -56,6 +60,9 @@ public class BookingService {
 
     @Autowired
     private JavaMailSender emailSender;
+
+    @Autowired
+    private StorageService storageService;
 
     public List<BookingDTO> getBookings(int page, int pageSize, String sort) {
         List<Event> bookingList = repository.findAll(PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, sort))).getContent();
@@ -232,13 +239,7 @@ public class BookingService {
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
     }
 
-    public Event CreateBooking(BookingDTO newBooking) throws UserException {
-        newBooking.setBookingName(newBooking.getBookingName().trim());
-        newBooking.setBookingEmail(newBooking.getBookingEmail().trim());
-        newBooking.setEventNote(newBooking.getEventNote().trim());
-        Event booking = modelMapper.map(newBooking, Event.class);
-        List<Event> events = repository.findEventByCategory_Id(booking.getCategory().getId());
-        checkOverlap(LocalDateTime.parse(newBooking.getStartTime()), newBooking.getBookingDuration(), events);
+    public Event CreateBooking(BookingDTO newBooking, MultipartFile file) throws UserException {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         String userRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         List<String> errors = new ArrayList<>();
@@ -260,6 +261,26 @@ public class BookingService {
                 throw new RuntimeException(forbiddenEx);
             }
         }
+
+        newBooking.setBookingName(newBooking.getBookingName().trim());
+        newBooking.setBookingEmail(newBooking.getBookingEmail().trim());
+        newBooking.setEventNote(newBooking.getEventNote().trim());
+        Event booking = modelMapper.map(newBooking, Event.class);
+        List<Event> events = repository.findEventByCategory_Id(booking.getCategory().getId());
+        checkOverlap(LocalDateTime.parse(newBooking.getStartTime()), newBooking.getBookingDuration(), events);
+
+        if (file != null) {
+            if (!file.isEmpty()) {
+                storageService.store(file);
+                errors.add("Success upload file!!!");
+                try {
+                    throw new OkException(errors.toString());
+                } catch (OkException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
         return  repository.saveAndFlush(booking);
     }
 
