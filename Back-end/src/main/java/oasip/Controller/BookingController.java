@@ -81,7 +81,7 @@ public class BookingController {
     }
 
 
-    @PostMapping(path="",consumes = {"multipart/form-data"})
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public Object AddBooking(@Valid @RequestParam("event") String newBooking, @RequestParam(value = "file", required = false)MultipartFile file) throws MessagingException, UnsupportedEncodingException, UserException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

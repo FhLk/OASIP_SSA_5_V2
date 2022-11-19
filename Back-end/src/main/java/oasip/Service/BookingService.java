@@ -272,12 +272,12 @@ public class BookingService {
         if (file != null) {
             if (!file.isEmpty()) {
                 storageService.store(file);
-                errors.add("Success upload file!!!");
-                try {
-                    throw new OkException(errors.toString());
-                } catch (OkException e) {
-                    throw new RuntimeException(e);
-                }
+//                errors.add("Success upload file!!!");
+//                try {
+//                    throw new OkException(errors.toString());
+//                } catch (OkException e) {
+//                    throw new RuntimeException(e);
+//                }
             }
         }
 
