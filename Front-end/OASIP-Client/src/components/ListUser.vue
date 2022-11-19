@@ -257,25 +257,21 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
         <div v-if="getAllUser.length !== 0">
             <ul>
                 <li class="bgl2 my-2 pt-2 pb-4 px-9 rounded-md" v-for="(user, index) in getAllUser" :key="index">
-                    <div class="flex justify-between">
-                        <div>
-                            <div>
-                                <p class="text-3xl">{{ user.name }}</p>
-                                <p class="text-[#5C5A5A] mt-1 mx-4 text-xl "><span class="text-black">E-mail :</span> {{
-                                        user.email
-                                }} <span class="text-black">Role :</span> {{ user.role }} </p>
-                            </div>
-                            <div class="flex cf">
-                                <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
-                                    <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">
-                                        <!-- <router-link :to="{ name: 'UserPageId', params: { userId: user.id } }"> -->
-                                        {{ isDetail === user.id ? "Closed" : "Detail" }}
-                                        <!-- </router-link> -->
-                                    </button>
-                                </div>
-                            </div>
+                    <div>
+                        <p class="text-3xl">{{ user.name }}</p>
+                        <p class="text-[#5C5A5A] mt-1 mx-4 text-xl "><span class="text-black">E-mail :</span> {{
+                                user.email
+                        }} <span class="text-black">Role :</span> {{ user.role }} </p>
+                    </div>
+                    <div class="flex justify-between cf">
+                        <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
+                            <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">
+                                <!-- <router-link :to="{ name: 'UserPageId', params: { userId: user.id } }"> -->
+                                {{ isDetail === user.id ? "Closed" : "Detail" }}
+                                <!-- </router-link> -->
+                            </button>
                         </div>
-                        <div class="mr-5 mt-9">
+                        <div class="mr-5">
                             <img @click="del(user)" src="../assets/trash.png"
                                 class="del ring bg-[#FFFFFF] ring-[#FFFFFF] hover:bg-red-500 hover:ring-red-500 rounded-md cursor-pointer shadow-md hover:shadow-red-500">
                         </div>
