@@ -22,12 +22,7 @@ public class FileSystemStorageService implements StorageService{
 
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation()).toAbsolutePath().normalize();
-        try{
-            Files.createDirectories(this.rootLocation);
-        } catch (Exception e){
-            throw new RuntimeException("Could not create the directory!!!", e);
-        }
+        this.rootLocation = Paths.get(properties.getLocation());
     }
 
     @Override
