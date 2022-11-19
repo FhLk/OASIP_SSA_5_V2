@@ -75,11 +75,11 @@ public class BookingService {
         if (userRoles.contains(EnumRole.LECTURER.name())) {
             User user = userRepository.findByEmail(userEmail);
             List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
-            List<Event> events = new ArrayList<>();
-            categoryOwners.forEach(e -> {
-                List<Event> eventList = repository.findByCategory(e.getEventcategory());
-                events.addAll(eventList);
+            List<EventCategory> categoryList = new ArrayList<>();
+            categoryOwners.forEach(e->{
+                categoryList.add(e.getEventcategory());
             });
+            List<Event> events = repository.findByCategoryIn(categoryList,PageRequest.of(page, pageSize,Sort.by(Sort.Direction.DESC,sort)));
             return listMapper.mapList(events, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
@@ -151,16 +151,11 @@ public class BookingService {
         if (userRoles.contains(EnumRole.LECTURER.name())) {
             User user = userRepository.findByEmail(userEmail);
             List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
-            List<Event> events = new ArrayList<>();
-            categoryOwners.forEach(e -> {
-                List<Event> eventList = repository
-                        .findByCategoryAndCategoryOrderByStartTimeDesc(
-                                e.getEventcategory(),
-                                PageRequest.of(page, pageSize),
-                                category);
-                events.addAll(eventList);
-
+            List<EventCategory> categoryList = new ArrayList<>();
+            categoryOwners.forEach(e->{
+                categoryList.add(e.getEventcategory());
             });
+            List<Event> events = repository.findByCategoryInAndCategoryOrderByStartTimeDesc(categoryList,PageRequest.of(page, pageSize),category);
             if (events.isEmpty()) {
                 List<Integer> getIdCategory=new ArrayList<>();
                 categoryOwners.forEach(e->{
@@ -191,15 +186,12 @@ public class BookingService {
         if (userRoles.contains(EnumRole.LECTURER.name())) {
             User user = userRepository.findByEmail(userEmail);
             List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
-            List<Event> events = new ArrayList<>();
-            categoryOwners.forEach(e -> {
-                List<Event> eventList = repository
-                        .findByCategoryAndStartTimeLessThanOrderByStartTimeDesc(
-                                e.getEventcategory(),
-                                PageRequest.of(page, pageSize),
-                                localDateTime);
-                events.addAll(eventList);
+            List<EventCategory> categoryList = new ArrayList<>();
+            categoryOwners.forEach(e->{
+                categoryList.add(e.getEventcategory());
             });
+            List<Event> events =repository.findByCategoryInAndStartTimeLessThanOrderByStartTimeDesc(categoryList,PageRequest.of(page, pageSize),
+                    localDateTime);
             return listMapper.mapList(events, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);
@@ -224,16 +216,16 @@ public class BookingService {
         if (userRoles.contains(EnumRole.LECTURER.name())) {
             User user = userRepository.findByEmail(userEmail);
             List<CategoryOwner> categoryOwners = categoryOwnerRepository.findByUserIdLecturer(user);
-            List<Event> events = new ArrayList<>();
-            categoryOwners.forEach(e -> {
-                List<Event> eventList = repository
-                        .findByCategoryAndStartTimeBetweenOrderByStartTimeAsc(
-                                e.getEventcategory(),
-                                PageRequest.of(page, pageSize),
-                                LocalDateTime.parse(starter),
-                                LocalDateTime.parse(end));
-                events.addAll(eventList);
+            List<EventCategory> categoryList = new ArrayList<>();
+            categoryOwners.forEach(e->{
+                categoryList.add(e.getEventcategory());
             });
+            List<Event> events = repository
+                    .findByCategoryInAndStartTimeBetweenOrderByStartTimeAsc(
+                            categoryList,
+                            PageRequest.of(page, pageSize),
+                            LocalDateTime.parse(starter),
+                            LocalDateTime.parse(end));
             return listMapper.mapList(events, BookingDTO.class, modelMapper);
         }
         return listMapper.mapList(bookingList, BookingDTO.class, modelMapper);

@@ -11,7 +11,6 @@ public interface CategoryOwnerRepository extends JpaRepository<CategoryOwner, Ca
 
     List<CategoryOwner> findAllByUserIdLecturer_Id(Integer id);
 
-
-    @Query("select c from CategoryOwner c where c.userIdLecturer = ?1")
     List<CategoryOwner>  findByUserIdLecturer(User user);
+    List<CategoryOwner>  findByUserIdLecturer(User user,Pageable page);
 }
