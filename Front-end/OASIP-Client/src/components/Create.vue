@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { accessAlert, deniedAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
 import { createByGuest, createByRole } from '../fetch/fetchEventAPI.js'
+import UploadFile from './UploadFile.vue';
 // const isBooking = ref(false)
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -231,7 +232,8 @@ onUpdated(async () => {
                                         v-model="newbooking.bookingEmail" maxlength="100" class="px-1 rounded-sm"
                                         :disabled="isLogin" @click="isEmailEmpty = false, isEmailNotFormat = false"></p>
                                 <p class="text-sm text-stone-500">(Number of Character : {{ countEmail }})</p>
-                                <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input your
+                                <p v-if="isEmailEmpty && countEmail === 100" class="text-xs text-red-600">Plase Input
+                                    your
                                     e-mail
                                 </p>
                                 <p v-else-if="isEmailNotFormat" class="text-xs text-red-600">Your Email address is not
@@ -240,12 +242,14 @@ onUpdated(async () => {
                             </div>
                             <div class="mt-2">
                                 <label>Date : </label>
-                                <input type="date" v-model="newbooking.Date" :min="new Date().toISOString().split('T')[0]"
-                                    class="px-1 rounded-sm" @click="isDateEmpty = false">
+                                <input type="date" v-model="newbooking.Date"
+                                    :min="new Date().toISOString().split('T')[0]" class="px-1 rounded-sm"
+                                    @click="isDateEmpty = false">
                                 <p v-if="isDateEmpty && newbooking.Date === ''" class="text-xs text-red-600">Plase Input
                                     your
                                     date.</p>
-                                <p v-else-if="isDatePast" class="text-xs text-red-600">Can't choose Date in Past or Present
+                                <p v-else-if="isDatePast" class="text-xs text-red-600">Can't choose Date in Past or
+                                    Present
                                 </p>
                             </div>
                             <div class="mt-2">
@@ -277,6 +281,7 @@ onUpdated(async () => {
                             </div>
                         </div>
                     </div>
+                    <UploadFile/>
                     <div class="ml-3.5">
                         <p class="mr-2 mt-2">Note : </p>
                         <textarea rows="5" cols="55" v-model="newbooking.eventNote" maxlength="500"
@@ -289,7 +294,7 @@ onUpdated(async () => {
                 <button @click="CheckInput(newbooking)"
                     class="bg-green-600 rounded-full px-2 text-white mx-1 hover:bg-[#4ADE80] disabled:bg-[#999999]"
                     :disabled="isInfor">OK</button>
-                <button @click="reset,GoHome()"
+                <button @click="reset, GoHome()"
                     class="bg-red-600 rounded-full px-2 text-white mx-1 hover:bg-[#F87171]">Cancle</button>
             </div>
         </div>
