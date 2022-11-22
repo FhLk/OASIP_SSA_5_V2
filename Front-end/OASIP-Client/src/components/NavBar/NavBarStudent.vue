@@ -47,21 +47,15 @@ const hold = "hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx
 <template>
     <div>
         <div class="justify-self-end">
-            <router-link to="/event">
-                <button @click="checkTimeOut"
-                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    Show Schedule
-                </button>
-            </router-link>
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                <router-link to="/event">Show Schedule </router-link>
+            </button>
             <button :class="hold">
                 <router-link to="/category">Category</router-link>
             </button>
-            <router-link to="/event/create">
-                <button @click="checkTimeOut"
-                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    Add New Schedule
-                </button>
-            </router-link>
+            <button @click="checkTimeOut" class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
+                <router-link to="/event/create">Add New Schedule </router-link>
+            </button>
         </div>
     </div>
 </template>

@@ -6,7 +6,7 @@ import { accessAlert, deniedAlert, ExceptionAlert, LoadingAlert, sureAlert } fro
 import { checkRole, checkToken } from '../Store/local';
 import { createByGuest, createByRole } from '../fetch/fetchEventAPI.js'
 import UploadFile from './UploadFile.vue';
-// const isBooking = ref(false)
+const getFile=ref([])
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 let mailFormat2 = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 let mailFormat3 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -167,7 +167,7 @@ const createBooking = async (booking) => {
         res = await createByGuest(booking)
     }
     else {
-        res = await createByRole(booking)
+        res = await createByRole(booking,getFile.value)
     }
     if (res === 201) {
         accessAlert("Created")
@@ -206,6 +206,10 @@ onUpdated(async () => {
         newbooking.value.category = await props.getCategories[Number(isCategory.value) - 1]
     }
 })
+
+const getFileAttemt=(files)=>{
+    getFile.value=files
+}
 </script>
  
 <template>
@@ -281,7 +285,7 @@ onUpdated(async () => {
                             </div>
                         </div>
                     </div>
-                    <UploadFile/>
+                    <UploadFile @attemt="getFileAttemt"/>
                     <div class="ml-3.5">
                         <p class="mr-2 mt-2">Note : </p>
                         <textarea rows="5" cols="55" v-model="newbooking.eventNote" maxlength="500"

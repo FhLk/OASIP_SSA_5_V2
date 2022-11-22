@@ -209,27 +209,30 @@ export const EventDetail = async (id) => {
     }
 }
 
-export const createByRole = async (booking) => {
+export const createByRole = async (booking,file) => {
     try {
+        let formData= new FormData()
+        formData.append("event",
+        JSON.stringify({
+            id: 0,
+            bookingName: booking.bookingName.trim(),
+            bookingEmail: booking.bookingEmail.trim(),
+            category: {
+                id: booking.category.id,
+                categoryName: booking.category.categoryName
+            },
+            startTime: `${booking.Date}T${booking.Time}`,
+            bookingDuration: booking.bookingDuration,
+            eventNote: booking.eventNote.trim(),
+            user: { id: Number(localStorage.getItem("id")) }
+        }))
+        formData.append('file',file[0])
         const res = await fetch(`${fetchUrl}/bookings`, {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('access_token')}`,
-                'content-type': 'application/json'
             },
-            body: JSON.stringify({
-                id: 0,
-                bookingName: booking.bookingName.trim(),
-                bookingEmail: booking.bookingEmail.trim(),
-                category: {
-                    id: booking.category.id,
-                    categoryName: booking.category.categoryName
-                },
-                startTime: `${booking.Date}T${booking.Time}`,
-                bookingDuration: booking.bookingDuration,
-                eventNote: booking.eventNote.trim(),
-                user: { id: Number(localStorage.getItem("id")) }
-            })
+            body: formData
         })
         return res.status
     } catch (error) {

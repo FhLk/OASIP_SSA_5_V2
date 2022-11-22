@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Controller/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/BookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oasip/Service/Storage/FileSystemStorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oasip/Service/Storage/FileSystemStorageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UploadFile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UploadFile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,6 +251,7 @@
       <workItem from="1668303091446" duration="690000" />
       <workItem from="1668770625791" duration="9232000" />
       <workItem from="1668862633045" duration="4729000" />
+      <workItem from="1669114719940" duration="1553000" />
     </task>
     <servers />
   </component>
