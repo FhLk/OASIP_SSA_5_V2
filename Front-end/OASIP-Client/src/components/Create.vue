@@ -285,7 +285,9 @@ const getFileAttemt=(files)=>{
                             </div>
                         </div>
                     </div>
-                    <UploadFile @attemt="getFileAttemt"/>
+                    <div class="mt-2">
+                        <UploadFile @attemt="getFileAttemt"/>
+                    </div>
                     <div class="ml-3.5">
                         <p class="mr-2 mt-2">Note : </p>
                         <textarea rows="5" cols="55" v-model="newbooking.eventNote" maxlength="500"
