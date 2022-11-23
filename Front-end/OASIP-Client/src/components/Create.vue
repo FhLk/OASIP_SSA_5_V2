@@ -213,7 +213,7 @@ const getFileAttemt=(files)=>{
 </script>
  
 <template>
-    <div class="font ccf text-lg pt-28">
+    <div class="font ccf text-lg pt-28 mb-24">
         <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
             <router-link to="/">{{ `<< Back` }}</router-link>
         </button>
