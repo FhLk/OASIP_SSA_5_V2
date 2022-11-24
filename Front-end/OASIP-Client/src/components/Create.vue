@@ -1,10 +1,10 @@
 <script setup>
 import moment from 'moment';
-import { computed, onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from 'vue';
+import { computed, onBeforeMount, onUpdated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { accessAlert, deniedAlert, ExceptionAlert, LoadingAlert, sureAlert } from '../Alert/alert';
 import { checkRole, checkToken } from '../Store/local';
-import { createByGuest, createByRole } from '../fetch/fetchEventAPI.js'
+import { createByRole } from '../fetch/fetchEventAPI.js'
 import UploadFile from './UploadFile.vue';
 const getFile=ref([])
 let mailFormat1 = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
@@ -154,7 +154,6 @@ const CheckInput = async (booking) => {
         if (await sureAlert()) {
             LoadingAlert()
             await createBooking(booking)
-            reset()
         }
     }
 }
@@ -162,18 +161,13 @@ const CheckInput = async (booking) => {
 
 
 const createBooking = async (booking) => {
-    let res;
-    if (props.role === -1) {
-        res = await createByGuest(booking)
-    }
-    else {
-        res = await createByRole(booking,getFile.value)
-    }
+    let res = await createByRole(booking,getFile.value);
     if (res === 201) {
         accessAlert("Created")
+        reset()
         GoHome()
     }
-    else if (res > 400 && res < 500) {
+    else if (res >= 400 && res <= 500) {
         await deniedAlert("create", "Booking")
     }
     else {
@@ -248,7 +242,7 @@ const getFileAttemt=(files)=>{
                                 <label>Date : </label>
                                 <input type="date" v-model="newbooking.Date"
                                     :min="new Date().toISOString().split('T')[0]" class="px-1 rounded-sm"
-                                    @click="isDateEmpty = false">
+                                    @click="isDateEmpty = false,isDatePast=false">
                                 <p v-if="isDateEmpty && newbooking.Date === ''" class="text-xs text-red-600">Plase Input
                                     your
                                     date.</p>

@@ -240,30 +240,3 @@ export const createByRole = async (booking,file) => {
         return 0
     }
 }
-
-export const createByGuest = async (booking) => {
-    try {
-        const res = await fetch(`${fetchUrl}/bookings`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: 0,
-                bookingName: booking.bookingName.trim(),
-                bookingEmail: booking.bookingEmail.trim(),
-                category: {
-                    id: booking.category.id,
-                    categoryName: booking.category.categoryName
-                },
-                startTime: `${booking.Date}T${booking.Time}`,
-                bookingDuration: booking.bookingDuration,
-                eventNote: booking.eventNote.trim()
-            })
-        })
-        return res.status
-    } catch (error) {
-        ExceptionAlert("Failed")
-        return 0
-    }
-}
