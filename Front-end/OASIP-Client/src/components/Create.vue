@@ -207,7 +207,7 @@ const getFileAttemt=(files)=>{
 </script>
  
 <template>
-    <div class="font ccf text-lg pt-28">
+    <div class="font ccf text-lg pt-28 mb-24">
         <button class="font btnindex hover:bg-[#00A1E1] rounded-md px-1 h-8 cf mx-14">
             <router-link to="/">{{ `<< Back` }}</router-link>
         </button>
@@ -279,7 +279,9 @@ const getFileAttemt=(files)=>{
                             </div>
                         </div>
                     </div>
-                    <UploadFile @attemt="getFileAttemt"/>
+                    <div class="mt-2">
+                        <UploadFile @attemt="getFileAttemt"/>
+                    </div>
                     <div class="ml-3.5">
                         <p class="mr-2 mt-2">Note : </p>
                         <textarea rows="5" cols="55" v-model="newbooking.eventNote" maxlength="500"
