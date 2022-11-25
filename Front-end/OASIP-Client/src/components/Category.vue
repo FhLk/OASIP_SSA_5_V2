@@ -152,13 +152,15 @@ const reset = () => {
             </div>
             <div class="font ccf bgcat mx-7 pt-7 rounded-t-lg">
                 <h2 class="ml-10 text-2xl  mb-3">Definition</h2>
-                <div class="flex justify-between ml-6">
+                <div class="flex justify-between ml-5">
                     <div v-for="(category, index) in categories" :key="index">
-                        <div class="mx-10">
-                            <img :src="clinicImg[index]" @click="categoryDetail(category.id)" class="cliImg" />
-                        </div>
-                        <div class="text-xl flex justify-center mx-2 mt-1">
-                            <p> {{ category.categoryName }} </p>
+                        <div class="hover:bg-[#A7D6FF] rounded-lg p-2 " @click="categoryDetail(category.id)">
+                            <div class="mx-10">
+                                <img :src="clinicImg[index]" class="cliImg" />
+                            </div>
+                            <div class="text-xl flex justify-center mx-2 mt-1">
+                                <button> {{ category.categoryName }} </button>
+                            </div>
                         </div>
                         <div v-if="role !== 1" class="flex justify-center">
                             <button class="btnindex hover:bg-[#00A1E1] rounded-md px-1 mt-4 h-8 cf mx-14">
@@ -286,7 +288,7 @@ const reset = () => {
 }
 
 .bgcat {
-    background-color: rgb(167, 214, 255);
+    background-color: rgb(138, 200, 255);
 }
 
 .edit {

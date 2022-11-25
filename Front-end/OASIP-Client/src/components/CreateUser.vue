@@ -9,7 +9,7 @@ const props = defineProps({
         type: Array,
         require: true
     },
-    role: Number
+    role: Number,
 })
 
 const newUser = ref({
@@ -123,7 +123,7 @@ const checkInfor = async (user) => {
     if (!getRole.includes(user.role.trim())) {
         isCheck = false
         isHaveRole.value = false
-        await deniedAlert("create","User (Not have role.)")
+        await deniedAlert("create", "User (Not have role.)")
         newUser.value.role = "STUDENT"
     }
     if (isCheck) {
@@ -200,8 +200,8 @@ const countEmail = computed(() => {
                 <div class="mr-2 mt-1">
                     <p>Confirm Password :
                         <input type="password" v-model="newUser.confirm"
-                            @click="isConfirm = false, isConfirmEmpty = false,isMatch=false"
-                            @keydown="isConfirm = false,isMatch=false" class="px-1 rounded-sm" />
+                            @click="isConfirm = false, isConfirmEmpty = false, isMatch = false"
+                            @keydown="isConfirm = false, isMatch = false" class="px-1 rounded-sm" />
                     </p>
                     <p v-if="isConfirmEmpty" class="text-xs text-red-600">*Plase confirm your password.*</p>
                     <p v-else-if="isConfirm" class="text-xs text-red-600">*Password Not Match.*</p>
@@ -242,6 +242,11 @@ const countEmail = computed(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@600&family=Mitr:wght@600;700&family=Titan+One&display=swap');
 
+.cliImg {
+    width: 10rem;
+    height: 10rem;
+    margin-top: 0.1rem;
+}
 .font {
     font-family: 'Mitr', sans-serif;
 }

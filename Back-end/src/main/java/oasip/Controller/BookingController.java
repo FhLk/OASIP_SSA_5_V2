@@ -1,5 +1,7 @@
 package oasip.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import oasip.DTO.BookingDTO;
 import oasip.Entity.Event;
 import oasip.Entity.EventCategory;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -71,11 +74,14 @@ public class BookingController {
     }
 
 
-    @PostMapping("")
+    @PostMapping(path="")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BookingDTO> AddBooking(@Valid @RequestBody BookingDTO newBooking) throws MessagingException, UnsupportedEncodingException, UserException {
-        Event event =service.CreateBooking(newBooking);
-        service.sendConfirmEmail(newBooking);
+    public Object AddBooking(@Valid @RequestParam("event") String newBooking, @RequestParam(value = "file", required = false)MultipartFile file) throws MessagingException, UnsupportedEncodingException, UserException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        BookingDTO booking = objectMapper.readValue(newBooking, BookingDTO.class);
+        Event event =service.CreateBooking(booking,file);
+        service.sendConfirmEmail(booking);
         return new ResponseEntity<>(modelMapper.map(event,BookingDTO.class),HttpStatus.CREATED);
     }
 

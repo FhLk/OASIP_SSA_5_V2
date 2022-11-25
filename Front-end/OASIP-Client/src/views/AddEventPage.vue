@@ -17,8 +17,21 @@ onBeforeMount(async () => {
 <template>
     <div class="bg h-screen h-full">
         <div>
-            <Create v-if="role !== 1" :role="role" :getCategories="getListCategories" />
-            <div v-else-if="role === 1">
+            <Create v-if="role !== 1 && role !== -1" :role="role" :getCategories="getListCategories" />
+            <div v-else-if="role === -1" class="pt-28">
+                <div class="font flex justify-center ">
+                    <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule.</h1>
+                </div>
+                <div class="font flex justify-center text-2xl pt-4">
+                    <p>Plase Sign-in for use OASIP.</p>
+                </div>
+                <div class="font flex justify-center mt-2">
+                    <button class="mx-10 px-4 py-2 btt cf hover:bg-[#A53D59] rounded-md">
+                        <router-link to="/login">Sign In</router-link>
+                    </button>
+                </div>
+            </div>
+            <div v-else-if="role === 1" class="pt-28">
                 <div class="font flex justify-center ">
                     <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Can not Add New Schedule.</h1>
                 </div>

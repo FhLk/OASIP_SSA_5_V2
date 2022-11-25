@@ -40,31 +40,31 @@ const signOut = () => {
 <template>
     <div class="block">
         <button>
-            <div class="bgUser hover:bg-[#14D3FF] flex p-1.5 rounded-lg max-h-20"
+            <div class="bgUser hover:bg-[#84C0F6] flex px-2 py-2 rounded-lg max-h-20"
                 @click="isTogle = isTogle ? false : true, $emit('menu')">
-                <img :src="picUser" class="imgid">
+                <img :src="picUser" class="imgid shadow-md shadow-neutral-600/50 ">
                 <div class="ml-1 text-center">
                     <p>{{ name[0] }} {{ name[1].charAt(0) }}{{ name[1].charAt(1) }}.</p>
                     <p class="">{{ role }}</p>
                 </div>
             </div>
         </button>
-        <div v-if="isTogle" class="bg-[#0EA2B0] mt-2 rounded-lg">
-            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                <li>
-                    <div v-if="role=== 'ADMIN'">
-                        <router-link to="/user/create"
-                        @click="isTogle=false"
-                            class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                            Create User
-                        </router-link>
-                    </div>
-                </li>
-            </ul>
+        <div v-if="isTogle" class="bg-[#4A87BE] mt-1 rounded-lg fixed ">
+                <ul class=" text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                    <li>
+                        <div v-if="role=== 'ADMIN'">
+                            <router-link to="/user/create"
+                            @click="isTogle=false"
+                                class="block py-2 pl-4 pr-12 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                Create User
+                            </router-link>
+                        </div>
+                    </li>
+                </ul>
             <div class="py-1">
                 <router-link to="/login" @click="signOut()"
-                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    class="block py-2 pl-4 pr-12 rounded-lg text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     Sign Out</router-link>
             </div>
         </div>
@@ -79,7 +79,7 @@ const signOut = () => {
 }
 
 .bgUser {
-    background-color: rgb(0, 191, 255);
+    background-color: rgb(97, 176, 247);
     height: 85%;
 }
 </style>

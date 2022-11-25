@@ -13,10 +13,6 @@ const hold = "hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf1 mx
     <div>
         <div class="flex justify-between">
             <div class="justify-self-end">
-                <button @click="checkTimeOut" :class="hold"
-                    class="hover:bg-[#7dd3fc] hover:shadow-lg rounded-md px-1 mt-4 h-8 cf mx-1">
-                    <router-link to="/event/create">Add New Schedule</router-link>
-                </button>
                     <button :class="hold">
                         <router-link to="/category">Category</router-link>
                     </button>
