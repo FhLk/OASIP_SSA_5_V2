@@ -30,7 +30,7 @@ onBeforeMount(async () => {
 <template>
   <div class="bg pt-28">
     <h1 class="font text-5xl flex justify-center">Add New Account</h1>
-    <CreateUser v-if="isToken && role === 0" :getUsers="getAllUser" />
+    <CreateUser v-if="isToken && role === 0" :getUsers="getAllUser"/>
     <div v-else-if="role !== 0 && isToken">
       <div class="font flex justify-center ">
         <h1 class="font text-4xl flex justify-center mt-10 text-red-700">Only "ADMIN" Role.</h1>

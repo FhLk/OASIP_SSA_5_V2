@@ -89,7 +89,7 @@ export const reAuthen = async () => {
 
 export const AllUser = async () => {
   let all = []
-  LoadingAlert()
+  // LoadingAlert()
   try {
     const res = await fetch(`${fetchUrl}/users/check`, {
       method: 'GET',
