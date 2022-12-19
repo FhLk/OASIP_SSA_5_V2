@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f7010c26-0798-4f6f-ab9f-aafe00a6a081" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UploadFile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UploadFile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/Match.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-end/OASIP-Client/src/components/UploadFile.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,20 +30,7 @@
     <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.7.2/spring-security-core-5.7.2.jar!/org/springframework/security/core/userdetails/UserDetailsService.class" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JpbToolWindowState">
-    <option name="myId2FirstActivated">
-      <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
-      </map>
-    </option>
-    <option name="myId2Visible">
-      <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
-        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
-      </map>
-    </option>
+    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -56,6 +43,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2D6xmdIFSpWlQ171sIhrGFl3dy6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -66,6 +56,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Notification.DoNotAsk-null&quot;: &quot;true&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
@@ -73,7 +64,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ampla/Downloads&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/INT222/Oasip_SSA5/OASIP_SSA_5_V2/Back-end&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -83,8 +74,8 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2850575&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;spring.boot&quot;,
-    &quot;show.run.dashboard.notification&quot;: &quot;false&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;5d087328fccf7967d4d6a69079da89a2&quot;
+    &quot;spring.configuration.checksum&quot;: &quot;41bf188e222cdeb9a738b2943286985e&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -103,6 +94,13 @@
       <recent name="oasip.Controller" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Spring Boot.OasipSsa5Application (2)">
     <configuration name="OasipSsa5Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="OASIP" />
@@ -118,8 +116,7 @@
       </method>
     </configuration>
     <configuration name="OasipSsa5Application (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <option name="ACTIVE_PROFILES" />
-      <module name="OASIP" />
+      <module name="Oasip_SSA5" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="oasip.OasipSsa5Application" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -252,6 +249,10 @@
       <workItem from="1668770625791" duration="9232000" />
       <workItem from="1668862633045" duration="4729000" />
       <workItem from="1669114719940" duration="1553000" />
+      <workItem from="1671494627083" duration="1405000" />
+      <workItem from="1671445311327" duration="1102000" />
+      <workItem from="1671447111684" duration="133000" />
+      <workItem from="1671447259920" duration="1582000" />
     </task>
     <servers />
   </component>

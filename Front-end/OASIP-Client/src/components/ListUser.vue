@@ -268,9 +268,7 @@ const cdet = " bg-green-600 rounded-full px-2 text-white hover:bg-[#4ADE80]";
                             <div class="flex cf">
                                 <div class="mx-2 bg-green-600 hover:bg-green-400 rounded-xl text-s mt-4 mb-1">
                                     <button @click="detailUser(user.id)" :class="isDetail === user.id ? ccl : cdet">
-                                        <!-- <router-link :to="{ name: 'UserPageId', params: { userId: user.id } }"> -->
                                         {{ isDetail === user.id ? "Closed" : "Detail" }}
-                                        <!-- </router-link> -->
                                     </button>
                                 </div>
                             </div>
