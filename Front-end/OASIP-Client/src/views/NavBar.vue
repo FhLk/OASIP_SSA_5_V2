@@ -24,13 +24,6 @@ onBeforeMount(() => {
 onUpdated(() => {
     isToken.value = checkToken()
 })
-
-const Test1=()=>{
-    console.log("wow1");
-}
-const Test2=()=>{
-    console.log("wow2");
-}
 </script>
  
 <template>
